@@ -46,118 +46,83 @@ const Clients = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Pin the section and animate horizontal scroll
-      const pinAndScrollAnimation = gsap.to(containerRef.current, {
+      // Horizontal scroll for clients only
+      const horizontalScroll = gsap.to(".horizontal-section", {
         x: () => -(containerRef.current.scrollWidth - window.innerWidth),
         ease: "none",
         scrollTrigger: {
-          trigger: sectionRef.current,
+          trigger: ".horizontal-container",
           start: "top top",
           end: () => `+=${containerRef.current.scrollWidth - window.innerWidth}`,
           pin: true,
           scrub: 1,
-          invalidateOnRefresh: true,
-          anticipatePin: 1,
-          // markers: true, // Remove in production
+          pinSpacing: true
         }
       });
 
-      gsap.from(".clients-title", {
-        y: 100,
+      // Vertical scroll animations
+      gsap.from(".vertical-content", {
+        y: 50,
         opacity: 0,
+        stagger: 0.2,
         scrollTrigger: {
-          trigger: ".clients-title",
+          trigger: ".vertical-section",
           start: "top 80%",
-          end: "top 20%",
+          end: "+=300",
           scrub: 1
         }
       });
 
-      gsap.to(".logo-container", {
-        yPercent: -50,
-        opacity: 0.3,
-        scrollTrigger: {
-          trigger: ".logo-container",
-          start: "top center",
-          end: "bottom center",
-          scrub: true
-        }
-      });
-
-      gsap.from(".stat-number", {
-        textContent: 0,
-        duration: 2,
-        ease: "power1.inOut",
-        snap: { textContent: 1 },
-        stagger: 0.2,
-        scrollTrigger: {
-          trigger: ".stats-section",
-          start: "top 80%"
-        }
-      });
-
-      gsap.from(".testimonial-card", {
-        y: 100,
-        opacity: 0,
-        stagger: 0.2,
-        duration: 1,
-        scrollTrigger: {
-          trigger: ".testimonials-section",
-          start: "top 70%",
-          end: "bottom 20%",
-        }
-      });
-
-      return () => {
-        pinAndScrollAnimation.kill();
-      };
-    }, sectionRef);
+      return () => horizontalScroll.kill();
+    });
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section 
-      ref={sectionRef} 
-      className="relative min-h-screen overflow-hidden bg-white"
-    >
-      {/* Main horizontal scroll container */}
-      <div 
-        ref={containerRef} 
-        className="relative flex items-start gap-20 p-20"
-      >
-        {/* Title Section */}
-        <div className="flex-shrink-0 w-screen">
-          <div className="max-w-7xl mx-auto">
-            <h2 className="clients-title text-8xl md:text-[12rem] font-bold">
-              <span className="block text-2xl">Our</span>
-              Clients
-            </h2>
+    <>
+      {/* Horizontal Scroll Section */}
+      <div className="horizontal-container relative min-h-screen">
+        <div 
+          ref={containerRef} 
+          className="horizontal-section relative flex items-start gap-20 p-20"
+        >
+          {/* Title Section */}
+          <div className="flex-shrink-0 w-screen">
+            <div className="max-w-7xl mx-auto">
+              <h2 className="clients-title text-8xl md:text-[12rem] font-bold">
+                <span className="block text-2xl">Our</span>
+                Clients
+              </h2>
+            </div>
+          </div>
+
+          {/* Logos Section */}
+          <div className="flex-shrink-0 w-screen">
+            <div className="grid grid-cols-4 gap-8 max-w-7xl mx-auto">
+              {clients.map((client) => (
+                <div 
+                  key={client.id}
+                  className="aspect-square bg-white/50 backdrop-blur-sm rounded-2xl p-8 flex items-center justify-center group hover:bg-white transition-all duration-300"
+                >
+                  <img
+                    src={client.logo}
+                    alt={client.name}
+                    className="w-24 h-24 object-contain grayscale group-hover:grayscale-0 opacity-50 group-hover:opacity-100 transition-all duration-300"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Logos Section */}
-        <div className="flex-shrink-0 w-screen">
-          <div className="grid grid-cols-4 gap-8 max-w-7xl mx-auto">
-            {clients.map((client) => (
-              <div 
-                key={client.id}
-                className="aspect-square bg-white/50 backdrop-blur-sm rounded-2xl p-8 flex items-center justify-center group hover:bg-white transition-all duration-300"
-              >
-                <img
-                  src={client.logo}
-                  alt={client.name}
-                  className="w-24 h-24 object-contain grayscale group-hover:grayscale-0 opacity-50 group-hover:opacity-100 transition-all duration-300"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Testimonials Section */}
-        <div className="flex-shrink-0 w-screen">
-          <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl pb-20 text-center font-bold mb-4">Testimonials</h2>
+      {/* Vertical Scroll Sections */}
+      <div className="vertical-section bg-white">
+        {/* Testimonials */}
+        <div className="vertical-content py-32">
+          <div className="max-w-7xl mx-auto px-4">
+            <h2 className="text-4xl md:text-6xl font-bold mb-16">Testimonials</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {testimonials.map((testimonial, index) => (
                 <div
@@ -183,9 +148,9 @@ const Clients = () => {
           </div>
         </div>
 
-        {/* Stats Section */}
-        <div className="flex-shrink-0 w-screen">
-          <div className="max-w-7xl mx-auto">
+        {/* Stats */}
+        <div className="vertical-content py-32 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center transform hover:-translate-y-2 transition-transform duration-300">
@@ -197,7 +162,7 @@ const Clients = () => {
           </div>
         </div>
       </div>
-    </section>
+    </>
   );
 };
 
