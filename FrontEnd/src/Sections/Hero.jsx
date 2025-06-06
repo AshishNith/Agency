@@ -41,13 +41,13 @@ const Hero = () => {
   }, []);
 
   return (
-    <div ref={heroRef} className="relative min-h-screen bg-black overflow-hidden flex items-center">
+    <div ref={heroRef} className="relative min-h-screen  overflow-hidden flex items-center">
       {/* Background Text */}
-      <div className="absolute inset-0 flex items-center justify-center opacity-[0.08] pointer-events-none">
+      {/* <div className="absolute inset-0 flex items-center justify-center opacity-[0.08] pointer-events-none">
         <h1 className="hero-bg-text text-[20vw] font-black text-white whitespace-nowrap transform -rotate-12">
               
         </h1>
-      </div>
+      </div> */}
 
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 py-20">

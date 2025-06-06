@@ -1,18 +1,20 @@
 import { Routes, Route } from 'react-router-dom'
-import Layout from './Components/Layout/Layout'
+import Layout from './Layout/Layout'
 import AdminLayout from './admin/Layout'
-import Hero from './Components/Sections/Hero'
-import Services from './Components/Sections/Services'
-import Projects from './Components/Sections/Projects'
+import Hero from './Sections/Hero'
+import Services from './Sections/Services'
+import Projects from './Sections/Projects'
 import Auth from './pages/Auth'
 import AdminDashboard from './admin/Admin'
-import Clients from './Components/Sections/Clients'
+import Clients from './Sections/Clients'
 import Process from './pages/Process'
+import NeonAnimatedBg from './Components/NeonAnimatedBg'
 
 
 const App = () => {
   return (
     <div className='relative bg-black overflow-x-hidden'>
+      <NeonAnimatedBg />
     <Routes>
       <Route element={<Layout />}>
       

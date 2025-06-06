@@ -4,26 +4,35 @@ import gsap from 'gsap'
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
+  const [prevScrollPos, setPrevScrollPos] = useState(0)
 
   useEffect(() => {
     const handleScroll = () => {
-      const offset = window.scrollY
-      if (offset > 100) {
+      const currentScrollPos = window.scrollY
+      const isScrollingDown = prevScrollPos < currentScrollPos
+
+      // Only trigger hide/show after 100px scroll
+      if (Math.abs(prevScrollPos - currentScrollPos) > 10) {
+        setIsVisible(!isScrollingDown)
+        setPrevScrollPos(currentScrollPos)
+      }
+
+      // Background change logic
+      if (currentScrollPos > 100) {
         setScrolled(true)
         gsap.to('.navbar', {
-          y: 0,
-          duration: 0.5,
           backdropFilter: 'blur(10px)',
           background: 'rgba(0,0,0,0.5)',
+          duration: 0.5,
           ease: 'power3.out',
         })
       } else {
         setScrolled(false)
         gsap.to('.navbar', {
-          y: 0,
-          duration: 0.5,
           backdropFilter: 'blur(0px)',
           background: 'transparent',
+          duration: 0.5,
           ease: 'power3.out',
         })
       }
@@ -31,7 +40,16 @@ const Navbar = () => {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [prevScrollPos])
+
+  // Animation for navbar visibility
+  useEffect(() => {
+    gsap.to('.navbar', {
+      y: isVisible ? 0 : -100,
+      duration: 0.4,
+      ease: 'power3.inOut',
+    })
+  }, [isVisible])
 
   return (
     <nav
