@@ -94,7 +94,7 @@ const Footer = () => {
       </div>
 
       {/* Interactive Bottom Bar */}
-      <div className="border-t bg-white border-gray-200  overflow-hidden">
+      <div className="border-t  border-gray-200  overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center relative z-10">
             <p className="text-gray-600 text-sm">

@@ -12,7 +12,7 @@ import Process from './pages/Process'
 
 const App = () => {
   return (
-    <div className='relative'>
+    <div className='relative bg-black overflow-x-hidden'>
     <Routes>
       <Route element={<Layout />}>
       
@@ -20,8 +20,8 @@ const App = () => {
           <>
           
           <Hero />
-          <Projects />
           <Services />
+          <Projects />
           <Clients />
           <Process />
           </>

@@ -82,7 +82,7 @@ const Clients = () => {
   return (
     <>
       {/* Horizontal Scroll Section */}
-      <div className="horizontal-container relative min-h-screen">
+      <div className="horizontal-container relative min-h-screen bg-black">
         <div 
           ref={containerRef} 
           className="horizontal-section relative flex items-start gap-20 p-20"
@@ -90,25 +90,25 @@ const Clients = () => {
           {/* Title Section */}
           <div className="flex-shrink-0 w-screen">
             <div className="max-w-7xl mx-auto">
-              <h2 className="relative mt-36 clients-title text-center text-8xl md:text-[12rem] font-bold">
-                <span className="absolute top-0 left-1/4 text-2xl">Our</span>
-                Clients
+              <h2 className="relative mt-36 clients-title text-center">
+                <span className="absolute top-0 left-1/4 text-2xl text-[#EAE4D4] tracking-widest">Our Trusted</span>
+                <span className="text-8xl md:text-[12rem] font-bold text-[#F2F2F2]">Partners</span>
               </h2>
             </div>
           </div>
 
           {/* Logos Section */}
           <div className="flex-shrink-0 w-screen">
-            <div className="grid grid-cols-4 gap-8 max-w-7xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-7xl mx-auto">
               {clients.map((client) => (
                 <div 
                   key={client.id}
-                  className="aspect-square bg-white/50 backdrop-blur-sm rounded-2xl p-8 flex items-center justify-center group hover:bg-white transition-all duration-300"
+                  className="aspect-square bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm rounded-2xl p-8 flex items-center justify-center group border border-white/10 hover:border-white/20 transition-all duration-300"
                 >
                   <img
                     src={client.logo}
                     alt={client.name}
-                    className="w-24 h-24 object-contain grayscale group-hover:grayscale-0 opacity-50 group-hover:opacity-100 transition-all duration-300"
+                    className="w-24 h-24 object-contain brightness-0 invert opacity-50 group-hover:opacity-100 transition-all duration-300"
                   />
                 </div>
               ))}
@@ -118,30 +118,30 @@ const Clients = () => {
       </div>
 
       {/* Vertical Scroll Sections */}
-      <div className="vertical-section bg-white">
+      <div className="vertical-section bg-black">
         {/* Testimonials */}
         <div className="vertical-content py-32">
           <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-4xl md:text-6xl font-bold mb-16">Testimonials</h2>
+            <h2 className="text-4xl md:text-6xl font-bold mb-16 text-[#F2F2F2]">What They Say</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {testimonials.map((testimonial, index) => (
                 <div
                   key={index}
-                  className="testimonial-card bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
+                  className="testimonial-card p-8 rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all"
                 >
                   <div className="flex items-start mb-6">
                     <img
                       src={testimonial.image}
                       alt={testimonial.author}
-                      className="w-12 h-12 rounded-full object-cover mr-4"
+                      className="w-12 h-12 rounded-full object-cover mr-4 border-2 border-white/10"
                     />
                     <div>
-                      <h4 className="font-semibold text-lg">{testimonial.author}</h4>
-                      <p className="text-gray-600 text-sm">{testimonial.role}</p>
-                      <p className="text-gray-400 text-sm">{testimonial.company}</p>
+                      <h4 className="font-semibold text-lg text-[#F2F2F2]">{testimonial.author}</h4>
+                      <p className="text-[#EAE4D4] text-sm">{testimonial.role}</p>
+                      <p className="text-[#B6B19E] text-sm">{testimonial.company}</p>
                     </div>
                   </div>
-                  <p className="text-gray-600 leading-relaxed">"{testimonial.quote}"</p>
+                  <p className="text-[#EAE4D4] leading-relaxed">"{testimonial.quote}"</p>
                 </div>
               ))}
             </div>
@@ -149,13 +149,13 @@ const Clients = () => {
         </div>
 
         {/* Stats */}
-        <div className="vertical-content py-32 bg-gray-50">
+        <div className="vertical-content py-32">
           <div className="max-w-7xl mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((stat, index) => (
-                <div key={index} className="text-center transform hover:-translate-y-2 transition-transform duration-300">
-                  <div className="stat-number text-4xl font-bold mb-2">{stat.number}</div>
-                  <div className="text-gray-600">{stat.label}</div>
+                <div key={index} className="group p-8 rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all text-center">
+                  <div className="text-4xl font-bold mb-2 text-[#F2F2F2] group-hover:scale-110 transition-transform">{stat.number}</div>
+                  <div className="text-[#B6B19E]">{stat.label}</div>
                 </div>
               ))}
             </div>

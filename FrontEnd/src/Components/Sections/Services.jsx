@@ -134,12 +134,11 @@ const Services = () => {
 
   return (
     <section ref={sectionRef} className="relative min-h-screen py-32">
-      {/* Main Title */}
-      <div className="services-title absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-center">
-        <h2 className="text-8xl md:text-[12rem] font-bold">Services</h2>
+      <div className="services-title absolute top-1/6 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-center">
+        <h2 className="text-8xl text-[#F2F2F2] md:text-[12rem] font-bold ">Services</h2>
+        <h2 className="text-1xl text-[#F2F2F2] md:text-[1rem]   tracking-widest uppercase ">- - - - - Innovative Solutions, Tailored for You - - - - -</h2>
       </div>
 
-      {/* Cards Grid with Higher Z-index */}
       <div className="relative z-20 pt-[100vh]">
         <div className="max-w-7xl mx-auto px-4 relative">
           <div className="services-grid grid grid-cols-1 md:grid-cols-2 gap-16 pt-20">
@@ -151,31 +150,31 @@ const Services = () => {
                 onMouseLeave={(e) => handleMouseLeave(e.currentTarget)}
                 style={{ perspective: '1000px' }}
               >
-                <div className="group relative bg-white p-8 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.05)] hover:shadow-[0_0_80px_rgba(0,0,0,0.07)] transition-all duration-500">
-                  <div className="absolute inset-0 bg-gradient-to-br from-white to-black/[0.02] rounded-2xl transform transition-transform duration-500" />
+                <div className="group relative p-8 rounded-2xl transition-all duration-500 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm border border-white/10">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] to-transparent opacity-50 rounded-2xl transform transition-transform duration-500" />
                   
                   <div className="relative z-10">
                     <div className="flex justify-between items-start">
-                      <div className="bg-black text-white p-4 rounded-xl">
+                      <div className="bg-white/10 text-[#F2F2F2] p-4 rounded-xl backdrop-blur-sm">
                         {service.icon}
                       </div>
-                      <span className="text-sm font-medium bg-black/[0.03] px-4 py-2 rounded-full">
+                      <span className="text-sm font-medium bg-white/5 text-[#F2F2F2] px-4 py-2 rounded-full backdrop-blur-sm">
                         {service.stats}
                       </span>
                     </div>
                     
-                    <h3 className="text-2xl font-bold mt-6 mb-4">
+                    <h3 className="text-2xl font-bold mt-6 mb-4 text-[#F2F2F2]">
                       {service.title}
                     </h3>
                     
-                    <p className="text-gray-600 mb-8">
+                    <p className="text-[#B6B19E] mb-8">
                       {service.description}
                     </p>
                     
-                    <button className="group inline-flex items-center text-sm font-semibold">
+                    <button className="group inline-flex items-center text-sm font-semibold text-[#F2F2F2]">
                       <span className="relative">
                         Explore
-                        <span className="absolute left-0 bottom-0 w-full h-[2px] bg-black scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+                        <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#F2F2F2] scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
                       </span>
                       <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
