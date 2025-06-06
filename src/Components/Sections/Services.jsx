@@ -135,7 +135,7 @@ const Services = () => {
   return (
     <section ref={sectionRef} className="relative min-h-screen py-32">
       {/* Main Title */}
-      <div className="services-title fixed top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-center">
+      <div className="services-title absolute top-1/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-center">
         <h2 className="text-8xl md:text-[12rem] font-bold">Services</h2>
       </div>
 

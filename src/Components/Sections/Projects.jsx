@@ -62,68 +62,47 @@ const Projects = () => {
   );
 
   useEffect(() => {
-    const section = sectionRef.current;
-    const header = headerRef.current;
-    const projects = projectsRef.current;
+    const ctx = gsap.context(() => {
+      // Reset any existing animations
+      gsap.set(projectsRef.current, {
+        clearProps: "all"
+      });
 
-    // Remove initial opacity setup
-    gsap.set(header, { opacity: 1 }); // Set header visible first
-    
-    // Animate header content
-    gsap.fromTo(header.querySelector('h2'),
-      { y: 50, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        ease: "power3.out",
-      }
-    );
-
-    gsap.fromTo(header.querySelector('p'),
-      { y: 30, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        delay: 0.2,
-        ease: "power3.out",
-      }
-    );
-
-    gsap.fromTo(header.querySelector('.filter-buttons'),
-      { y: 30, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        delay: 0.3,
-        ease: "power3.out",
-      }
-    );
-
-    // Projects grid animation
-    gsap.fromTo(projects,
-      { y: 100, opacity: 0 },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 1,
-        stagger: 0.1,
-        ease: "power3.out",
+      // Projects animation timeline
+      const projectsTimeline = gsap.timeline({
         scrollTrigger: {
-          trigger: section,
+          trigger: sectionRef.current,
           start: "top 60%",
-        //   markers: true, // Debug markers
+          end: "center center",
+          toggleActions: "play none none reverse"
         }
-      }
-    );
+      });
 
-    // Cleanup
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, [filteredProjects]); // Re-run when projects are filtered
+      projectsTimeline
+        .from(projectsRef.current, {
+          y: 100,
+          opacity: 0,
+          duration: 0.8,
+          stagger: {
+            amount: 0.6,
+            grid: "auto"
+          },
+          ease: "power3.out"
+        });
+
+      // Filter change animation
+      if (filteredProjects.length > 0) {
+        gsap.to(projectsRef.current, {
+          opacity: 1,
+          duration: 0.5,
+          stagger: 0.1,
+          ease: "power2.inOut"
+        });
+      }
+    });
+
+    return () => ctx.revert();
+  }, [filteredProjects]);
 
   return (
     <section ref={sectionRef} className="py-24 bg-white min-h-screen">
@@ -162,7 +141,7 @@ const Projects = () => {
               ref={el => projectsRef.current[index] = el}
               href={project.link}
               key={index}
-              className={`group relative block overflow-hidden opacity-0 ${
+              className={`group relative block overflow-hidden ${
                 index % 5 === 0 ? 'md:col-span-2 md:row-span-2' : ''
               }`}
             >

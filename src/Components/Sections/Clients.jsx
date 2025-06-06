@@ -90,8 +90,8 @@ const Clients = () => {
           {/* Title Section */}
           <div className="flex-shrink-0 w-screen">
             <div className="max-w-7xl mx-auto">
-              <h2 className="clients-title text-8xl md:text-[12rem] font-bold">
-                <span className="block text-2xl">Our</span>
+              <h2 className="relative mt-36 clients-title text-center text-8xl md:text-[12rem] font-bold">
+                <span className="absolute top-0 left-1/4 text-2xl">Our</span>
                 Clients
               </h2>
             </div>

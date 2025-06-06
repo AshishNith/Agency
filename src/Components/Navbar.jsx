@@ -7,6 +7,32 @@ const Navbar = () => {
   const linkRefs = useRef([]);
 
   useEffect(() => {
+    let prevScrollPos = window.scrollY;
+    
+    // Initial state
+    gsap.set(navRef.current, {
+      backgroundColor: "rgba(255, 255, 255, 0)",
+      backdropFilter: "blur(0px)"
+    });
+
+    // Scroll handler
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      const scrollingDown = prevScrollPos < currentScrollPos;
+      
+      gsap.to(navRef.current, {
+        y: scrollingDown ? -100 : 0,
+        backgroundColor: currentScrollPos > 50 ? "rgba(255, 255, 255, 0.8)" : "rgba(255, 255, 255, 0)",
+        backdropFilter: `blur(${Math.min(currentScrollPos / 10, 8)}px)`,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+
+      prevScrollPos = currentScrollPos;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    
     // Initial reveal animation
     gsap.from(navRef.current, {
       y: -100,
@@ -33,6 +59,8 @@ const Navbar = () => {
         });
       });
     });
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
