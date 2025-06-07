@@ -10,14 +10,7 @@ const Clients = () => {
   const sliderRef = useRef(null);
 
   const clients = [
-    { id: 1, name: 'Slack', logo: 'https://cdn.worldvectorlogo.com/logos/slack-2.svg' },
-    { id: 2, name: 'Shopify', logo: 'https://cdn.worldvectorlogo.com/logos/shopify.svg' },
-    { id: 3, name: 'Dropbox', logo: 'https://cdn.worldvectorlogo.com/logos/dropbox-2.svg' },
-    { id: 4, name: 'Spotify', logo: 'https://cdn.worldvectorlogo.com/logos/spotify-2.svg' },
-    { id: 5, name: 'Stripe', logo: 'https://cdn.worldvectorlogo.com/logos/stripe-4.svg' },
-    { id: 6, name: 'Airbnb', logo: 'https://cdn.worldvectorlogo.com/logos/airbnb.svg' },
-    { id: 7, name: 'Discord', logo: 'https://cdn.worldvectorlogo.com/logos/discord-6.svg' },
-    { id: 8, name: 'Twitter', logo: 'https://cdn.worldvectorlogo.com/logos/twitter-6.svg' }
+    
   ];
 
   const testimonials = [

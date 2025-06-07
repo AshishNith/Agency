@@ -5,7 +5,7 @@ const ClientHandle = () => {
   const [clients, setClients] = useState([
     {
       id: 1,
-      name: "Spotify",
+      name: "Goran AI",
       industry: "Technology",
       status: "active",
       logo: "https://images.pexels.com/photos/2977547/pexels-photo-2977547.jpeg",

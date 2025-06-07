@@ -1,6 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import axios from 'axios';
+
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -82,6 +85,8 @@ const Projects = () => {
     return () => ctx.revert();
   }, []);
 
+
+  
   return (
     <section ref={sectionRef} className="relative min-h-screen py-32  overflow-hidden">
       {/* Background Text */}
