@@ -49,7 +49,7 @@ const NeonAnimatedBg = () => {
         // Draw point
         ctx.beginPath();
         ctx.arc(point.x, point.y, 1, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(242, 242, 242, 0.15)';
+        ctx.fillStyle = 'rgba(242, 242, 242, 0.5)';
         ctx.fill();
 
         // Connect points
@@ -82,7 +82,7 @@ const NeonAnimatedBg = () => {
       ref={canvasRef}
       className="fixed inset-0 w-full h-full pointer-events-none z-0"
       style={{ 
-        background: 'radial-gradient(circle at 50% 50%, rgba(18, 18, 18, 1) 0%, rgba(0, 0, 0, 1) 100%)'
+        background: 'radial-gradient(circle at 50% 50%, rgba(40,40,40,0.95) 0%, rgba(0,0,0,0.98) 100%)'
       }}
     />
   );

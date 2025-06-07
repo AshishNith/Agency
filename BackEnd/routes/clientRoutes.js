@@ -1,10 +1,9 @@
 const exxpress = require('express');
-
+const {getClients , createClient} = require("../controllers/clientController");
 const router = exxpress.Router();
 
-
-router.get("/", require("../controllers/clientController").getClients);
-router.post("/", require("../controllers/clientController").createClient);
+router.get("/", getClients);
+router.post("/", createClient);
 
 module.exports = router;
 

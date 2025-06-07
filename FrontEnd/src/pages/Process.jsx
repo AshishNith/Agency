@@ -161,7 +161,7 @@ const Process = () => {
   }, []);
 
   return (
-    <div ref={processRef} className="min-h-screen bg-black py-20">
+    <div ref={processRef} className="min-h-screen  py-20">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="process-header text-center mb-20">

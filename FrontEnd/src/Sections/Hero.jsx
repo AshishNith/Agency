@@ -42,6 +42,8 @@ const Hero = () => {
 
   return (
     <div ref={heroRef} className="relative min-h-screen  overflow-hidden flex items-center">
+
+
       {/* Background Text */}
       {/* <div className="absolute inset-0 flex items-center justify-center opacity-[0.08] pointer-events-none">
         <h1 className="hero-bg-text text-[20vw] font-black text-white whitespace-nowrap transform -rotate-12">
@@ -91,9 +93,6 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50"></div>
-      <div className="absolute inset-0 bg-gradient-to-b from-black to-transparent opacity-50"></div>
     </div>
   );
 };

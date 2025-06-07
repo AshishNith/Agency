@@ -1,11 +1,9 @@
-const exxpress = require('express');
+const express = require('express');
+const { getProjects, createProject } = require("../controllers/projectController");
 
-const router = exxpress.Router();
+const router = express.Router();
 
-
-router.get("/", require("../controllers/clientController").getClients);
-router.post("/", require("../controllers/clientController").createClient);
+router.get("/", getProjects);
+router.post("/", createProject);
 
 module.exports = router;
-
-

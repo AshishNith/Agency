@@ -82,7 +82,7 @@ const Clients = () => {
   return (
     <>
       {/* Horizontal Scroll Section */}
-      <div className="horizontal-container relative min-h-screen bg-black">
+      <div className="horizontal-container relative min-h-screen ">
         <div 
           ref={containerRef} 
           className="horizontal-section relative flex items-start gap-20 p-20"
@@ -118,7 +118,7 @@ const Clients = () => {
       </div>
 
       {/* Vertical Scroll Sections */}
-      <div className="vertical-section bg-black">
+      <div className="vertical-section ">
         {/* Testimonials */}
         <div className="vertical-content py-32">
           <div className="max-w-7xl mx-auto px-4">

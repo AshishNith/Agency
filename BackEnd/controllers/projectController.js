@@ -1,20 +1,20 @@
-const client = require("../models/client.model")
+const Project = require("../models/project.model")
 
-exports.getClients = async (req, res)  => {
+exports.getProjects = async (req, res)  => {
     try {
-        clients = await client.find();
-        res.json(clients)
+        const projects = await Project.find();
+        res.json(projects);
     }
     catch (err) {
-        res.status(500).json({"error":err.message})
+        res.status(500).json({"error": err.message});
     }
 }
 
-exports.createClient = async (req, res) => {
+exports.createProject = async (req, res) => {
   try {
-    const client = new Client(req.body);
-    await client.save();
-    res.status(201).json(client);
+    const newProject = new Project(req.body);
+    await newProject.save();
+    res.status(201).json(newProject);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }

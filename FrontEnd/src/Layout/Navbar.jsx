@@ -45,7 +45,7 @@ const Navbar = () => {
   // Animation for navbar visibility
   useEffect(() => {
     gsap.to('.navbar', {
-      y: isVisible ? 0 : -100,
+      y: isVisible ? 0 : -150,
       duration: 0.4,
       ease: 'power3.inOut',
     })
