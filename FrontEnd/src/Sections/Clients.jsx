@@ -10,14 +10,54 @@ const Clients = () => {
   const sliderRef = useRef(null);
 
   const clients = [
-    { id: 1, name: 'Slack', logo: 'https://cdn.worldvectorlogo.com/logos/slack-2.svg' },
-    { id: 2, name: 'Shopify', logo: 'https://cdn.worldvectorlogo.com/logos/shopify.svg' },
-    { id: 3, name: 'Dropbox', logo: 'https://cdn.worldvectorlogo.com/logos/dropbox-2.svg' },
-    { id: 4, name: 'Spotify', logo: 'https://cdn.worldvectorlogo.com/logos/spotify-2.svg' },
-    { id: 5, name: 'Stripe', logo: 'https://cdn.worldvectorlogo.com/logos/stripe-4.svg' },
-    { id: 6, name: 'Airbnb', logo: 'https://cdn.worldvectorlogo.com/logos/airbnb.svg' },
-    { id: 7, name: 'Discord', logo: 'https://cdn.worldvectorlogo.com/logos/discord-6.svg' },
-    { id: 8, name: 'Twitter', logo: 'https://cdn.worldvectorlogo.com/logos/twitter-6.svg' }
+    {
+      id: 1,
+      name: "TechVision",
+      logo: "https://images.pexels.com/photos/2977547/pexels-photo-2977547.jpeg",
+      industry: "Technology"
+    },
+    {
+      id: 2,
+      name: "EcoSmart",
+      logo: "https://images.pexels.com/photos/5473337/pexels-photo-5473337.jpeg",
+      industry: "Sustainability"
+    },
+    {
+      id: 3,
+      name: "FinCore",
+      logo: "https://images.pexels.com/photos/7239550/pexels-photo-7239550.jpeg",
+      industry: "Finance"
+    },
+    {
+      id: 4,
+      name: "HealthPlus",
+      logo: "https://images.pexels.com/photos/4386466/pexels-photo-4386466.jpeg",
+      industry: "Healthcare"
+    },
+    {
+      id: 5,
+      name: "MediaPro",
+      logo: "https://images.pexels.com/photos/5054152/pexels-photo-5054152.jpeg",
+      industry: "Entertainment"
+    },
+    {
+      id: 6,
+      name: "SportFit",
+      logo: "https://images.pexels.com/photos/6664255/pexels-photo-6664255.jpeg",
+      industry: "Sports"
+    },
+    {
+      id: 7,
+      name: "EduLearn",
+      logo: "https://images.pexels.com/photos/5428836/pexels-photo-5428836.jpeg",
+      industry: "Education"
+    },
+    {
+      id: 8,
+      name: "FoodCo",
+      logo: "https://images.pexels.com/photos/5876516/pexels-photo-5876516.jpeg",
+      industry: "Food & Beverage"
+    }
   ];
 
   const testimonials = [

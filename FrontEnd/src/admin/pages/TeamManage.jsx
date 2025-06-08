@@ -6,13 +6,23 @@ const TeamManage = () => {
   const [team, setTeam] = useState([
     {
       id: 1,
-      name: "Sarah Johnson",
-      role: "Creative Director",
+      name: "Atharv Golait",
+      role: "finance and marketing manager",
       status: "active",
-      avatar: "https://images.pexels.com/photos/2613260/pexels-photo-2613260.jpeg",
-      email: "sarah@agency.com",
+      avatar: "https://media.licdn.com/dms/image/v2/D4D35AQEP8_8EaQfmyA/profile-framedphoto-shrink_400_400/B4DZdBXZ5YHkAc-/0/1749148344291?e=1749906000&v=beta&t=jeBL3lOQYPVoT9mpyQTyQvAMY1y52qfCnXJWOx8__2c",
+    //   email: "atharv@agency.com",
       projects: 12,
-      department: "Design"
+      department: "Finance & Marketing"
+    },
+    {
+      id: 2,
+      name: "Ashish Ranjan",
+      role: "Tech & Scale Lead",
+      status: "active",
+      avatar: "https://media.licdn.com/dms/image/v2/D5603AQF-pv9gNqRAHA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1727822390724?e=1754524800&v=beta&t=7GH9gr6mDHWE5o-GkRF7okemDuBcxfM6JCGijSVEHlw",
+      email: "ashish@agency.com",
+      projects: 12,
+      department: "Tech & Development"
     }
   ]);
 
@@ -70,7 +80,7 @@ const TeamManage = () => {
   };
 
   return (
-    <div className="min-h-screen p-8 text-white">
+    <div className="min-h-screen p-8">
       <div className="relative z-10">
         {/* Header */}
         <div className="max-w-7xl mx-auto mb-8">
@@ -125,53 +135,80 @@ const TeamManage = () => {
             <div
               key={member.id}
               ref={el => memberRefs.current[index] = el}
-              className={`bg-white/5 backdrop-blur-[12px] rounded-lg overflow-hidden border border-white/10 hover:border-white/20 transition-all ${
-                viewMode === 'grid' ? 'p-6' : 'p-4 flex items-center'
+              className={`relative overflow-hidden ${
+                viewMode === 'grid' 
+                  ? 'bg-neutral-900/50 p-6 rounded-xl border border-white/10 hover:border-white/20'
+                  : 'bg-neutral-900/50 p-4 rounded-xl border border-white/10 flex items-center'
               }`}
             >
-              <div className={`${viewMode === 'grid' ? 'text-center' : 'flex items-center gap-6 flex-1'}`}>
-                <div className={`${viewMode === 'grid' ? 'mb-4' : 'w-16'}`}>
-                  <img
-                    src={member.avatar}
-                    alt={member.name}
-                    className="w-20 h-20 rounded-full object-cover mx-auto ring-2 ring-white/10"
-                  />
+              {/* Background gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/5 via-transparent to-blue-500/5" />
+              
+              {/* Content */}
+              <div className={`relative z-10 ${
+                viewMode === 'grid' ? 'text-center' : 'flex items-center gap-6 flex-1'
+              }`}>
+                {/* Avatar */}
+                <div className={`${viewMode === 'grid' ? 'mb-6' : 'flex-shrink-0'}`}>
+                  <div className="relative inline-block">
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-full blur-md" />
+                    <img
+                      src={member.avatar}
+                      alt={member.name}
+                      className="relative w-20 h-20 rounded-full object-cover ring-2 ring-white/10"
+                    />
+                  </div>
                 </div>
-                <div className={`${viewMode === 'grid' ? '' : 'flex-1'}`}>
-                  <div className="flex items-center justify-between gap-4 mb-2">
+
+                {/* Info */}
+                <div className={`flex-1 ${viewMode === 'grid' ? 'text-center' : 'text-left'}`}>
+                  <div className="flex items-center justify-between gap-4 mb-3">
                     <div>
-                      <h3 className="text-lg font-semibold">{member.name}</h3>
+                      <h3 className="text-lg font-semibold text-white">{member.name}</h3>
                       <p className="text-sm text-gray-400">{member.email}</p>
                     </div>
-                    <span className={`px-2 py-1 rounded-full text-xs ${
-                      member.status === 'active' ? 'bg-green-500/20 text-green-400' : 'bg-yellow-500/20 text-yellow-400'
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      member.status === 'active' 
+                        ? 'bg-green-500/10 text-green-400 ring-1 ring-green-500/20' 
+                        : 'bg-yellow-500/10 text-yellow-400 ring-1 ring-yellow-500/20'
                     }`}>
                       {member.status}
                     </span>
                   </div>
-                  <div className="flex items-center gap-2 mt-3">
-                    <span className="px-2 py-1 bg-white/5 rounded text-xs text-gray-300">{member.role}</span>
-                    <span className="px-2 py-1 bg-white/5 rounded text-xs text-gray-300">{member.department}</span>
-                  </div>
-                  <div className="flex items-center gap-4 mt-4 text-sm text-gray-400">
-                    <span className="flex items-center gap-1">
-                      <i className="ri-folder-line"></i> {member.projects} Projects
-                    </span>
+
+                  <div className="space-y-3">
+                    <div className="flex flex-wrap gap-2">
+                      <span className="px-2 py-1 bg-white/5 rounded-md text-xs text-gray-300 ring-1 ring-white/10">
+                        {member.role}
+                      </span>
+                      <span className="px-2 py-1 bg-white/5 rounded-md text-xs text-gray-300 ring-1 ring-white/10">
+                        {member.department}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-4 text-sm text-gray-400">
+                      <span className="flex items-center gap-1">
+                        <i className="ri-folder-line"></i> {member.projects} Projects
+                      </span>
+                    </div>
                   </div>
                 </div>
-                <div className={`flex gap-2 ${viewMode === 'grid' ? 'mt-4 justify-center' : ''}`}>
-                  <button 
-                    onClick={() => {
-                      handleEdit(member);
-                      setIsModalOpen(true);
-                    }}
-                    className="p-2 hover:bg-white/10 rounded-lg transition-colors"
-                  >
-                    <i className="ri-edit-line"></i>
-                  </button>
-                  <button className="p-2 hover:bg-white/10 rounded-lg transition-colors">
-                    <i className="ri-delete-bin-line"></i>
-                  </button>
+
+                {/* Actions */}
+                <div className={`${viewMode === 'grid' ? 'mt-4 text-center' : 'flex-shrink-0'}`}>
+                  <div className="flex gap-2 justify-center">
+                    <button 
+                      onClick={() => {
+                        handleEdit(member);
+                        setIsModalOpen(true);
+                      }}
+                      className="p-2 hover:bg-white/10 rounded-lg transition-colors"
+                    >
+                      <i className="ri-edit-line"></i>
+                    </button>
+                    <button className="p-2 hover:bg-white/10 rounded-lg transition-colors text-red-400">
+                      <i className="ri-delete-bin-line"></i>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

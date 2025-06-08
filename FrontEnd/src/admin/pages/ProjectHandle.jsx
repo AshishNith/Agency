@@ -1,24 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { useFormState } from '../../hooks/useFormState';
+import axios from 'axios';
+
+axios.defaults.baseURL = 'http://127.0.0.1:5000';
 
 const ProjectHandle = () => {
-  const [projects, setProjects] = useState([
-    // Example project data
-    {
-      id: 1,
-      title: "Lumbazzi",
-      category: "Brand Identity",
-      status: "active",
-      image: "https://images.pexels.com/photos/5473955/pexels-photo-5473955.jpeg",
-      agency: "Disruptive Brand"
-    },
-    // ... more projects
-  ]);
-
+  const [projects, setProjects] = useState([]);
   const [viewMode, setViewMode] = useState('grid');
   const [isModalOpen, setIsModalOpen] = useState(false);
-  
+  const [isLoading, setIsLoading] = useState(true);
+
   const projectRefs = useRef([]);
   const modalRef = useRef(null);
   const containerRef = useRef(null);
@@ -32,6 +24,50 @@ const ProjectHandle = () => {
   };
 
   const { formData, editMode, handleChange, handleEdit, resetForm } = useFormState(initialFormState);
+
+  // Fetch projects on component mount
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get('/api/projects');
+        setProjects(response.data);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (editMode) {
+        const response = await axios.put(`/api/projects/${formData.id}`, formData);
+        setProjects(prev => prev.map(item =>
+          item.id === formData.id ? response.data : item
+        ));
+      } else {
+        const response = await axios.post('/api/projects', formData);
+        setProjects(prev => [...prev, response.data]);
+      }
+      resetForm();
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Error saving project:", error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`/api/projects/${id}`);
+      setProjects(prev => prev.filter(item => item.id !== id));
+    } catch (error) {
+      console.error("Error deleting project:", error);
+    }
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -95,25 +131,16 @@ const ProjectHandle = () => {
     }
   }, [isModalOpen]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (editMode) {
-      setProjects(prev => prev.map(item => 
-        item.id === formData.id ? formData : item
-      ));
-    } else {
-      setProjects(prev => [...prev, { ...formData, id: Date.now() }]);
-    }
-    resetForm();
-    setIsModalOpen(false);
-  };
-
-  const handleDelete = (id) => {
-    setProjects(prev => prev.filter(item => item.id !== id));
-  };
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-white">Loading...</div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen p-8 text-white">
+    <div className="min-h-screen p-8">
       <div className="relative z-10">
         {/* Header */}
         <div className="max-w-7xl mx-auto mb-8">
@@ -157,7 +184,7 @@ const ProjectHandle = () => {
           </div>
         </div>
 
-        {/* Project Grid */}
+        {/* Project Grid with fixed styling */}
         <div 
           ref={containerRef}
           className={`max-w-7xl mx-auto ${
@@ -168,17 +195,18 @@ const ProjectHandle = () => {
             <div
               key={project.id}
               ref={el => projectRefs.current[index] = el}
-              className={`bg-white/5 backdrop-blur-[12px] rounded-lg overflow-hidden border border-white/10 ${
+              className={`bg-neutral-900/50 backdrop-blur-sm rounded-lg overflow-hidden border border-white/10 hover:border-white/20 transition-all ${
                 viewMode === 'grid' ? '' : 'flex items-center'
               }`}
             >
               <div className={`relative ${viewMode === 'grid' ? 'aspect-video' : 'w-48'}`}>
+                <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-blue-500/10 mix-blend-overlay" />
                 <img
                   src={project.image}
                   alt={project.title}
                   className="w-full h-full object-cover"
                 />
-                <div className={`absolute inset-0 bg-gradient-to-t from-black/60 to-transparent ${
+                <div className={`absolute inset-0 bg-gradient-to-t from-neutral-900 to-transparent ${
                   viewMode === 'grid' ? '' : 'hidden'
                 }`} />
               </div>
@@ -293,6 +321,7 @@ const ProjectHandle = () => {
       </div>
     </div>
   );
-};
+}
+// This component handles the project management functionality, including creating, editing, and deleting projects.
 
 export default ProjectHandle;
