@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap');
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.radial-bg {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  z-index: 1;
+}
+
+.goran-logo {
+  display: flex;
+  gap: 10px;
+  z-index: 2;
+  font-size: 3.5rem;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.goran-logo span {
+  display: inline-block;
+  transform-origin: center;
+}
+
