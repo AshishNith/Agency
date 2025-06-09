@@ -15,7 +15,7 @@ const Footer = () => {
         rel="stylesheet"
       />
       
-      <footer ref={footerRef} className="relative pt-16 pb-8 bg-black text-white">
+      <footer ref={footerRef} className="relative pt-16 pb-8 bg-black/50 text-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-around items-center gap-12">
             {/* Brand & Social */}

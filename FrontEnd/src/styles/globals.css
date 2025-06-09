@@ -1,0 +1,7 @@
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.bg-gradient-radial {
+  background-image: radial-gradient(var(--tw-gradient-stops));
+}

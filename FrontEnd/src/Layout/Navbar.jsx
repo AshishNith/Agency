@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
-
-
+import { useScrollTo } from '../hooks/useScrollTo'
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
   const [prevScrollPos, setPrevScrollPos] = useState(0)
+  const scrollToSection = useScrollTo()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,6 +53,14 @@ const Navbar = () => {
     })
   }, [isVisible])
 
+  const navItems = [
+    { name: 'About', id: 'about' },
+    { name: 'Services', id: 'services' },
+    { name: 'Work', id: 'projects' },
+    { name: 'Process', id: 'process' },
+    { name: 'Blog', id: 'blog' },
+  ]
+
   return (
     <nav
       className={`navbar fixed w-full z-50 transition-all duration-300 ${
@@ -78,14 +86,14 @@ const Navbar = () => {
 
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-8">
-            {['About', 'Services', 'Work', 'Process', 'Blog'].map((item) => (
-              <Link
-                key={item}
-                to={`/${item.toLowerCase()}`}
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
                 className="text-[#EAE4D4] hover:text-[#F2F2F2] px-3 py-2 text-sm font-medium transition-colors"
               >
-                {item}
-              </Link>
+                {item.name}
+              </button>
             ))}
           </div>
 

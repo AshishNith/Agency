@@ -18,6 +18,7 @@ import TeamManage from './admin/pages/TeamManage';
 import About from './pages/About';
 
 import Preloader from './Components/Preloader';
+// import Scroller_ from './Components/Scroller_';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -34,6 +35,7 @@ const App = () => {
       ) : (
         <>
           <NeonAnimatedBg />
+          {/* <Scroller_ /> */}
           <Routes>
             <Route element={<Layout />}>
               <Route

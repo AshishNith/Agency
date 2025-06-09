@@ -154,36 +154,50 @@ const Clients = () => {
   }, []);
 
   return (
-    <>
-      {/* Horizontal Scroll Section */}
-      <div className="horizontal-container relative min-h-screen bg-black rounded-[20vh] overflow-hidden">
+    <section className="relative">
+      {/* Main Container */}
+      <div className="horizontal-container relative min-h-screen bg-gradient-to-b from-black via-black/90 to-black overflow-hidden perspective-1000">
         <div
-          ref={containerRef}  
-          className="horizontal-section relative flex items-start gap-20 p-20"
+          ref={containerRef}
+          className="horizontal-section relative flex items-start gap-32 p-24"
         >
-          {/* Title Section */}
-          <div className="flex-shrink-0 w-screen">
-            <div className="max-w-7xl mx-auto">
-              <h2 className="relative mt-36 clients-title text-center">
-                <span className="absolute top-0 left-1/4 text-2xl text-[#EAE4D4] tracking-widest">Our Trusted</span>
-                <span className="text-8xl md:text-[12rem] font-bold text-[#F2F2F2]">Partners</span>
+          {/* Hero Title Section */}
+          <div className="flex-shrink-0 w-screen h-screen flex items-center justify-center">
+            <div className="relative z-10 text-center">
+              <span className="block text-sm md:text-lg text-[#EAE4D4] tracking-[0.3em] mb-4 uppercase">
+                Trusted by Industry Leaders
+              </span>
+              <h2 className="relative clients-title inline-block">
+                <span className="block text-7xl md:text-9xl font-bold bg-gradient-to-r from-white via-white/90 to-white/50 text-transparent bg-clip-text">
+                  Our Partners
+                </span>
+                <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-radial from-purple-500/20 via-transparent to-transparent blur-3xl" />
               </h2>
             </div>
           </div>
 
-          {/* Logos Section */}
-          <div className="flex-shrink-0 w-screen">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          {/* Clients Grid Section */}
+          <div className="flex-shrink-0 w-screen h-screen flex items-center">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-6">
               {clients.map((client) => (
-                <div 
+                <div
                   key={client.id}
-                  className="aspect-square bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm rounded-2xl p-8 flex items-center justify-center group border border-white/10 hover:border-white/20 transition-all duration-300"
+                  className="group relative"
                 >
-                  <img
-                    src={client.logo}
-                    alt={client.name}
-                    className="w-24 h-24 object-contain brightness-0 invert opacity-50 group-hover:opacity-100 transition-all duration-300"
-                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-teal-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
+                  <div className="relative h-full bg-white/[0.03] backdrop-blur-sm rounded-2xl p-8 flex flex-col items-center justify-center border border-white/5 group-hover:border-white/20 transition-all duration-500">
+                    <img
+                      src={client.logo}
+                      alt={client.name}
+                      className="w-20 h-20 object-contain filter grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
+                    />
+                    <div className="mt-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                      <h3 className="text-white/90 font-medium">{client.name}</h3>
+                      <span className="inline-block mt-2 px-3 py-1 text-xs rounded-full bg-white/5 text-white/60">
+                        {client.industry}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -191,7 +205,7 @@ const Clients = () => {
         </div>
       </div>
 
-      {/* Vertical Scroll Sections */}
+      {/* Vertical Sections */}
       <div className="vertical-section ">
         {/* Testimonials */}
         <div className="vertical-content py-32">
@@ -236,7 +250,7 @@ const Clients = () => {
           </div>
         </div>
       </div>
-    </>
+    </section>
   );
 };
 

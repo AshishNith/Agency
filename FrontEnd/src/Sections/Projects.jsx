@@ -88,7 +88,7 @@ const Projects = () => {
 
   
   return (
-    <section ref={sectionRef} className="relative min-h-screen py-32  overflow-hidden">
+    <section ref={sectionRef} id="projects" className="relative min-h-screen py-32  overflow-hidden">
       {/* Background Text */}
       <div className="absolute inset-0 flex items-center justify-center opacity-[0.02] pointer-events-none select-none">
         <h1 className="text-[20vw] font-black text-white whitespace-nowrap transform -rotate-12">
