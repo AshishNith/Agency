@@ -83,33 +83,67 @@ const Clients = () => {
     { number: "12+", label: "Years Experience" },
     { number: "50+", label: "Team Members" }
   ];
-
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Horizontal scroll for clients only
+    const ctx = gsap.context(() => {      // Enhanced horizontal scroll with smoother transitions and parallax
       const horizontalScroll = gsap.to(".horizontal-section", {
         x: () => -(containerRef.current.scrollWidth - window.innerWidth),
         ease: "none",
         scrollTrigger: {
           trigger: ".horizontal-container",
           start: "top top",
-          end: () => `+=${containerRef.current.scrollWidth - window.innerWidth}`,
+          end: () => `+=${containerRef.current.scrollWidth - window.innerWidth + window.innerHeight * 1.5}`,
           pin: true,
-          scrub: 1,
-          pinSpacing: true
+          scrub: 2,
+          pinSpacing: true,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            // Parallax effect for client logos
+            gsap.utils.toArray('.client-logo').forEach((logo, i) => {
+              const speed = i % 2 === 0 ? 0.2 : -0.2;
+              gsap.set(logo, {
+                x: self.progress * 100 * speed
+              });
+            });
+          },
+          onEnter: () => {
+            // Fade in effect when section enters
+            gsap.to(".horizontal-section", {
+              opacity: 1,
+              duration: 1,
+              ease: "power2.out"
+            });
+          },
+          onLeave: (self) => {
+            // Enhanced transition to vertical scrolling
+            gsap.to(window, {
+              duration: 1.5,
+              scrollTo: self.end,
+              ease: "power4.inOut",
+              onComplete: () => {
+                // Bounce effect for vertical content
+                gsap.from(".vertical-content", {
+                  y: 50,
+                  opacity: 0,
+                  duration: 1,
+                  ease: "back.out(1.2)"
+                });
+              }
+            });
+          }
         }
       });
 
-      // Vertical scroll animations
+      // Vertical scroll animations with delayed start
       gsap.from(".vertical-content", {
-        y: 50,
+        y: 100,
         opacity: 0,
-        stagger: 0.2,
+        stagger: 0.3,
         scrollTrigger: {
           trigger: ".vertical-section",
-          start: "top 80%",
-          end: "+=300",
-          scrub: 1
+          start: "top 90%",
+          end: "top 40%",
+          scrub: 1.5,
+          toggleActions: "play none none reverse"
         }
       });
 
@@ -122,9 +156,9 @@ const Clients = () => {
   return (
     <>
       {/* Horizontal Scroll Section */}
-      <div className="horizontal-container relative min-h-screen ">
-        <div 
-          ref={containerRef} 
+      <div className="horizontal-container relative min-h-screen bg-black rounded-[20vh] overflow-hidden">
+        <div
+          ref={containerRef}  
           className="horizontal-section relative flex items-start gap-20 p-20"
         >
           {/* Title Section */}

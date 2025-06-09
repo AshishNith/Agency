@@ -17,13 +17,13 @@ import ClientHandle from './admin/pages/ClientHandle';
 import TeamManage from './admin/pages/TeamManage';
 import About from './pages/About';
 
-import Preloader from './Components/Preloader'; // 👈 import Preloader
+import Preloader from './Components/Preloader';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 6000); // 5 seconds
+    const timer = setTimeout(() => setLoading(false), 3500); 
     return () => clearTimeout(timer);
   }, []);
 
@@ -48,6 +48,7 @@ const App = () => {
                   </>
                 }
               />
+              <Route path="/services" element={<Services />} />
               <Route path="/about" element={<About />} />
             </Route>
 

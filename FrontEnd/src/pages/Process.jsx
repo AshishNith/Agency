@@ -74,20 +74,6 @@ const Process = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Animate header with fade up and scale
-      gsap.from('.process-header', {
-        y: 100,
-        opacity: 0,
-        scale: 0.9,
-        duration: 1,
-        scrollTrigger: {
-          trigger: '.process-header',
-          start: 'top 80%',
-          end: 'top 50%',
-          scrub: 1
-        }
-      });
-
       // Animate timeline line with drawing effect
       gsap.from('.process-line', {
         height: '0%',
@@ -100,35 +86,59 @@ const Process = () => {
           scrub: true
         }
       });
-
-      // Animate process cards
+      
+      // Enhanced process cards animation
       const cards = document.querySelectorAll('.process-card');
       cards.forEach((card, index) => {
-        const direction = index % 2 === 0 ? -100 : 100;
+        const direction = index % 2 === 0 ? -150 : 150;
         
-        // Card container animation
-        gsap.from(card, {
-          x: direction,
-          opacity: 0,
-          duration: 1,
+        // Create timeline for each card
+        const cardTl = gsap.timeline({
           scrollTrigger: {
             trigger: card,
-            start: 'top 80%',
-            end: 'top 60%',
-            scrub: 1
+            start: 'top 85%',
+            end: 'top 50%',
+            scrub: 1.5,
+            toggleActions: "play none none reverse"
           }
         });
 
-        // Timeline node animation
+        // Card container animation with enhanced motion
+        cardTl.from(card, {
+          x: direction,
+          y: 50,
+          opacity: 0,
+          rotation: direction > 0 ? 10 : -10,
+          duration: 1.5,
+          ease: "power3.out"
+        })
+        .from(card.querySelector('.icon-float'), {
+          y: 30,
+          opacity: 0,
+          scale: 0.8,
+          duration: 0.8,
+          ease: "back.out(1.7)"
+        }, "-=0.8");
+
+        // Timeline node animation with glow effect
         gsap.from(card.querySelector('.timeline-node'), {
           scale: 0,
           opacity: 0,
-          duration: 0.5,
+          duration: 1,
+          boxShadow: "0 0 0 rgba(255,255,255,0)",
           scrollTrigger: {
             trigger: card,
-            start: 'top 70%',
-            end: 'top 50%',
-            scrub: 1
+            start: 'top 75%',
+            end: 'top 45%',
+            scrub: 1.5,
+            onEnter: () => {
+              gsap.to(card.querySelector('.timeline-node'), {
+                boxShadow: "0 0 20px rgba(255,255,255,0.3)",
+                duration: 1.5,
+                repeat: -1,
+                yoyo: true
+              });
+            }
           }
         });
 
@@ -161,10 +171,10 @@ const Process = () => {
   }, []);
 
   return (
-    <div ref={processRef} className="min-h-screen  py-20">
+    <div ref={processRef} className="min-h-screen bg-black rounded-[20vh] relative py-20">
       <div className="max-w-7xl mx-auto px-4">
         {/* Header */}
-        <div className="process-header text-center mb-20">
+        <div className="process-header text-center mb-32">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[#F2F2F2]">Our Process</h1>
           <p className="text-[#EAE4D4] text-lg max-w-2xl mx-auto">
             A streamlined approach to delivering exceptional digital solutions
@@ -174,7 +184,7 @@ const Process = () => {
         {/* Process Grid */}
         <div className="process-grid relative">
           {/* Timeline connector */}
-          <div className="process-line absolute left-[50%] top-0 w-px transform -translate-x-1/2" 
+          <div className="process-line absolute left-[50%] top-0 w-px h-full transform -translate-x-1/2" 
             style={{
               backgroundImage: 'linear-gradient(180deg, transparent, rgba(242,242,242,0.1) 10%, rgba(242,242,242,0.1) 90%, transparent)',
             }}

@@ -1,15 +1,20 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Preloader.css';
 import gsap from 'gsap';
 
 const Preloader = () => {
   const preloaderRef = useRef();
   const lettersRef = useRef([]);
+  const circleRef = useRef();
+  const [showCircle, setShowCircle] = useState(false);
 
   useEffect(() => {
     const tl = gsap.timeline({
       onComplete: () => {
-        preloaderRef.current.style.display = 'none';
+        setShowCircle(true); // Show circle after text animates
+        setTimeout(() => {
+          preloaderRef.current.style.display = 'none';
+        }, 1800); // wait a bit after circle appears
       }
     });
 
@@ -28,13 +33,7 @@ const Preloader = () => {
         ease: 'back.out(1.7)',
         stagger: 0.15
       }
-    )
-    .to(preloaderRef.current, {
-      opacity: 0,
-      duration: 0.6,
-      delay: 1,
-      ease: 'power2.inOut'
-    });
+    );
   }, []);
 
   const setLetterRef = (el, idx) => {
@@ -44,18 +43,16 @@ const Preloader = () => {
   return (
     <div className="preloader" ref={preloaderRef}>
       <div className="radial-bg" />
-      <div className="goran-logo">
-        {'G'.split('').map((char, i) => (
-          <span key={i} ref={el => setLetterRef(el, i)}>{char}</span>
-        ))}
-        <span ref={el => setLetterRef(el, 1)}>o</span>
-        <span ref={el => setLetterRef(el, 2)}>R</span>
-        <span ref={el => setLetterRef(el, 3)}>a</span>
-        <span ref={el => setLetterRef(el, 4)}>n</span>
+      <div className={`goran-wrapper ${showCircle ? 'with-glow' : ''}`} ref={circleRef}>
+        <div className="goran-logo">
+          {'GoRan'.split('').map((char, i) => (
+            <span key={i} ref={el => setLetterRef(el, i)}>{char}</span>
+          ))}
+        </div>
+        {showCircle && <div className="glow-circle" />}
       </div>
     </div>
   );
 };
 
 export default Preloader;
-
