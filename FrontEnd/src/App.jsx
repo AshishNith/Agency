@@ -18,6 +18,7 @@ import TeamManage from './admin/pages/TeamManage';
 import About from './pages/About';
 
 import Preloader from './Components/Preloader';
+import Chatbot from './Components/Chatbot';
 // import Scroller_ from './Components/Scroller_';
 
 const App = () => {
@@ -47,6 +48,7 @@ const App = () => {
                     <Projects />
                     <Clients />
                     <Process />
+                    <Chatbot />
                   </>
                 }
               />

@@ -8,6 +8,7 @@ app.use(express.json());
 
 app.use("/api/clients", require("./routes/clientRoutes"));
 app.use("/api/projects", require("./routes/projectRoutes"));
+app.use("/api/chat", require("./routes/chatRoutes"));
 
 
 app.get('/', (req, res) => {

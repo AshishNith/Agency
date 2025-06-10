@@ -41,6 +41,38 @@ const ProjectHandle = () => {
     fetchProjects();
   }, []);
 
+
+useEffect(() => {
+  const handleDelete = async (id) => {
+    try {
+      const response = await axios.delete(`/api/projects/${id}`);
+      if (response.data) {
+        setProjects(prev => prev.filter(project => project._id !== id));
+      }
+    } catch (error) {
+      console.error("Error deleting project:", error);
+    }
+  };
+}, []);
+
+useEffect(() => {
+  const handleUpdate = async (projectData) => {
+    try {
+      const response = await axios.put(`/api/projects/${projectData._id}`, projectData);
+      if (response.data) {
+        setProjects(prev => 
+          prev.map(project => 
+            project._id === projectData._id ? response.data : project
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Error updating project:", error);
+    }
+  };
+}, []);
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

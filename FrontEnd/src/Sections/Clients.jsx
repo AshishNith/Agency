@@ -84,7 +84,7 @@ const Clients = () => {
     { number: "50+", label: "Team Members" }
   ];
   useEffect(() => {
-    const ctx = gsap.context(() => {      // Enhanced horizontal scroll with smoother transitions and parallax
+    const ctx = gsap.context(() => {
       const horizontalScroll = gsap.to(".horizontal-section", {
         x: () => -(containerRef.current.scrollWidth - window.innerWidth),
         ease: "none",
@@ -178,29 +178,31 @@ const Clients = () => {
 
           {/* Clients Grid Section */}
           <div className="flex-shrink-0 w-screen h-screen flex items-center">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-6">
-              {clients.map((client) => (
-                <div
-                  key={client.id}
-                  className="group relative"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 via-blue-500/20 to-teal-500/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl" />
-                  <div className="relative h-full bg-white/[0.03] backdrop-blur-sm rounded-2xl p-8 flex flex-col items-center justify-center border border-white/5 group-hover:border-white/20 transition-all duration-500">
-                    <img
-                      src={client.logo}
-                      alt={client.name}
-                      className="w-20 h-20 object-contain filter grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
-                    />
-                    <div className="mt-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                      <h3 className="text-white/90 font-medium">{client.name}</h3>
-                      <span className="inline-block mt-2 px-3 py-1 text-xs rounded-full bg-white/5 text-white/60">
-                        {client.industry}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-6">
+  {clients.map((client) => (
+    <div
+      key={client.id}
+      className="group relative"
+    >
+      <div className="relative h-full bg-white/[0.04] backdrop-blur-sm rounded-2xl p-8 flex flex-col items-center justify-center border border-white/10 group-hover:border-white/30 shadow-none group-hover:shadow-[0_4px_30px_rgba(255,255,255,0.1)] transform transition-all duration-500 group-hover:scale-105">
+        <img
+          src={client.logo}
+          alt={client.name}
+          className="w-20 h-20 object-contain filter grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
+        />
+        <div className="mt-4 text-center">
+          <h3 className="text-white font-semibold text-lg mb-1 transition duration-300 group-hover:text-[#EAE4D4]">
+            {client.name}
+          </h3>
+          <span className="inline-block mt-1 px-3 py-1 text-xs rounded-full bg-white/5 text-white/60 group-hover:bg-white/10 transition-all duration-300">
+            {client.industry}
+          </span>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
           </div>
         </div>
       </div>
