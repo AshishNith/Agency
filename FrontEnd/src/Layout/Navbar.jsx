@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState, useEffect, useContext } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import gsap from 'gsap'
-import { useScrollTo } from '../hooks/useScrollTo'
+import { useScrollAndNavigate } from '../hooks/useScrollAndNavigate';
+import { LoadingContext } from '../App';
 import LOGo from "../../public/Assets/LOGO.png"
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
   const [prevScrollPos, setPrevScrollPos] = useState(0)
-  const scrollToSection = useScrollTo()
+  const { scrollToSection, navigateTo } = useScrollAndNavigate();
+  const { handleRouteChange } = useContext(LoadingContext);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,12 +58,20 @@ const Navbar = () => {
   }, [isVisible])
 
   const navItems = [
-    { name: 'About', id: 'about' },
-    { name: 'Services', id: 'services' },
-    { name: 'Work', id: 'projects' },
-    { name: 'Process', id: 'process' },
-    { name: 'Blog', id: 'blog' },
+    { name: 'About', id: 'about', type: 'route', path: '/about' },
+    { name: 'Services', id: 'services', type: 'section' },
+    { name: 'Process', id: 'process', type: 'section' },
+    { name: 'Blog', id: 'blog', type: 'route', path: '/blog' },
   ]
+
+  const handleNavigation = (item) => {
+    handleRouteChange(); // Trigger loading animation
+    if (item.type === 'route') {
+      navigateTo(item.path);
+    } else if (item.type === 'section') {
+      scrollToSection(item.id);
+    }
+  };
 
   return (
     <nav
@@ -94,7 +105,7 @@ const Navbar = () => {
             {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
+                onClick={() => handleNavigation(item)}
                 className="text-[#EAE4D4] hover:text-[#F2F2F2] px-3 py-2 text-sm font-medium transition-colors"
               >
                 {item.name}
@@ -129,12 +140,18 @@ const Navbar = () => {
             </div>
 
             {/* Login Button */}
-            <button className="text-[#EAE4D4] hover:text-[#F2F2F2] px-4 py-2 text-sm font-medium transition-colors">
+            <button 
+              onClick={() => handleNavigation('auth')}
+              className="text-[#EAE4D4] hover:text-[#F2F2F2] px-4 py-2 text-sm font-medium transition-colors"
+            >
               Login
             </button>
 
             {/* Let's Talk Button */}
-            <button className="bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm text-[#F2F2F2] px-6 py-2.5 rounded-lg text-sm font-medium border border-white/10 hover:bg-white/10 transition-all">
+            <button 
+              onClick={() => scrollToSection('contact')}
+              className="bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm text-[#F2F2F2] px-6 py-2.5 rounded-lg text-sm font-medium border border-white/10 hover:bg-white/10 transition-all"
+            >
               Let's Talk
             </button>
           </div>

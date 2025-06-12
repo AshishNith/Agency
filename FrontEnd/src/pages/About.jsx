@@ -30,7 +30,7 @@ import React, { useEffect, useRef } from 'react';
     return (
       <div
         ref={aboutRef}
-        className="bg-[#0B0C10] text-white py-24 px-6 sm:px-10 md:px-20 lg:px-32 min-h-screen space-y-28 font-sans"
+        className=" text-white py-24 px-6 sm:px-10 md:px-20 lg:px-32 min-h-screen space-y-28 font-sans"
       >
         {/* Hero Section */}
         <section className="text-center space-y-4 fade-in-up">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, createContext, useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './Layout/Layout';
 import AdminLayout from './admin/Layout';
@@ -24,58 +24,81 @@ import Blog from './pages/Blog';
 // import Work from './pages/Works';
 // import Scroller_ from './Components/Scroller_';
 
+// Create loading context
+export const LoadingContext = createContext();
+
 const App = () => {
   const [loading, setLoading] = useState(true);
+  const [pageLoading, setPageLoading] = useState(false);
 
+  // Initial app load
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 3500); 
+    const timer = setTimeout(() => setLoading(false), 3500);
     return () => clearTimeout(timer);
   }, []);
 
+  // Handle route transitions
+  const handleRouteChange = () => {
+    setPageLoading(true);
+    setTimeout(() => setPageLoading(false), 1000);
+  };
+
+  if (loading) {
+    return <Preloader />;
+  }
+
   return (
-    <div className="relative overflow-x-hidden">
-      {loading ? (
-        <Preloader />
-      ) : (
-        <>
-          <NeonAnimatedBg />
-          {/* <Scroller_ /> */}
-          <Routes>
-            <Route element={<Layout />}>
-              <Route
-                path="/"
-                element={
-                  <>
-                    <Hero />
-                    <Services />  
-                    <Projects />
-                    <Clients />
-                    <Process />
-                    <Chatbot />
-                  </>
-                }
-              />
-              <Route path="/services" element={<Servises />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/b" element={<Clients />} />
-              {/* <Route path="/work" element={<Work />} /> */}
-            </Route>
+    <LoadingContext.Provider value={{ pageLoading, setPageLoading, handleRouteChange }}>
+      <div className="relative overflow-x-hidden">
+        <NeonAnimatedBg />
+        {pageLoading && <Preloader />}
+        <Routes>
+          <Route element={<Layout />}>
+            <Route
+              path="/"
+              element={
+                <div onLoad={handleRouteChange}>
+                  <Hero />
+                  <Services />  
+                  <Projects />
+                  <Clients />
+                  <Process />
+                  <Chatbot />
+                </div>
+              }
+            />
+            <Route 
+              path="/services" 
+              element={<Servises onLoad={handleRouteChange} />} 
+            />
+            <Route 
+              path="/about" 
+              element={<About onLoad={handleRouteChange} />} 
+            />
+            <Route 
+              path="/blog" 
+              element={<Blog onLoad={handleRouteChange} />} 
+            />
+            <Route 
+              path="/b" 
+              element={<Clients onLoad={handleRouteChange} />} 
+            />
+            {/* <Route path="/work" element={<Work />} /> */}
+          </Route>
 
-            <Route path="/admin/*" element={<AdminDashboard />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/admin/login" element={<AdminLogin />} />
+          <Route path="/admin/*" element={<AdminDashboard />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/admin/login" element={<AdminLogin />} />
 
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="projects" element={<ProjectHandle />} />
-              <Route path="clients" element={<ClientHandle />} />
-              <Route path="team" element={<TeamManage />} />
-            </Route>
-          </Routes>
-        </>
-      )}
-    </div>
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="projects" element={<ProjectHandle />} />
+            <Route path="clients" element={<ClientHandle />} />
+            <Route path="team" element={<TeamManage />} />
+          </Route>
+        </Routes>
+      </div>
+    </LoadingContext.Provider>
   );
 };
 

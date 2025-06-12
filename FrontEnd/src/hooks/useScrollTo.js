@@ -4,17 +4,23 @@ export const useScrollTo = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const scrollToSection = (sectionId) => {
-    const isSamePage = location.pathname === '/' || location.pathname === `/${sectionId.toLowerCase()}`;
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
     
-    if (isSamePage) {
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      navigate(`/${sectionId.toLowerCase()}`);
+    // If on homepage and element exists, scroll to it
+    if (location.pathname === '/' && element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      return;
     }
+
+    // If not on homepage, navigate and then scroll
+    navigate('/');
+    setTimeout(() => {
+      const targetElement = document.getElementById(id);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   return scrollToSection;
