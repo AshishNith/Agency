@@ -12,10 +12,12 @@ exports.getProjects = async (req, res)  => {
 
 exports.createProject = async (req, res) => {
   try {
-    const newProject = new Project(req.body);
+    const projectData = req.body;
+    const newProject = new Project(projectData);
     await newProject.save();
     res.status(201).json(newProject);
   } catch (err) {
+    console.error('Error creating project:', err);
     res.status(400).json({ error: err.message });
   }
 };
@@ -23,13 +25,16 @@ exports.createProject = async (req, res) => {
 exports.updateProject = async (req, res) => {
   try {
     const { id } = req.params;
-    const updatedProject = await Project.findByIdAndUpdate(id, req.body, { new: true });
+    const updatedProject = await Project.findByIdAndUpdate(
+      id, 
+      req.body,
+      { new: true }
+    );
     if (!updatedProject) {
       return res.status(404).json({ error: "Project not found" });
     }
     res.json(updatedProject);
-  }
-  catch (err) {
+  } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };

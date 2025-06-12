@@ -108,7 +108,7 @@ const Hero = () => {
   return (
     <section ref={heroRef} className="relative h-screen overflow-hidden">
       {/* Animated background */}
-      <div className="parallax-bg absolute  opacity-90"></div>
+      {/* <div className="parallax-bg absolute  "></div> */}
       
       {/* Animated grid */}
       {/* <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:64px_64px] transform"></div> */}
@@ -133,7 +133,7 @@ const Hero = () => {
             <span className="relative z-10">We help Indian businesses, creators, and teams grow with smart websites, 
             AI automation, and custom chatbots—designed for real results.</span>
             <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent blur-xl"></span>
-          </p>
+          </p>  
 
           {/* Buttons with enhanced hover effects */}
           <div className="hero-buttons flex flex-col sm:flex-row gap-6">

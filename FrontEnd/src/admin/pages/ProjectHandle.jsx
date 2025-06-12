@@ -2,14 +2,18 @@ import React, { useState, useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { useFormState } from '../../hooks/useFormState';
 import axios from 'axios';
+import imageCompression from 'browser-image-compression';
 
-axios.defaults.baseURL = 'http://127.0.0.1:5000';
+// Update API base URL
+axios.defaults.baseURL = 'http://localhost:5000/api';
 
 const ProjectHandle = () => {
   const [projects, setProjects] = useState([]);
   const [viewMode, setViewMode] = useState('grid');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
   const projectRefs = useRef([]);
   const modalRef = useRef(null);
@@ -18,8 +22,10 @@ const ProjectHandle = () => {
   const initialFormState = {
     title: '',
     category: '',
-    agency: '',
+    description: '',
     image: '',
+    link: '',
+    agency: '',
     status: 'active'
   };
 
@@ -29,7 +35,7 @@ const ProjectHandle = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get('/api/projects');
+        const response = await axios.get('/projects');
         setProjects(response.data);
       } catch (error) {
         console.error("Error fetching projects:", error);
@@ -41,63 +47,82 @@ const ProjectHandle = () => {
     fetchProjects();
   }, []);
 
+  const handleDelete = async (projectId) => {
+    // Add confirmation dialog
+    if (!window.confirm('Are you sure you want to delete this project?')) {
+      return;
+    }
 
-useEffect(() => {
-  const handleDelete = async (id) => {
     try {
-      const response = await axios.delete(`/api/projects/${id}`);
-      if (response.data) {
-        setProjects(prev => prev.filter(project => project._id !== id));
+      setIsLoading(true);
+      const response = await axios.delete(`/projects/${projectId}`);
+      if (response.status === 200) {
+        setProjects(prev => prev.filter(project => project._id !== projectId));
+        // Optional: Add success notification
+        alert('Project deleted successfully');
       }
     } catch (error) {
       console.error("Error deleting project:", error);
+      alert('Failed to delete project: ' + error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
-}, []);
 
-useEffect(() => {
-  const handleUpdate = async (projectData) => {
-    try {
-      const response = await axios.put(`/api/projects/${projectData._id}`, projectData);
-      if (response.data) {
-        setProjects(prev => 
-          prev.map(project => 
-            project._id === projectData._id ? response.data : project
-          )
-        );
+  // Add this new function before handleSubmit
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      try {
+        // Compress image before converting to base64
+        const options = {
+          maxSizeMB: 1,
+          maxWidthOrHeight: 1920
+        };
+        
+        const compressedFile = await imageCompression(file, options);
+        
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64String = reader.result;
+          setSelectedImage(base64String);
+          setImagePreview(base64String);
+        };
+        reader.onerror = () => {
+          alert('Error reading file');
+        };
+        reader.readAsDataURL(compressedFile);
+      } catch (error) {
+        console.error('Error compressing image:', error);
+        alert('Error processing image. Please try a smaller file.');
       }
-    } catch (error) {
-      console.error("Error updating project:", error);
     }
   };
-}, []);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const projectData = {
+        ...formData,
+        image: selectedImage || formData.image
+      };
+
       if (editMode) {
-        const response = await axios.put(`/api/projects/${formData.id}`, formData);
+        const response = await axios.put(`/projects/${formData._id}`, projectData);
         setProjects(prev => prev.map(item =>
-          item.id === formData.id ? response.data : item
+          item._id === formData._id ? response.data : item
         ));
       } else {
-        const response = await axios.post('/api/projects', formData);
+        const response = await axios.post('/projects', projectData);
         setProjects(prev => [...prev, response.data]);
       }
       resetForm();
+      setSelectedImage(null);
+      setImagePreview(null);
       setIsModalOpen(false);
     } catch (error) {
       console.error("Error saving project:", error);
-    }
-  };
-
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`/api/projects/${id}`);
-      setProjects(prev => prev.filter(item => item.id !== id));
-    } catch (error) {
-      console.error("Error deleting project:", error);
+      alert('Failed to save project: ' + error.message);
     }
   };
 
@@ -172,7 +197,7 @@ useEffect(() => {
   }
 
   return (
-    <div className="min-h-screen p-8">
+    <div className="min-h-[300vh] p-8 text-white">
       <div className="relative z-10">
         {/* Header */}
         <div className="max-w-7xl mx-auto mb-8">
@@ -211,7 +236,7 @@ useEffect(() => {
             <input
               type="search"
               placeholder="Search projects..."
-              className="flex-1 bg-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/20"
+              className="flex-1 bg-white/10 rounded-lg px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-white/20"
             />
           </div>
         </div>
@@ -225,7 +250,7 @@ useEffect(() => {
         >
           {projects.map((project, index) => (
             <div
-              key={project.id}
+              key={project._id}
               ref={el => projectRefs.current[index] = el}
               className={`bg-neutral-900/50 backdrop-blur-sm rounded-lg overflow-hidden border border-white/10 hover:border-white/20 transition-all ${
                 viewMode === 'grid' ? '' : 'flex items-center'
@@ -265,7 +290,7 @@ useEffect(() => {
                     <i className="ri-edit-line"></i>
                   </button>
                   <button 
-                    onClick={() => handleDelete(project.id)}
+                    onClick={() => handleDelete(project._id)}
                     className="p-2 hover:bg-white/10 rounded-lg transition-colors text-red-400"
                   >
                     <i className="ri-delete-bin-line"></i>
@@ -278,10 +303,10 @@ useEffect(() => {
 
         {/* Modal with improved backdrop */}
         {isModalOpen && (
-          <div className="fixed inset-0 bg-black/90 backdrop-blur-xl flex items-center justify-center z-50">
+          <div className="fixed inset-0 bg-black/90 backdrop-blur-xl flex items-center justify-center z-50 p-4">
             <div 
               ref={modalRef} 
-              className="bg-neutral-900/90 backdrop-blur-xl rounded-xl p-6 w-full max-w-lg border border-white/10"
+              className="bg-neutral-900/90 backdrop-blur-xl rounded-xl p-6 w-full max-w-lg border border-white/10 max-h-[90vh] overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent"
             >
               <h2 className="text-2xl font-bold mb-6">{editMode ? 'Edit' : 'Add New'} Project</h2>
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -292,7 +317,7 @@ useEffect(() => {
                     name="title"
                     value={formData.title}
                     onChange={handleChange}
-                    className="w-full bg-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/20"
+                    className="w-full bg-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white/20"
                   />
                 </div>
                 <div>
@@ -301,7 +326,7 @@ useEffect(() => {
                     name="category"
                     value={formData.category}
                     onChange={handleChange}
-                    className="w-full bg-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/20"
+                    className="w-full bg-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white/20"
                   >
                     <option value="">Select Category</option>
                     <option value="Brand Identity">Brand Identity</option>
@@ -310,22 +335,74 @@ useEffect(() => {
                   </select>
                 </div>
                 <div>
+                  <label className="block text-sm font-medium mb-2">Description</label>
+                  <textarea
+                    name="description"
+                    value={formData.description}
+                    onChange={handleChange}
+                    rows="4"
+                    className="w-full bg-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white/20"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Project Link</label>
+                  <input
+                    type="url"
+                    name="link"
+                    value={formData.link}
+                    onChange={handleChange}
+                    placeholder="https://"
+                    className="w-full bg-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white/20"
+                  />
+                </div>
+                <div>
                   <label className="block text-sm font-medium mb-2">Agency</label>
                   <input
                     type="text"
                     name="agency"
                     value={formData.agency}
                     onChange={handleChange}
-                    className="w-full bg-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-white/20"
+                    className="w-full bg-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white/20"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-2">Image</label>
-                  <div className="border-2 border-dashed border-white/20 rounded-lg p-8 text-center">
-                    <input type="file" className="hidden" />
-                    <button type="button" className="text-sm text-gray-400">
-                      Click to upload or drag and drop
-                    </button>
+                  <div className="border-2 border-dashed border-white/20 rounded-lg p-4 text-center">
+                    <input
+                      type="file"
+                      id="imageInput"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      className="hidden"
+                    />
+                    {imagePreview ? (
+                      <div className="relative">
+                        <img
+                          src={imagePreview}
+                          alt="Preview"
+                          className="max-h-40 mx-auto rounded"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedImage(null);
+                            setImagePreview(null);
+                          }}
+                          className="absolute top-2 right-2 bg-red-500/80 text-white p-1 rounded-full hover:bg-red-600"
+                        >
+                          <i className="ri-close-line"></i>
+                        </button>
+                      </div>
+                    ) : (
+                      <label
+                        htmlFor="imageInput"
+                        className="cursor-pointer block p-4 text-gray-400 hover:text-white transition-colors"
+                      >
+                        <i className="ri-upload-cloud-line text-2xl mb-2"></i>
+                        <p>Click to upload or drag and drop</p>
+                        <p className="text-sm text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                      </label>
+                    )}
                   </div>
                 </div>
                 <div className="flex justify-end gap-4 mt-8">
