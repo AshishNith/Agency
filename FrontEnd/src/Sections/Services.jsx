@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import SplitType from 'split-type';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -105,36 +106,39 @@ const Services = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Main scroll-triggered timeline
+      // Enhanced main timeline with smoother progression
       const mainTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: '+=300%',
+          end: '+=200%',
           pin: true,
-          scrub: 1,
-          pinSpacing: true,
+          scrub: 1.5,
+          anticipatePin: 1,
         }
       });
 
-      // Title sequence
-      mainTl.from('.services-title h2', {
-        y: 100,
+      // Title sequence with character split and 3D effect
+      const titleChars = new SplitType('.services-title h2', { types: 'chars' });
+      mainTl.from(titleChars.chars, {
         opacity: 0,
+        rotateY: -90,
+        stagger: 0.02,
         duration: 1,
-        stagger: 0.2
+        transformOrigin: "0% 50%",
+        ease: "power2.out"
       })
       .to('.services-title', {
-        y: -50,
-        scale: 0.9,
-        duration: 1
-      }, '>')
-      .to('.services-title', {
+        y: -100,
+        scale: 0.8,
         opacity: 0,
-        duration: 0.5
-      }, '>');
+        duration: 1,
+        ease: "power2.inOut"
+      }, '>1');
 
-      // Enhanced cards sequence with 3D effect
+      // Enhanced cards animation with 3D perspective
+      gsap.set('.service-card', { perspective: 1000 });
+      
       const cards = gsap.utils.toArray('.service-card');
       cards.forEach((card, i) => {
         const tl = gsap.timeline({
@@ -142,7 +146,7 @@ const Services = () => {
             trigger: card,
             start: 'top 75%',
             end: 'top 25%',
-            scrub: 1.5,
+            scrub: 1,
             toggleActions: "play none none reverse"
           }
         });
@@ -156,16 +160,16 @@ const Services = () => {
           {
             x: startX,
             y: startY,
-            rotation: startRotation,
+            rotateZ: startRotation,
+            rotateX: 45,
             opacity: 0,
-            scale: 0.8,
-            transformPerspective: 1000,
-            transformOrigin: "center center"
+            scale: 0.8
           },
           {
             x: 0,
             y: 0,
-            rotation: 0,
+            rotateZ: 0,
+            rotateX: 0,
             opacity: 1,
             scale: 1,
             duration: 2,
@@ -191,11 +195,12 @@ const Services = () => {
 
       // Parallax background effect
       gsap.to('.parallax-bg', {
-        y: -100,
+        backgroundPosition: `50% ${window.innerHeight/2}px`,
+        ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: 'top top',
-          end: 'bottom top',
+          start: "top top",
+          end: "bottom top",
           scrub: true
         }
       });

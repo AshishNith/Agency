@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { useScrollTo } from '../hooks/useScrollTo'
+import LOGo from "../../public/Assets/LOGO.png"
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false)
@@ -78,9 +79,13 @@ const Navbar = () => {
       >
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex-shrink-0">
-            <Link to="/" className="text-2xl font-bold text-[#F2F2F2]">
-              AGENCY.
+          <div className="flex-shrink-0 w-[180px] h-auto hover:-rotate-12  flex items-center">
+            <Link to="/" className="w-full">
+              <img 
+                src={LOGo} 
+                alt="Logo" 
+                className='w-full h-auto object-contain hover:scale-105 transition-transform duration-300'
+              />
             </Link>
           </div>
 

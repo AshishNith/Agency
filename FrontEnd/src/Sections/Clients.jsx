@@ -162,7 +162,7 @@ const Clients = () => {
           className="horizontal-section relative flex items-start gap-32 p-24"
         >
           {/* Hero Title Section */}
-          <div className="flex-shrink-0 w-screen h-screen flex items-center justify-center">
+          <div className="flex-shrink-0 w-[100vw] h-[100vh] -translate-y-20 flex items-center justify-center">
             <div className="relative z-10 text-center">
               <span className="block text-sm md:text-lg text-[#EAE4D4] tracking-[0.3em] mb-4 uppercase">
                 Trusted by Industry Leaders
@@ -184,7 +184,7 @@ const Clients = () => {
       key={client.id}
       className="group relative"
     >
-      <div className="relative h-full bg-white/[0.04] backdrop-blur-sm rounded-2xl p-8 flex flex-col items-center justify-center border border-white/10 group-hover:border-white/30 shadow-none group-hover:shadow-[0_4px_30px_rgba(255,255,255,0.1)] transform transition-all duration-500 group-hover:scale-105">
+      <div className="relative -translate-y-10 h-full bg-white/[0.04] backdrop-blur-sm rounded-2xl p-8 flex flex-col items-center justify-center border border-white/10 group-hover:border-white/30 shadow-none group-hover:shadow-[0_4px_30px_rgba(255,255,255,0.1)] transform transition-all duration-500 group-hover:scale-105">
         <img
           src={client.logo}
           alt={client.name}

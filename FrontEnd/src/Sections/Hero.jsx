@@ -27,7 +27,9 @@ const Hero = () => {
         duration: 1.2,
         stagger: 0.2,
         ease: 'power4.out'
-      });      // Create a main timeline with enhanced pin effect
+      });
+
+      // Main timeline with enhanced pin effect
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: heroRef.current,
@@ -37,7 +39,6 @@ const Hero = () => {
           scrub: 1,
           anticipatePin: 1,
           onUpdate: self => {
-            // Parallax effect for grid
             gsap.set(".hero-content", {
               y: self.progress * -50
             });
@@ -45,7 +46,7 @@ const Hero = () => {
         }
       });
 
-      // Enhanced animations with smoother transitions
+      // Add timeline animations
       tl.to('.hero-content', {
         scale: 0.95,
         opacity: 0.8,
@@ -57,17 +58,9 @@ const Hero = () => {
         scale: 1.1,
         duration: 0.5,
         ease: "power4.in"
-      }, ">+=0.2")
-      // .from('.next-section', {
-      //   opacity: 0,
-      //   y: 100,
-      //   duration: 1
-      // }, ">")
-      // .to('.next-section', {
-      //   opacity: 1,
-      //   y: 0,
-      //   duration: 1
-      // });      // Enhanced parallax effects for background elements
+      }, ">+=0.2");
+
+      // Enhanced parallax effects for background elements
       const parallaxBg = document.querySelector('.parallax-bg');
       const grid = document.querySelector('.animated-grid');
       
@@ -113,12 +106,12 @@ const Hero = () => {
   }, []);
 
   return (
-    <div ref={heroRef} className="relative min-h-screen overflow-hidden">
+    <section ref={heroRef} className="relative h-screen overflow-hidden">
       {/* Animated background */}
       <div className="parallax-bg absolute  opacity-90"></div>
       
       {/* Animated grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:64px_64px] transform"></div>
+      {/* <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:64px_64px] transform"></div> */}
 
       {/* Main Content */}
       <div ref={containerRef} className="relative z-10 h-screen">
@@ -171,7 +164,7 @@ const Hero = () => {
           </div>
         </div> */}
       </div>
-    </div>
+    </section>
   );
 };
 

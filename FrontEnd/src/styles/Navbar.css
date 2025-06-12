@@ -13,12 +13,15 @@
 }
 
 @keyframes floatIn {
-  from {
-    transform: translateY(-100%);
+  0% {
+    transform: translateY(-100%) scale(0.95);
     opacity: 0;
   }
-  to {
-    transform: translateY(0);
+  50% {
+    transform: translateY(-10%) scale(1.02);
+  }
+  100% {
+    transform: translateY(0) scale(1);
     opacity: 1;
   }
 }

@@ -19,6 +19,9 @@ import About from './pages/About';
 
 import Preloader from './Components/Preloader';
 import Chatbot from './Components/Chatbot';
+import Servises from './pages/Servises';
+import Blog from './pages/Blog';
+// import Work from './pages/Works';
 // import Scroller_ from './Components/Scroller_';
 
 const App = () => {
@@ -44,7 +47,7 @@ const App = () => {
                 element={
                   <>
                     <Hero />
-                    <Services />
+                    <Services />  
                     <Projects />
                     <Clients />
                     <Process />
@@ -52,8 +55,10 @@ const App = () => {
                   </>
                 }
               />
-              <Route path="/services" element={<Services />} />
+              <Route path="/services" element={<Servises />} />
               <Route path="/about" element={<About />} />
+              <Route path="/blog" element={<Blog />} />
+              {/* <Route path="/work" element={<Work />} /> */}
             </Route>
 
             <Route path="/admin/*" element={<AdminDashboard />} />
