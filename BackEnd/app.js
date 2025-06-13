@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 app.use(cors(
   {
-    origin: 'https://agency-bo1b.vercel.app/',
+    origin: 'https://goran-ai.vercel.app/',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
   }
