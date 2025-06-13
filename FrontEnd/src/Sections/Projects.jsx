@@ -6,24 +6,37 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
-    title: "Autonomous Delivery Bot",
-    description: "Smart delivery robot with computer vision.",
-    image: "https://unsplash.it/400/300?random=1",
+    title: "Roboweek",
+    description: "Robosoc - Roboweek 3.0 - A robotics event.",
+    image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829595/roboweek_vaqwym.png",
+    link: "https://roboweek3.com/",
   },
   {
-    title: "AI Chat Assistant",
-    description: "Custom GPT-based assistant with scraping logic.",
-    image: "https://unsplash.it/400/300?random=2",
+    title: "Hotel Website",
+    description: "Hotel Chi - A hotel booking website.",
+    image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829580/hotel_klzkwb.png",
+    link: "https://saksham-chi.vercel.app/",
   },
   {
-    title: "Web Dev Agency Site",
-    description: "Next.js full-stack site for a digital agency.",
-    image: "https://unsplash.it/400/300?random=3",
+    title: "Literacy Mission",
+    description: "Literacy Mission NITH - A social initiative.",
+    image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829580/literacy_mission_cnii7k.png",
+    link: "https://literacymission.nith.ac.in/",
   },
   {
-    title: "Robotic Arm Control",
-    description: "IK + joystick controller for robotic arms.",
-    image: "https://unsplash.it/400/300?random=4",
+    title: "Pahadi Craft",
+    description: "Pahadi Craft - A platform for Himachali handicrafts.",
+    image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829580/pahadicraftwebsite_z3g08n.png",
+  },
+  {
+    title: "SKipIt",
+    description: "SkipIt - A smart saloon.",
+    image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829578/SkipIt_kre9aw.png",
+  },
+  {
+    title: "Claim Ai",
+    description: "Claim Ai - An AI-powered claims processing platform.",
+    image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829563/Claim_Ai_aic5tw.png",
   },
 ];
 
@@ -47,13 +60,13 @@ const ProjectStackGSAP = () => {
           `.card-${i}`,
           {
             opacity: 0,
-            y: 500,
+            y: 1000,
           },
           {
             opacity: 1,
             y: 0,
             duration: 4,
-            ease: "power2.out",
+            // ease: "power2.out",
           },
           "+=4"
         );
@@ -81,8 +94,14 @@ const ProjectStackGSAP = () => {
             key={index}
             className={`absolute w-[92%] sm:w-[85%] bg-zinc-900/80 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 card-${index} shadow-2xl flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 hover:border-white/20 transition-all duration-300`}
             style={{ zIndex: 100 + index }}
+            onClick={() => {
+                if (project.link) {
+                    window.open(project.link, "_blank");
+                }
+            }
+            }
           >
-            <div className="w-full md:w-1/2">
+            <div className="w-full md:w-4/5">
               <img
                 src={project.image}
                 alt={project.title}
