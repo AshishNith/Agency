@@ -23,7 +23,7 @@ const ClientHandle = () => {
 
   const fetchClients = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/clients');
+      const response = await axios.get('https://agency-ikgd.vercel.app/api/clients');
       setClients(response.data);
     } catch (error) {
       console.error('Error fetching clients:', error);
@@ -115,12 +115,12 @@ const ClientHandle = () => {
 
       let response;
       if (editMode) {
-        response = await axios.put(`http://localhost:5000/api/clients/${formData.id}`, clientData);
+        response = await axios.put(`https://agency-ikgd.vercel.app/api/clients/${formData.id}`, clientData);
         setClients(prev => prev.map(client => 
           client._id === formData.id ? response.data : client
         ));
       } else {
-        response = await axios.post('http://localhost:5000/api/clients', clientData);
+        response = await axios.post('https://agency-ikgd.vercel.app/api/clients', clientData);
         setClients(prev => [...prev, response.data]);
       }
 
