@@ -39,6 +39,9 @@ module.exports = {
         '1000': '1000px',
         '2000': '2000px',
       },
+      screens: {
+        'xs': '375px',
+      },
     },
   },
   plugins: [
