@@ -92,7 +92,7 @@ const ProjectStackGSAP = () => {
         {projects.map((project, index) => (
           <div
             key={index}
-            className={`absolute w-[92%] sm:w-[85%] bg-zinc-900/80 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 card-${index} shadow-2xl flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 hover:border-white/20 transition-all duration-300`}
+            className={`absolute w-[92%] sm:w-[85%] bg-gradient-to-tl from-[#252420] via-[#34322a]/80 to-black/90 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 card-${index} shadow-2xl flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 hover:border-white/20 transition-all duration-300`}
             style={{ zIndex: 100 + index }}
             onClick={() => {
                 if (project.link) {

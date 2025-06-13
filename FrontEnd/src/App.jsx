@@ -23,6 +23,7 @@ import Servises from './pages/Servises';
 import Blog from './pages/Blog';
 import ParallaxScroller from './Components/ParallaxScroller';
 import Projects from './Sections/Projects';
+import AboutTheFounder from './Sections/AboutTheFounder';
 // import Work from './pages/Works';
 // import Scroller_ from './Components/Scroller_';
 
@@ -63,6 +64,7 @@ const App = () => {
                 // Wrap components in a React.Fragment or div to ensure proper mounting
                 <React.Fragment>
                   <Hero />
+                  <AboutTheFounder />
                   <Projects />
                   <Services />    
                   <Clients />

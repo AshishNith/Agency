@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
+import LOGo from "../../public/Assets/LOGO.png"
+
 
 const AdminLayout = () => {
   const location = useLocation();
@@ -17,8 +19,14 @@ const AdminLayout = () => {
       <div className="flex relative">
         {/* Sidebar */}
         <aside className="w-64 min-h-screen bg-black/80 backdrop-blur-xl border-r border-white/10 fixed z-50">
-          <div className="p-6 border-b border-white/10">
-            <Link to="/" className="text-2xl font-bold text-[#F2F2F2]">AGENCY.</Link>
+          <div className="p-6 h-28 overflow-hidden border-b border-white/10">
+            <Link to="/" className="text-2xl font-bold text-[#F2F2F2]  ">
+            <img 
+                            src={LOGo} 
+                            alt="Logo" 
+                            className='w-full h-auto object-contain hover:scale-105 transition-transform -translate-y-16 duration-300'
+                          />
+            </Link>
           </div>
           <nav className="p-4 space-y-1">
             {menuItems.map(item => (
