@@ -62,7 +62,7 @@ const App = () => {
                 <React.Fragment>
                   <Hero />
                   <Services />  
-                  <Projects />
+                  {/* <Projects /> */}
                   <Clients />
                   <Process />
                   {/* <Chatbot /> */}
