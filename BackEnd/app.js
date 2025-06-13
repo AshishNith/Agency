@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 app.use(cors(
   {
-    origin: ['http://localhost:5174','https://agency-bo1b.vercel.app/'],
+    origin: 'https://agency-bo1b.vercel.app/',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization']
   }
