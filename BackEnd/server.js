@@ -6,13 +6,15 @@ require('dotenv').config();
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
-// Enhanced MongoDB connection options
+// Update MongoDB connection options
 const mongooseOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 5000,
+    serverSelectionTimeoutMS: 10000,
     socketTimeoutMS: 45000,
-    family: 4
+    family: 4,
+    retryWrites: true,
+    w: 'majority'
 };
 
 mongoose.connect(MONGO_URI, mongooseOptions)
@@ -30,4 +32,11 @@ mongoose.connect(MONGO_URI, mongooseOptions)
 process.on('unhandledRejection', (err) => {
     console.error('Unhandled rejection:', err);
     process.exit(1);
+});
+
+// Add graceful shutdown
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received. Performing graceful shutdown');
+  mongoose.connection.close();
+  process.exit(0);
 });
