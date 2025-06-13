@@ -25,7 +25,7 @@ const ProjectHandle = () => {
     category: '',
     description: '',
     image: '',
-    link: '',
+    projectLink: '', // Changed from 'link' to 'projectLink'
     agency: '',
     status: 'active'
   };
@@ -37,9 +37,11 @@ const ProjectHandle = () => {
     const fetchProjects = async () => {
       try {
         const response = await axios.get('/projects');
+        // Backend returns transformed projects with id
         setProjects(response.data);
       } catch (error) {
         console.error("Error fetching projects:", error);
+        alert('Failed to fetch projects');
       } finally {
         setIsLoading(false);
       }
@@ -48,25 +50,18 @@ const ProjectHandle = () => {
     fetchProjects();
   }, []);
 
-  const handleDelete = async (projectId) => {
-    // Add confirmation dialog
+  const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this project?')) {
       return;
     }
 
     try {
-      setIsLoading(true);
-      const response = await axios.delete(`/projects/${projectId}`);
-      if (response.status === 200) {
-        setProjects(prev => prev.filter(project => project._id !== projectId));
-        // Optional: Add success notification
-        alert('Project deleted successfully');
-      }
+      await axios.delete(`/projects/${id}`);
+      setProjects(prev => prev.filter(project => project.id !== id));
+      alert('Project deleted successfully');
     } catch (error) {
       console.error("Error deleting project:", error);
-      alert('Failed to delete project: ' + error.message);
-    } finally {
-      setIsLoading(false);
+      alert(error.response?.data?.error || 'Failed to delete project');
     }
   };
 
@@ -105,17 +100,24 @@ const ProjectHandle = () => {
     try {
       const projectData = {
         ...formData,
-        image: selectedImage || formData.image
+        image: selectedImage || formData.image,
+        projectLink: formData.projectLink || '#', // Ensure projectLink is always provided
+        description: formData.description || 'No description provided'
       };
 
+      if (!projectData.title || !projectData.category || !projectData.image || !projectData.projectLink) {
+        alert('Please fill in all required fields');
+        return;
+      }
+
       if (editMode) {
-        const response = await axios.put(`/projects/${formData._id}`, projectData);
+        const response = await axios.put(`/projects/${formData.id}`, projectData);
         setProjects(prev => prev.map(item =>
-          item._id === formData._id ? response.data : item
+          item.id === formData.id ? response.data : item
         ));
       } else {
         const response = await axios.post('/projects', projectData);
-        setProjects(prev => [...prev, response.data]);
+        setProjects(prev => [response.data, ...prev]);
       }
       resetForm();
       setSelectedImage(null);
@@ -123,7 +125,7 @@ const ProjectHandle = () => {
       setIsModalOpen(false);
     } catch (error) {
       console.error("Error saving project:", error);
-      alert('Failed to save project: ' + error.message);
+      alert(error.response?.data?.error || 'Failed to save project');
     }
   };
 
@@ -346,14 +348,15 @@ const ProjectHandle = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-2">Project Link</label>
+                  <label className="block text-sm font-medium mb-2">Project Link <span className="text-red-400">*</span></label>
                   <input
                     type="url"
-                    name="link"
-                    value={formData.link}
+                    name="projectLink"
+                    value={formData.projectLink}
                     onChange={handleChange}
                     placeholder="https://"
                     className="w-full bg-white/10 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-white/20"
+                    required
                   />
                 </div>
                 <div>

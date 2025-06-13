@@ -5,14 +5,30 @@ const clientSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    logo: String,
-    industry: String,
+    logo: {
+        type: String,
+        required: true,
+        validate: {
+            validator: function(v) {
+                // Validate base64 image string
+                return /^data:image\/(png|jpg|jpeg);base64,/.test(v);
+            },
+            message: props => 'Invalid base64 image format. Must be PNG or JPEG/JPG'
+        }
+    },
+    industry: {
+        type: String,
+        required: true
+    },
     status: {
         type: String,
         default: 'active',
         enum: ['active', 'inactive']
     },
-    location: String,
+    location: {
+        type: String,
+        required: true
+    },
     projectCount: {
         type: Number,
         default: 0

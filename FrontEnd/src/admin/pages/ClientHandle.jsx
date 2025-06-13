@@ -3,6 +3,10 @@ import gsap from 'gsap';
 import axios from 'axios';
 import imageCompression from 'browser-image-compression';
 
+// Update API base URL
+axios.defaults.baseURL = 'https://agency-ikgd.vercel.app/api';
+// axios.defaults.baseURL = 'http://localhost:5000/api';
+
 const ClientHandle = () => {
   const [clients, setClients] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -21,12 +25,14 @@ const ClientHandle = () => {
   const modalRef = useRef(null);
   const containerRef = useRef(null);
 
+  // Updated fetchClients function
   const fetchClients = async () => {
     try {
-      const response = await axios.get('https://agency-ikgd.vercel.app/api/clients');
+      const response = await axios.get('/clients');
       setClients(response.data);
     } catch (error) {
       console.error('Error fetching clients:', error);
+      alert('Failed to fetch clients');
     }
   };
 
@@ -51,6 +57,65 @@ const ClientHandle = () => {
     return () => ctx.revert();
   }, []);
 
+  // Updated handleSubmit function
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Validate required fields as per schema
+      if (!formData.name || !selectedImage || !formData.industry || !formData.location) {
+        alert('Please fill in all required fields');
+        return;
+      }
+
+      const clientData = {
+        ...formData,
+        logo: selectedImage // Using base64 image
+      };
+
+      if (editMode) {
+        const response = await axios.put(`/clients/${formData.id}`, clientData);
+        setClients(prev => prev.map(client => 
+          client.id === formData.id ? response.data : client
+        ));
+      } else {
+        const response = await axios.post('/clients', clientData);
+        setClients(prev => [...prev, response.data]);
+      }
+
+      resetForm();
+      setIsModalOpen(false);
+      alert(editMode ? 'Client updated successfully' : 'Client added successfully');
+    } catch (error) {
+      console.error("Error saving client:", error);
+      alert(error.response?.data?.error || 'Failed to save client');
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // Updated handleDelete function
+  const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this client?')) {
+      return;
+    }
+
+    try {
+      await axios.delete(`/clients/${id}`);
+      setClients(prev => prev.filter(client => client.id !== id));
+      alert('Client deleted successfully');
+    } catch (error) {
+      console.error("Error deleting client:", error);
+      alert(error.response?.data?.error || 'Failed to delete client');
+    }
+  };
+
+  // Updated handleImageChange function to validate image format
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -65,6 +130,11 @@ const ClientHandle = () => {
         const reader = new FileReader();
         reader.onloadend = () => {
           const base64String = reader.result;
+          // Validate image format according to schema
+          if (!/^data:image\/(png|jpg|jpeg);base64,/.test(base64String)) {
+            alert('Invalid image format. Please use PNG or JPEG/JPG');
+            return;
+          }
           setSelectedImage(base64String);
           setImagePreview(base64String);
         };
@@ -73,7 +143,7 @@ const ClientHandle = () => {
         };
         reader.readAsDataURL(compressedFile);
       } catch (error) {
-        console.error('Error compressing image:', error);
+        console.error('Error processing image:', error);
         alert('Error processing image. Please try a smaller file.');
       }
     }
@@ -103,56 +173,6 @@ const ClientHandle = () => {
     setSelectedImage(client.logo);
     setEditMode(true);
     setIsModalOpen(true);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const clientData = {
-        ...formData,
-        logo: selectedImage
-      };
-
-      let response;
-      if (editMode) {
-        response = await axios.put(`https://agency-ikgd.vercel.app/api/clients/${formData.id}`, clientData);
-        setClients(prev => prev.map(client => 
-          client._id === formData.id ? response.data : client
-        ));
-      } else {
-        response = await axios.post('https://agency-ikgd.vercel.app/api/clients', clientData);
-        setClients(prev => [...prev, response.data]);
-      }
-
-      resetForm();
-      setIsModalOpen(false);
-    } catch (error) {
-      console.error("Error saving client:", error);
-      alert('Failed to save client: ' + error.message);
-    }
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
-
-  const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this client?')) {
-      try {
-        const response = await fetch(`/api/clients/${id}`, {
-          method: 'DELETE'
-        });
-        if (response.ok) {
-          fetchClients();
-        }
-      } catch (error) {
-        console.error('Error deleting client:', error);
-      }
-    }
   };
 
   return (

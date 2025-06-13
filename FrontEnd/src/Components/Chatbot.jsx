@@ -2,6 +2,16 @@ import React, { useState, useEffect, useRef } from 'react';
 import { X, MessageCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const TypingIndicator = () => (
+  <div className="flex items-center space-x-2 p-4 rounded-2xl bg-white/10 rounded-bl-sm max-w-[80%]">
+    <div className="flex space-x-1">
+      <div className="w-2 h-2 bg-white/50 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+      <div className="w-2 h-2 bg-white/50 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+      <div className="w-2 h-2 bg-white/50 rounded-full animate-bounce"></div>
+    </div>
+  </div>
+);
+
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
@@ -18,10 +28,14 @@ const Chatbot = () => {
     if (!input.trim()) return;
 
     const userMessage = { from: 'user', text: input };
-    setMessages((prev) => [...prev, userMessage]);
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
     setIsLoading(true);
 
     try {
+      // Add typing indicator immediately
+      setMessages(prev => [...prev, { from: 'bot', isTyping: true }]);
+
       const reply = await fetch('http://localhost:5000/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -31,17 +45,18 @@ const Chatbot = () => {
       if (!reply.ok) throw new Error('Network response was not ok');
       
       const data = await reply.json();
-      const botMessage = { from: 'bot', text: data.reply };
-      setMessages((prev) => [...prev, botMessage]);
+      // Remove typing indicator and add actual response
+      setMessages(prev => prev.filter(msg => !msg.isTyping));
+      setMessages(prev => [...prev, { from: 'bot', text: data.reply }]);
     } catch (error) {
       console.error('Chat error:', error);
-      setMessages((prev) => [...prev, { 
+      setMessages(prev => prev.filter(msg => !msg.isTyping));
+      setMessages(prev => [...prev, { 
         from: 'bot', 
         text: 'Sorry, I encountered an error. Please try again.' 
       }]);
     } finally {
       setIsLoading(false);
-      setInput('');
     }
   };
 
@@ -128,17 +143,21 @@ const Chatbot = () => {
                   key={index}
                   className={`flex ${msg.from === 'bot' ? 'justify-start' : 'justify-end'}`}
                 >
-                  <div
-                    className={`p-4 rounded-2xl max-w-[80%] ${
-                      msg.from === 'bot' 
-                        ? 'bg-white/10 rounded-bl-sm' 
-                        : 'bg-purple-500/30 rounded-br-sm'
-                    }`}
-                  >
-                    <p className="text-[15px] leading-relaxed whitespace-pre-line">
-                      {formatMessage(msg.text)}
-                    </p>
-                  </div>
+                  {msg.isTyping ? (
+                    <TypingIndicator />
+                  ) : (
+                    <div
+                      className={`p-4 rounded-2xl max-w-[80%] ${
+                        msg.from === 'bot' 
+                          ? 'bg-white/10 rounded-bl-sm' 
+                          : 'bg-purple-500/30 rounded-br-sm'
+                      }`}
+                    >
+                      <p className="text-[15px] leading-relaxed whitespace-pre-line">
+                        {formatMessage(msg.text)}
+                      </p>
+                    </div>
+                  )}
                 </div>
               ))}
               <div ref={messagesEndRef} />
@@ -151,15 +170,17 @@ const Chatbot = () => {
                 onChange={(e) => setInput(e.target.value)}
                 type="text"
                 placeholder={isLoading ? "Thinking..." : "Type your message..."}
-                className="flex-1 p-3 rounded-xl bg-white/10 text-white placeholder-white/50 outline-none focus:bg-white/15 transition-colors"
+                className="flex-1 p-3 rounded-xl bg-white/10 text-white placeholder-white/50 outline-none focus:bg-white/15 transition-colors disabled:opacity-50"
                 disabled={isLoading}
               />
               <button
                 type="submit"
-                className="px-5 py-3 bg-purple-500/80 text-white rounded-xl hover:bg-purple-500/90 disabled:opacity-50 transition-colors font-medium"
                 disabled={isLoading}
+                className="px-5 py-3 bg-purple-500/80 text-white rounded-xl hover:bg-purple-500/90 disabled:opacity-50 transition-all transform active:scale-95 flex items-center gap-2"
               >
-                Send
+                {isLoading ? (
+                  <span className="inline-block w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></span>
+                ) : 'Send'}
               </button>
             </form>
           </motion.div>

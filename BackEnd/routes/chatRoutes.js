@@ -28,6 +28,7 @@ Format your responses using these rules:
 2. Use line breaks to separate paragraphs
 3. Keep paragraphs short and focused
 4. Use bullet points for lists
+5. Try to be short, concise, and informative
 
 Key points about our agency:
 - ${agencyContext.expertise}
