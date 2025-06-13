@@ -1,146 +1,120 @@
-import React, { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { projectService } from '../services/projectService';
+import React, { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Projects = () => {
+const projects = [
+  {
+    title: "Autonomous Delivery Bot",
+    description: "Smart delivery robot with computer vision.",
+    image: "https://unsplash.it/400/300?random=1",
+  },
+  {
+    title: "AI Chat Assistant",
+    description: "Custom GPT-based assistant with scraping logic.",
+    image: "https://unsplash.it/400/300?random=2",
+  },
+  {
+    title: "Web Dev Agency Site",
+    description: "Next.js full-stack site for a digital agency.",
+    image: "https://unsplash.it/400/300?random=3",
+  },
+  {
+    title: "Robotic Arm Control",
+    description: "IK + joystick controller for robotic arms.",
+    image: "https://unsplash.it/400/300?random=4",
+  },
+];
+
+const ProjectStackGSAP = () => {
   const containerRef = useRef(null);
-  const [projects, setProjects] = useState([]);  // Initialize as empty array
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const data = await projectService.getAll();
-        setProjects(data);
-      } catch (err) {
-        setError(err.message);
-        console.error('Error fetching projects:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
-  }, []);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Animate cards on scroll
-      gsap.utils.toArray('.project-card').forEach((card, i) => {
-        gsap.from(card, {
-          y: 100,
-          opacity: 0,
-          duration: 1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: card,
-            start: "top bottom-=100",
-            end: "top center",
-            toggleActions: "play none none reverse"
-          }
-        });
+      const timeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: "+=" + projects.length * 300, // more scroll distance
+          scrub: true,
+          pin: true,
+        },
       });
 
-      // Animate heading
-      gsap.from('.section-title', {
-        y: 50,
-        opacity: 0,
-        duration: 1,
-        scrollTrigger: {
-          trigger: '.section-title',
-          start: 'top bottom',
-          end: 'top center',
-          toggleActions: 'play none none reverse'
-        }
+      projects.forEach((_, i) => {
+        timeline.fromTo(
+          `.card-${i}`,
+          {
+            opacity: 0,
+            y: 500,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 4,
+          },
+          "+=4"
+        );
+        timeline.to({}, { duration: 5 });
       });
-    });
+    }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-white text-2xl">Loading projects...</div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center ">
-        <div className="text-red-500 text-2xl">Error: {error}</div>
-      </div>
-    );
-  }
-
   return (
-    <section ref={containerRef} className="relative min-h-screen py-32 px-4 md:px-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-20">
-          <h2 className="section-title text-4xl md:text-6xl lg:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/50">
-            Our Projects
-          </h2>
-        </div>
+    <section
+      ref={containerRef}
+      className="relative min-h-[100vh]  text-white flex items-center justify-center overflow-hidden"
+    >
+      <div className="relative w-full max-w-7xl h-full px-6 py-20 flex flex-col items-center justify-center gap-8">
+        <h1 className="text-6xl md:text-9xl font-bold mb-20 z-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+          Featured Projects
+        </h1>
 
-        {/* Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              className="project-card group relative overflow-hidden rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-500"
-            >
-              {/* Card Content */}
-              <div className="relative aspect-[4/3] overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/80" />
-                
-                {/* Overlay Content */}
-                <div className="absolute inset-0 p-6 flex flex-col justify-end translate-y-8 group-hover:translate-y-0 transition-transform duration-500">
-                  <div className="transform opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-                    <span className="inline-block px-3 py-1 text-xs font-medium bg-white/10 rounded-full text-white/70 backdrop-blur-sm mb-3">
-                      {project.category}
-                    </span>
-                    <h3 className="text-xl md:text-2xl font-bold text-white mb-2">
-                      {project.title}
-                    </h3>
-                    <p className="text-white/70 text-sm mb-4 line-clamp-2">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tags.map((tag, i) => (
-                        <span
-                          key={i}
-                          className="px-2 py-1 text-xs rounded-full bg-white/5 text-white/70 backdrop-blur-sm"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
+        {projects.map((project, index) => (
+          <div
+            key={index}
+            className={`absolute w-full md:w-[85%] bg-zinc-900/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 card-${index} shadow-2xl flex flex-col md:flex-row gap-8 hover:border-white/20 transition-all duration-300`}
+            style={{ zIndex: 100 + index }}
+          >
+            <div className="w-full md:w-1/2">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-[300px] md:h-[400px] object-cover rounded-lg"
+              />
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Background Effects */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/25 to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.02),transparent_50%)]" />
+            <div className="flex flex-col justify-center space-y-6 w-full md:w-1/2">
+              <h3 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                {project.title}
+              </h3>
+              <p className="text-zinc-300 text-lg leading-relaxed">
+                {project.description}
+              </p>
+              <button className="group flex items-center gap-2 text-white/80 hover:text-white w-fit">
+                <span className="text-lg">View Project</span>
+                <svg
+                  className="w-5 h-5 transform group-hover:translate-x-1 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
 };
 
-export default Projects;
+export default ProjectStackGSAP;

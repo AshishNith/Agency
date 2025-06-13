@@ -4,7 +4,7 @@ import Layout from './Layout/Layout';
 import AdminLayout from './admin/Layout';
 import Hero from './Sections/Hero';
 import Services from './Sections/Services';
-import Projects from './Sections/Projects';
+// import Projects from './Sections/NotProjects';
 import Auth from './pages/Auth';
 import AdminDashboard from './admin/Admin';
 import Clients from './Sections/Clients';
@@ -21,6 +21,8 @@ import Preloader from './Components/Preloader';
 import Chatbot from './Components/Chatbot';
 import Servises from './pages/Servises';
 import Blog from './pages/Blog';
+import ParallaxScroller from './Components/ParallaxScroller';
+import Projects from './Sections/Projects';
 // import Work from './pages/Works';
 // import Scroller_ from './Components/Scroller_';
 
@@ -61,8 +63,8 @@ const App = () => {
                 // Wrap components in a React.Fragment or div to ensure proper mounting
                 <React.Fragment>
                   <Hero />
-                  <Services />  
-                  {/* <Projects /> */}
+                  <Projects />
+                  <Services />    
                   <Clients />
                   <Process />
                   {/* <Chatbot /> */}
@@ -72,6 +74,10 @@ const App = () => {
             <Route 
               path="/services" 
               element={<Servises onLoad={handleRouteChange} />} 
+            />
+            <Route 
+              path="/parallax" 
+              element={<ParallaxScroller />} 
             />
             <Route 
               path="/about" 
