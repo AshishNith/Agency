@@ -2,20 +2,33 @@ const Project = require("../models/project.model")
 
 exports.getProjects = async (req, res)  => {
     try {
-        const projects = await Project.find();
-        res.json(projects);
+        const projects = await Project.find().lean().sort({ createdAt: -1 });
+        const transformedProjects = projects.map(project => ({
+            ...project,
+            id: project._id
+        }));
+        res.json(transformedProjects);
     }
     catch (err) {
+        console.error("Error fetching projects:", err);
         res.status(500).json({"error": err.message});
     }
 }
 
 exports.createProject = async (req, res) => {
   try {
+    console.log("Received project data:", req.body);
     const projectData = req.body;
+    
+    // Validate required fields
+    if (!projectData.title || !projectData.description || !projectData.category || !projectData.image) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
     const newProject = new Project(projectData);
-    await newProject.save();
-    res.status(201).json(newProject);
+    const savedProject = await newProject.save();
+    console.log("Project created successfully:", savedProject);
+    res.status(201).json(savedProject);
   } catch (err) {
     console.error('Error creating project:', err);
     res.status(400).json({ error: err.message });
