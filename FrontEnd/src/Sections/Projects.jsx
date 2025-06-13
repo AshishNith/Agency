@@ -71,7 +71,7 @@ useEffect(() => {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[100vh]  text-white flex items-center justify-center overflow-hidden"
+      className="relative min-h-[100vh] bg-black text-white flex items-center justify-center overflow-hidden"
     >
       <div className="relative w-full max-w-7xl h-full px-6 py-20 flex flex-col items-center justify-center gap-8">
         <h1 className="text-6xl md:text-9xl font-bold mb-20 z-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">

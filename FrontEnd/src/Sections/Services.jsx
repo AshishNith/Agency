@@ -223,7 +223,7 @@ const Services = () => {
   }, []);
 
   return (
-    <section ref={sectionRef}  className="relative min-h-screen py-32 bg-black overflow-hidden">
+    <section ref={sectionRef}  className="relative min-h-screen py-32 overflow-hidden">
       {/* Animated background */}
       <div className="parallax-bg absolute inset-0">
         <div id="services" className="absolute inset-0 bg-gradient-to-b from-black to-[#1a1a1a] opacity-90"></div>
