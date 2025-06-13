@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const Projects = () => {
   const containerRef = useRef(null);
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState([]);  // Initialize as empty array
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 

@@ -1,4 +1,4 @@
-import { useEffect, useState, createContext, useContext } from 'react';
+import React, { useEffect, useState, createContext, useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Layout from './Layout/Layout';
 import AdminLayout from './admin/Layout';
@@ -47,6 +47,7 @@ const App = () => {
     return <Preloader />;
   }
 
+  // Add sectionRefs prop to Hero and other components
   return (
     <LoadingContext.Provider value={{ pageLoading, setPageLoading, handleRouteChange }}>
       <div className="relative overflow-x-hidden">
@@ -57,14 +58,15 @@ const App = () => {
             <Route
               path="/"
               element={
-                <div onLoad={handleRouteChange}>
+                // Wrap components in a React.Fragment or div to ensure proper mounting
+                <React.Fragment>
                   <Hero />
                   <Services />  
                   <Projects />
                   <Clients />
                   <Process />
-                  <Chatbot />
-                </div>
+                  {/* <Chatbot /> */}
+                </React.Fragment>
               }
             />
             <Route 
