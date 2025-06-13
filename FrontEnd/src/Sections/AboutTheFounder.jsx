@@ -52,33 +52,23 @@ const AboutTheFounder = () => {
         transformOrigin: "center center"
       });
 
-      // Animate cards when scrolled into view
-      gsap.to('.founder-card:first-child', {
-        rotationY: 0,
-        x: 0,
-        opacity: 1,
-        duration: 1.5,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top center+=100',
-          end: 'bottom bottom',
-          toggleActions: 'play none none reverse'
-        }
-      });
-
-      gsap.to('.founder-card:last-child', {
-        rotationY: 0,
-        x: 0,
-        opacity: 1,
-        duration: 1.5,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top center+=100',
-          end: 'bottom bottom',
-          toggleActions: 'play none none reverse'
-        }
+      // Updated animations with repeat
+      ['.founder-card:first-child', '.founder-card:last-child'].forEach(selector => {
+        gsap.to(selector, {
+          rotationY: 0,
+          x: 0,
+          opacity: 1,
+          delay: 0.3,
+          duration: 1.5,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top center+=100',
+            end: 'bottom center-=100',
+            toggleActions: 'restart reverse restart reverse', // This makes it trigger every time
+            scrub: false, // Remove scrub for instant animations
+          }
+        });
       });
     }, sectionRef);
 
@@ -88,9 +78,9 @@ const AboutTheFounder = () => {
   return (
     <section
       ref={sectionRef}
-      className="min-h-screen bg-black text-white py-24 px-6 relative overflow-hidden"
+      className="min-h-screen  text-white py-24 px-6 relative overflow-hidden"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-zinc-900/30 to-black pointer-events-none" />
+      {/* <div className="absolute inset-0 bg-gradient-to-b from-black via-zinc-900/30 to-black pointer-events-none" /> */}
 
       <div className="max-w-7xl mx-auto relative z-10">
         <h2 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
@@ -146,3 +136,4 @@ const AboutTheFounder = () => {
 };
 
 export default AboutTheFounder;
+

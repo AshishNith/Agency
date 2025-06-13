@@ -25,6 +25,7 @@ import ParallaxScroller from './Components/ParallaxScroller';
 import Projects from './Sections/Projects';
 import AboutTheFounder from './Sections/AboutTheFounder';
 import ContactForm from './UI/ContactForm';
+import LeadMagnet from './Sections/Leadmagnet';
 // import Work from './pages/Works';
 // import Scroller_ from './Components/Scroller_';
 
@@ -67,6 +68,7 @@ const App = () => {
                   <Hero />
                   {/* <ContactForm /> */}
                   <AboutTheFounder />
+                  {/* <LeadMagnet /> */}
                   <Projects />
                   <Services />    
                   <Clients />
