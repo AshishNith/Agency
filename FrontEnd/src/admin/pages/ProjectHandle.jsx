@@ -6,7 +6,7 @@ import imageCompression from 'browser-image-compression';
 
 // Update API base URL
 // axios.defaults.baseURL = 'http://localhost:5000/api';
-axios.defaults.baseURL = 'https://agency-ikgd.vercel.app/api';
+axios.defaults.baseURL = 'https://agency-ikgd.vercel.app/api/';
 
 const ProjectHandle = () => {
   const [projects, setProjects] = useState([]);
