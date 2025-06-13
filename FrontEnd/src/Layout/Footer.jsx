@@ -20,7 +20,7 @@ const Footer = () => {
           <div className="flex justify-around items-center gap-12">
             {/* Brand & Social */}
             <div className="footer-section flex flex-col items-center">
-              <h3 className="text-3xl font-bold mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">AGENCY.</h3>
+              <h3 className="text-3xl font-bold mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">GoRan</h3>
               <div className="flex space-x-6">
                 <a href="https://twitter.com/agency" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-all text-xl">
                   <i className="ri-twitter-fill"></i>
@@ -39,11 +39,15 @@ const Footer = () => {
               <ul className="space-y-4 text-gray-400">
                 <li className="flex items-center group cursor-pointer">
                   <i className="ri-mail-line mr-3 group-hover:text-white transition-colors"></i>
-                  <span className="group-hover:text-white transition-colors">atharv@mail_banao.com</span>
+                  <span className="group-hover:text-white transition-colors">goran.dotin@gmail.com</span>
                 </li>
                 <li className="flex items-center group cursor-pointer">
                   <i className="ri-phone-line mr-3 group-hover:text-white transition-colors"></i>
                   <span className="group-hover:text-white transition-colors">+91 9934225353</span>
+                </li>
+                <li className="flex items-center group cursor-pointer">
+                  <i className="ri-phone-line mr-3 group-hover:text-white transition-colors"></i>
+                  <span className="group-hover:text-white transition-colors">+91 8329310930</span>
                 </li>
               </ul>
             </div>
@@ -51,7 +55,7 @@ const Footer = () => {
 
           <div className="mt-16 pt-8 border-t border-gray-800">
             <p className="text-gray-500 text-sm text-center">
-              © {new Date().getFullYear()} AGENCY. All rights reserved.
+              © {new Date().getFullYear()} GoRan. All rights reserved.
             </p>
           </div>
         </div>

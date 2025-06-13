@@ -5,7 +5,7 @@ require('dotenv').config();
 
 // Context for the chatbot about the agency
 const agencyContext = {
-  name: "GoRan Digital Agency",
+  name: "GoRan ",
   services: [
     "Web Development",
     "UI/UX Design",
@@ -28,7 +28,6 @@ Format your responses using these rules:
 2. Use line breaks to separate paragraphs
 3. Keep paragraphs short and focused
 4. Use bullet points for lists
-5. Try to be short, concise, and informative
 
 Key points about our agency:
 - ${agencyContext.expertise}
@@ -45,7 +44,9 @@ Response Guidelines:
 2. Structure responses with clear paragraphs
 3. Highlight key terms in **bold**
 4. Use bullet points for listing services or features
-5. Keep responses concise but informative`;
+5. Keep responses concise but informative
+6. Try to be short, concise, and informative
+7. Give to the point answers, avoid unnecessary details`
 
 // Remove or update the test GET route
 router.get('/', (req, res) => {
