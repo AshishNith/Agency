@@ -30,38 +30,43 @@ const projects = [
 const ProjectStackGSAP = () => {
   const containerRef = useRef(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const timeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "+=" + projects.length * 300, // more scroll distance
-          scrub: true,
-          pin: true,
+useEffect(() => {
+  const ctx = gsap.context(() => {
+    const timeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: "top top",
+        end: "+=" + (projects.length * 300 + 500), // extra 500 for the hold
+        scrub: true,
+        pin: true,
+      },
+    });
+
+    projects.forEach((_, i) => {
+      timeline.fromTo(
+        `.card-${i}`,
+        {
+          opacity: 0,
+          y: 500,
         },
-      });
+        {
+          opacity: 1,
+          y: 0,
+          duration: 4,
+          ease: "power2.out",
+        },
+        "+=4"
+      );
+    });
 
-      projects.forEach((_, i) => {
-        timeline.fromTo(
-          `.card-${i}`,
-          {
-            opacity: 0,
-            y: 500,
-          },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 4,
-          },
-          "+=4"
-        );
-        timeline.to({}, { duration: 5 });
-      });
-    }, containerRef);
+    // ⏸️ Hold at the end
+    timeline.to({}, { duration: 3 });
 
-    return () => ctx.revert();
-  }, []);
+  }, containerRef);
+
+  return () => ctx.revert();
+}, []);
+
 
   return (
     <section
