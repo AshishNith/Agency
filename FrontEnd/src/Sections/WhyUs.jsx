@@ -94,6 +94,8 @@ const WhyUs = () => {
     }
   ];
 
+  // Update card className with responsive styles
+  const cardClassName = (index) => `reason-card-${index} flex-shrink-0 w-[280px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-[300px] sm:h-[350px] md:h-[400px] perspective-1000`;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -107,14 +109,14 @@ const WhyUs = () => {
         duration: 1
       });
 
-      // Horizontal scroll animation
+      // Update horizontal scroll animation with responsive values
       gsap.to('.reasons-container', {
         xPercent: -100,
-        x: window.innerWidth,
+        x: () => window.innerWidth,
         scrollTrigger: {
           trigger: '.reasons-wrapper',
           start: 'top top',
-          end: '+=3000',
+          end: () => `+=${window.innerWidth * 2.5}`, // Responsive scroll length
           pin: true,
           scrub: 1,
         }
@@ -143,37 +145,36 @@ const WhyUs = () => {
 
   return (
     <section ref={sectionRef} className="relative min-h-screen overflow-hidden">
-      {/* Subtle Grid Background */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
+      {/* Subtle grid background */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
 
       <div className="reasons-wrapper relative h-screen">
-        <h2 className="whyus-title absolute top-10 left-1/2 -translate-x-1/2 text-5xl md:text-7xl font-bold text-white text-center z-10">
+        <h2 className="whyus-title absolute top-4 sm:top-10 left-1/2 -translate-x-1/2 text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white text-center z-10 px-4">
           Why Choose Us
         </h2>
 
-        <div
-          ref={containerRef}
-          className="reasons-container absolute top-1/2 -translate-y-1/2 flex gap-8 px-[50vw]"
-        >
+        <div ref={containerRef} className="reasons-container backdrop-blur-[2px] absolute top-1/2 -translate-y-1/2 flex gap-4 sm:gap-6 md:gap-8 px-[20vw] sm:px-[30vw] md:px-[50vw]">
           {reasons.map((reason, index) => (
             <div
               key={index}
-              className={`reason-card-${index} flex-shrink-0 w-[600px] h-[400px] perspective-1000`}
+              className={cardClassName(index)}
             >
-              <div className="relative h-full group transform-style-3d transition-transform duration-500 hover:rotate-y-6 hover:scale-[1.02]">
-                {/* Card Inner */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 rounded-2xl border border-white/10 group-hover:border-white/30 transition-all duration-500 shadow-none group-hover:shadow-[0_0_40px_rgba(255,255,255,0.15)] p-8 backface-hidden overflow-hidden">
-                  <div className="text-6xl mb-6">{reason.icon}</div>
-                  <h3 className="text-3xl font-bold text-white mb-4">{reason.title}</h3>
-                  <p className="text-gray-400 text-lg mb-6">{reason.description}</p>
-                  <div className="absolute bottom-8 right-8">
-                    <span className="text-xl font-bold text-white bg-white/10 px-4 py-2 rounded-full">
+              <div className="relative h-full group transform-style-3d transition-transform duration-500 hover:rotate-y-12">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 rounded-lg sm:rounded-xl md:rounded-2xl border border-white/10 p-4 sm:p-6 md:p-8 backface-hidden overflow-hidden">
+                  {/* Overlay on Hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl z-10 pointer-events-none" />
+
+                  {/* Shine swipe effect */}
+                  <div className="absolute top-0 left-[-75%] w-[150%] h-full bg-gradient-to-r from-transparent via-white/20 to-transparent transform rotate-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none animate-shine rounded-2xl" />
+
+                  <div className="text-3xl sm:text-4xl md:text-6xl mb-3 sm:mb-4 md:mb-6 relative z-20">{reason.icon}</div>
+                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3 md:mb-4 relative z-20">{reason.title}</h3>
+                  <p className="text-sm sm:text-base md:text-lg text-gray-400 mb-4 sm:mb-5 md:mb-6 relative z-20">{reason.description}</p>
+                  <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 right-4 sm:right-6 md:right-8 z-20">
+                    <span className="text-sm sm:text-base md:text-xl font-bold text-white bg-white/10 px-2 sm:px-3 md:px-4 py-1 sm:py-2 rounded-full">
                       {reason.stat}
                     </span>
                   </div>
-
-                  {/* Shine Effect */}
-                  <div className="absolute top-0 left-[-75%] w-[150%] h-full bg-gradient-to-r from-transparent via-white/30 to-transparent transform rotate-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none animate-shine" />
                 </div>
               </div>
             </div>
@@ -181,15 +182,19 @@ const WhyUs = () => {
         </div>
       </div>
 
-      {/* Keyframes for shine animation */}
+      {/* Shine Animation Keyframe */}
       <style>
         {`
           @keyframes shine {
-            0% { transform: translateX(-100%) rotate(12deg); }
-            100% { transform: translateX(100%) rotate(12deg); }
+            0% {
+              transform: translateX(-100%) rotate(12deg);
+            }
+            100% {
+              transform: translateX(100%) rotate(12deg);
+            }
           }
           .animate-shine {
-            animation: shine 1.8s ease-in-out forwards;
+            animation: shine 2s ease-in-out infinite;
           }
         `}
       </style>

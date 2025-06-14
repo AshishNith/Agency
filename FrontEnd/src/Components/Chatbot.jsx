@@ -104,15 +104,15 @@ const Chatbot = () => {
 
   return (
     <>
-      {/* Floating Chat Button */}
+      {/* Floating Chat Button - Adjusted for mobile */}
       <button
         onClick={handleToggle}
-        className="fixed bottom-8 right-8 z-50 p-5 bg-white/10 backdrop-blur-md rounded-full border border-white/10 shadow-lg hover:bg-white/20 transition-all"
+        className="fixed bottom-4 sm:bottom-8 right-4 sm:right-8 z-50 p-3 sm:p-5 bg-white/10 backdrop-blur-md rounded-full border border-white/10 shadow-lg hover:bg-white/20 transition-all"
       >
-        <MessageCircle className="text-white w-6 h-6" />
+        <MessageCircle className="text-white w-5 h-5 sm:w-6 sm:h-6" />
       </button>
 
-      {/* Chatbot Panel with Animation */}
+      {/* Chatbot Panel - Made responsive */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -120,24 +120,24 @@ const Chatbot = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.3 }}
-            className="fixed bottom-24 right-8 w-[420px] h-[600px] bg-black/40 backdrop-blur-xl border border-white/10 rounded-3xl shadow-2xl z-50 overflow-hidden flex flex-col"
+            className="fixed bottom-0 right-0 sm:bottom-24 sm:right-8 w-full sm:w-[420px] h-[80vh] sm:h-[600px] bg-black/40 backdrop-blur-xl border-t sm:border border-white/10 sm:rounded-3xl shadow-2xl z-50 overflow-hidden flex flex-col"
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-white/5">
+            <div className="flex items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10 bg-white/5">
               <div>
-                <h2 className="text-white font-semibold text-xl">GoRan Bot</h2>
-                <p className="text-white/60 text-sm">AI Assistant</p>
+                <h2 className="text-white font-semibold text-lg sm:text-xl">GoRan Bot</h2>
+                <p className="text-white/60 text-xs sm:text-sm">AI Assistant</p>
               </div>
               <button 
                 onClick={handleToggle}
-                className="p-2 hover:bg-white/10 rounded-full transition-colors"
+                className="p-1.5 sm:p-2 hover:bg-white/10 rounded-full transition-colors"
               >
-                <X className="text-white/80 w-5 h-5" />
+                <X className="text-white/80 w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
 
-            {/* Messages with hidden scrollbar */}
-            <div className="flex-1 p-6 overflow-y-auto text-white space-y-4 scrollbar-hide">
+            {/* Messages Container */}
+            <div className="flex-1 p-4 sm:p-6 overflow-y-auto text-white space-y-3 sm:space-y-4 scrollbar-hide">
               {messages.map((msg, index) => (
                 <div
                   key={index}
@@ -147,13 +147,13 @@ const Chatbot = () => {
                     <TypingIndicator />
                   ) : (
                     <div
-                      className={`p-4 rounded-2xl max-w-[80%] ${
+                      className={`p-3 sm:p-4 rounded-2xl max-w-[85%] sm:max-w-[80%] ${
                         msg.from === 'bot' 
                           ? 'bg-white/10 rounded-bl-sm' 
                           : 'bg-purple-500/30 rounded-br-sm'
                       }`}
                     >
-                      <p className="text-[15px] leading-relaxed whitespace-pre-line">
+                      <p className="text-sm sm:text-[15px] leading-relaxed whitespace-pre-line">
                         {formatMessage(msg.text)}
                       </p>
                     </div>
@@ -163,23 +163,23 @@ const Chatbot = () => {
               <div ref={messagesEndRef} />
             </div>
 
-            {/* Input - Updated without speech button */}
-            <form onSubmit={handleSubmit} className="flex items-center gap-3 p-4 border-t border-white/10 bg-white/5">
+            {/* Input Form */}
+            <form onSubmit={handleSubmit} className="flex items-center gap-2 sm:gap-3 p-3 sm:p-4 border-t border-white/10 bg-white/5">
               <input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 type="text"
                 placeholder={isLoading ? "Thinking..." : "Type your message..."}
-                className="flex-1 p-3 rounded-xl bg-white/10 text-white placeholder-white/50 outline-none focus:bg-white/15 transition-colors disabled:opacity-50"
+                className="flex-1 p-2.5 sm:p-3 text-sm rounded-xl bg-white/10 text-white placeholder-white/50 outline-none focus:bg-white/15 transition-colors disabled:opacity-50"
                 disabled={isLoading}
               />
               <button
                 type="submit"
                 disabled={isLoading}
-                className="px-5 py-3 bg-purple-500/80 text-white rounded-xl hover:bg-purple-500/90 disabled:opacity-50 transition-all transform active:scale-95 flex items-center gap-2"
+                className="px-4 sm:px-5 py-2.5 sm:py-3 bg-purple-500/80 text-white text-sm rounded-xl hover:bg-purple-500/90 disabled:opacity-50 transition-all transform active:scale-95 flex items-center gap-2"
               >
                 {isLoading ? (
-                  <span className="inline-block w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></span>
+                  <span className="inline-block w-3 h-3 sm:w-4 sm:h-4 border-2 border-white/20 border-t-white rounded-full animate-spin"></span>
                 ) : 'Send'}
               </button>
             </form>

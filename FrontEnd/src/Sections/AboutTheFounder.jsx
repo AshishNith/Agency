@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 const founders = [
     {
     name: "Ashish Ranjan",
-    role: "Cofounder and CEO",
+    role: "Founder and CEO",
     image: "https://media.licdn.com/dms/image/v2/D5603AQF-pv9gNqRAHA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1727822390724?e=1754524800&v=beta&t=7GH9gr6mDHWE5o-GkRF7okemDuBcxfM6JCGijSVEHlw",
     bio: "Creative developer focused on crafting beautiful user experiences. Expert in animation and interactive web design.",
     socialLinks: {

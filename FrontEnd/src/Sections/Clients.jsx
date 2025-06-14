@@ -155,20 +155,19 @@ const Clients = () => {
 
   return (
     <section className="relative">
-      {/* Main Container */}
       <div className="horizontal-container relative min-h-screen bg-gradient-to-b from-black via-black/90 to-black overflow-hidden perspective-1000">
         <div
           ref={containerRef}
-          className="horizontal-section relative flex items-start gap-32 p-24"
+          className="horizontal-section relative flex items-start gap-8 sm:gap-16 md:gap-32 p-4 sm:p-12 md:p-24"
         >
           {/* Hero Title Section */}
-          <div className="flex-shrink-0 w-[100vw] h-[100vh] -translate-y-20 flex items-center justify-center">
-            <div className="relative z-10 text-center">
-              <span className="block text-sm md:text-lg text-[#EAE4D4] tracking-[0.3em] mb-4 uppercase">
+          <div className="flex-shrink-0 w-[100vw] h-[100vh] -translate-y-10 sm:-translate-y-20 flex items-center justify-center">
+            <div className="relative z-10 text-center px-4">
+              <span className="block text-xs sm:text-sm md:text-lg text-[#EAE4D4] tracking-[0.2em] sm:tracking-[0.3em] mb-2 sm:mb-4 uppercase">
                 Trusted by Industry Leaders
               </span>
               <h2 className="relative clients-title inline-block">
-                <span className="block text-7xl md:text-9xl font-bold bg-gradient-to-r from-white via-white/90 to-white/50 text-transparent bg-clip-text">
+                <span className="block text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-bold bg-gradient-to-r from-white via-white/90 to-white/50 text-transparent bg-clip-text">
                   Our Partners
                 </span>
                 <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-radial from-purple-500/20 via-transparent to-transparent blur-3xl" />
@@ -178,42 +177,40 @@ const Clients = () => {
 
           {/* Clients Grid Section */}
           <div className="flex-shrink-0 w-screen h-screen flex items-center">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto px-6">
-  {clients.map((client) => (
-    <div
-      key={client.id}
-      className="group relative"
-    >
-      <div className="relative -translate-y-10 h-full bg-white/[0.04] backdrop-blur-sm rounded-2xl p-8 flex flex-col items-center justify-center border border-white/10 group-hover:border-white/30 shadow-none group-hover:shadow-[0_4px_30px_rgba(255,255,255,0.1)] transform transition-all duration-500 group-hover:scale-105">
-        <img
-          src={client.logo}
-          alt={client.name}
-          className="w-20 h-20 object-contain filter grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
-        />
-        <div className="mt-4 text-center">
-          <h3 className="text-white font-semibold text-lg mb-1 transition duration-300 group-hover:text-[#EAE4D4]">
-            {client.name}
-          </h3>
-          <span className="inline-block mt-1 px-3 py-1 text-xs rounded-full bg-white/5 text-white/60 group-hover:bg-white/10 transition-all duration-300">
-            {client.industry}
-          </span>
-        </div>
-      </div>
-    </div>
-  ))}
-</div>
-
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-7xl mx-auto px-4 sm:px-6">
+              {clients.map((client) => (
+                <div key={client.id} className="group relative">
+                  <div className="relative -translate-y-6 sm:-translate-y-10 h-full bg-white/[0.04] backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center border border-white/10 group-hover:border-white/30 transition-all duration-500 group-hover:scale-105">
+                    <img
+                      src={client.logo}
+                      alt={client.name}
+                      className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain filter grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
+                    />
+                    <div className="mt-3 sm:mt-4 text-center">
+                      <h3 className="text-white font-semibold text-sm sm:text-base md:text-lg mb-1 transition duration-300 group-hover:text-[#EAE4D4]">
+                        {client.name}
+                      </h3>
+                      <span className="inline-block mt-1 px-2 sm:px-3 py-0.5 sm:py-1 text-xs rounded-full bg-white/5 text-white/60 group-hover:bg-white/10 transition-all duration-300">
+                        {client.industry}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
       {/* Vertical Sections */}
-      <div className="vertical-section ">
+      <div className="vertical-section">
         {/* Testimonials */}
-        <div className="vertical-content py-32">
-          <div className="max-w-7xl mx-auto px-4">
-            <h2 className="text-4xl md:text-6xl font-bold mb-16 text-[#F2F2F2]">What They Say</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="vertical-content py-16 sm:py-24 md:py-32">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-8 sm:mb-16 text-[#F2F2F2]">
+              What They Say
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
               {testimonials.map((testimonial, index) => (
                 <div
                   key={index}
@@ -239,9 +236,9 @@ const Clients = () => {
         </div>
 
         {/* Stats */}
-        <div className="vertical-content py-32">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div className="vertical-content py-16 sm:py-24 md:py-32">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
               {stats.map((stat, index) => (
                 <div key={index} className="group p-8 rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all text-center">
                   <div className="text-4xl font-bold mb-2 text-[#F2F2F2] group-hover:scale-110 transition-transform">{stat.number}</div>

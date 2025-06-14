@@ -55,8 +55,8 @@ const ProjectStackGSAP = () => {
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=" + (projects.length * 300 + 500), // extra 500 for the hold
-          scrub: true,
+          end: "+=" + (projects.length * 400 + 700), // increased scroll length
+          scrub: 1.5, // increased scrub value for smoother animation
           pin: true,
         },
       });
@@ -71,15 +71,15 @@ const ProjectStackGSAP = () => {
           {
             opacity: 1,
             y: 0,
-            duration: 4,
-            // ease: "power2.out",
+            duration: 6, // increased duration
+            ease: "power2.inOut", // added smooth easing
           },
-          "+=4"
+          "+=6" // increased spacing between animations
         );
       });
 
-      // ⏸️ Hold at the end
-      timeline.to({}, { duration: 3 });
+      // Hold at the end with longer duration
+      timeline.to({}, { duration: 4 });
     }, containerRef);
 
     return () => ctx.revert();
@@ -90,15 +90,15 @@ const ProjectStackGSAP = () => {
       ref={containerRef}
       className="relative min-h-[100svh]  text-white flex items-center justify-center overflow-hidden"
     >
-      <div className="relative w-full max-w-7xl h-full px-4 sm:px-6 py-12 sm:py-20 flex flex-col items-center justify-center gap-6 sm:gap-8">
-        <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-bold mb-12 sm:mb-20 z-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
+      <div className="relative w-full max-w-7xl h-full px-2 sm:px-6 py-8 sm:py-12 md:py-20 flex flex-col items-center justify-center gap-4 sm:gap-6 md:gap-8">
+        <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-bold mb-8 sm:mb-12 md:mb-20 z-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">
           Featured Projects
         </h1>
 
         {projects.map((project, index) => (
           <div
             key={index}
-            className={`absolute w-[92%] sm:w-[85%] bg-gradient-to-tl from-[#252420] via-[#34322a]/80 to-black/90 backdrop-blur-sm border border-white/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 card-${index} shadow-2xl flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 hover:border-white/20 transition-all duration-300`}
+            className={`absolute w-[95%] sm:w-[92%] md:w-[85%] bg-gradient-to-tl from-[#252420] via-[#34322a]/80 to-black/90 backdrop-blur-sm border border-white/10 rounded-lg sm:rounded-xl md:rounded-2xl p-3 sm:p-4 md:p-6 lg:p-8 card-${index} shadow-2xl flex flex-col md:flex-row gap-3 sm:gap-4 md:gap-6 lg:gap-8 hover:border-white/20 transition-all duration-300`}
             style={{ zIndex: 100 + index }}
             onClick={() => {
               if (project.link) {
@@ -110,21 +110,21 @@ const ProjectStackGSAP = () => {
               <img
                 src={project.image}
                 alt={project.title}
-                className="w-full h-[200px] sm:h-[300px] md:h-[400px] object-cover rounded-lg"
+                className="w-full h-[150px] sm:h-[200px] md:h-[300px] lg:h-[400px] object-cover rounded-lg"
                 loading="lazy"
               />
             </div>
-            <div className="flex flex-col justify-center space-y-4 sm:space-y-6 w-full md:w-1/2">
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+            <div className="flex flex-col justify-center space-y-2 sm:space-y-3 md:space-y-4 w-full md:w-1/2">
+              <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
                 {project.title}
               </h3>
-              <p className="text-base sm:text-lg text-zinc-300 leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg text-zinc-300 leading-relaxed">
                 {project.description}
               </p>
-              <button className="group flex items-center gap-2 text-white/80 hover:text-white w-fit text-sm sm:text-base md:text-lg">
+              <button className="group flex items-center gap-1 sm:gap-2 text-white/80 hover:text-white w-fit text-xs sm:text-sm md:text-base lg:text-lg">
                 <span>View Project</span>
                 <svg
-                  className="w-4 h-4 sm:w-5 sm:h-5 transform group-hover:translate-x-1 transition-transform"
+                  className="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5 transform group-hover:translate-x-1 transition-transform"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"

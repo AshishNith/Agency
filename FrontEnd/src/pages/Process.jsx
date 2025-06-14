@@ -171,20 +171,20 @@ const Process = () => {
   }, []);
 
   return (
-    <div ref={processRef} id="process" className="min-h-screen bg-black rounded-[20vh] relative py-20">
-      <div className="max-w-7xl mx-auto px-4">
+    <div ref={processRef} id="process" className="min-h-screen bg-black rounded-[10vh] sm:rounded-[20vh] relative py-12 sm:py-20 px-4 sm:px-6">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="process-header text-center mb-32">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-[#F2F2F2]">Our Process</h1>
-          <p className="text-[#EAE4D4] text-lg max-w-2xl mx-auto">
+        <div className="process-header text-center mb-16 sm:mb-32">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 text-[#F2F2F2]">Our Process</h1>
+          <p className="text-[#EAE4D4] text-base sm:text-lg max-w-2xl mx-auto px-4">
             A streamlined approach to delivering exceptional digital solutions
           </p>
         </div>
 
         {/* Process Grid */}
         <div className="process-grid relative">
-          {/* Timeline connector */}
-          <div className="process-line absolute left-[50%] top-0 w-px h-full transform -translate-x-1/2" 
+          {/* Timeline connector - Hide on mobile */}
+          <div className="process-line absolute left-4 sm:left-[50%] top-0 w-px h-full transform sm:-translate-x-1/2 hidden sm:block" 
             style={{
               backgroundImage: 'linear-gradient(180deg, transparent, rgba(242,242,242,0.1) 10%, rgba(242,242,242,0.1) 90%, transparent)',
             }}
@@ -193,37 +193,38 @@ const Process = () => {
           {processes.map((process, index) => (
             <div
               key={process.step}
-              className={`process-card flex items-center gap-8 mb-20 ${
-                index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'
+              className={`process-card flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 mb-12 sm:mb-20 ${
+                index % 2 === 0 ? 'sm:flex-row' : 'sm:flex-row-reverse'
               }`}
             >
-              <div className="w-1/2 p-8">
-                <div className="group relative p-8 rounded-2xl transition-all duration-500 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm border border-white/10">
-                  <div className="icon-float text-[#F2F2F2] bg-white/10 p-4 rounded-xl backdrop-blur-sm mb-4 inline-block animate-content">
+              <div className="w-full sm:w-1/2 p-4 sm:p-8">
+                <div className="group relative p-4 sm:p-8 rounded-xl sm:rounded-2xl transition-all duration-500 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm border border-white/10">
+                  <div className="icon-float text-[#F2F2F2] bg-white/10 p-3 sm:p-4 rounded-lg sm:rounded-xl backdrop-blur-sm mb-3 sm:mb-4 inline-block animate-content">
                     {process.icon}
                   </div>
-                  <span className="text-sm text-[#B6B19E] block mb-2 animate-content">Step {process.step}</span>
-                  <h3 className="text-2xl font-bold mb-4 text-[#F2F2F2] animate-content">{process.title}</h3>
-                  <p className="text-[#EAE4D4] animate-content">{process.description}</p>
+                  <span className="text-xs sm:text-sm text-[#B6B19E] block mb-2 animate-content">Step {process.step}</span>
+                  <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4 text-[#F2F2F2] animate-content">{process.title}</h3>
+                  <p className="text-sm sm:text-base text-[#EAE4D4] animate-content">{process.description}</p>
                 </div>
               </div>
               
-              <div className="timeline-node relative z-10">
-                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/20 backdrop-blur-sm" />
+              {/* Timeline node - Adjust position for mobile */}
+              <div className="timeline-node relative z-10 hidden sm:block">
+                <div className="w-4 sm:w-6 h-4 sm:h-6 rounded-full bg-gradient-to-br from-white/20 to-white/5 border border-white/20 backdrop-blur-sm" />
                 <div className="absolute -inset-2 rounded-full bg-white/5 scale-0 group-hover:scale-100 transition-transform" />
               </div>
               
-              <div className="w-1/2" />
+              <div className="w-full sm:w-1/2" />
             </div>
           ))}
         </div>
 
         {/* CTA Section */}
-        <div className="text-center mt-20">
-          <button className="group relative px-8 py-4 bg-gradient-to-br from-white/20 to-white/5 text-[#F2F2F2] rounded-lg overflow-hidden border border-white/10">
+        <div className="text-center mt-12 sm:mt-20">
+          <button className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-br from-white/20 to-white/5 text-[#F2F2F2] text-sm sm:text-base rounded-lg overflow-hidden border border-white/10">
             <span className="relative z-10 flex items-center">
               Start Your Project
-              <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </span>
