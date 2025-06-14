@@ -71,9 +71,9 @@ const App = () => {
                   <GoranInfo />
                   <WhyUs />
                   {/* <ContactForm /> */}
-                  {/* <AboutTheFounder /> */}
                   {/* <LeadMagnet /> */}
                   <Services />    
+                  <AboutTheFounder />
                   <Projects />
                   <Clients />
                   <Process />
