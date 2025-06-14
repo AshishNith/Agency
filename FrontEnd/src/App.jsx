@@ -26,6 +26,8 @@ import Projects from './Sections/Projects';
 import AboutTheFounder from './Sections/AboutTheFounder';
 import ContactForm from './UI/ContactForm';
 import LeadMagnet from './Sections/Leadmagnet';
+import GoranInfo from './Sections/GoranInfo';
+import WhyUs from './Sections/WhyUs';
 // import Work from './pages/Works';
 // import Scroller_ from './Components/Scroller_';
 
@@ -66,11 +68,13 @@ const App = () => {
                 // Wrap components in a React.Fragment or div to ensure proper mounting
                 <React.Fragment>
                   <Hero />
+                  <GoranInfo />
+                  <WhyUs />
                   {/* <ContactForm /> */}
-                  <AboutTheFounder />
+                  {/* <AboutTheFounder /> */}
                   {/* <LeadMagnet /> */}
-                  <Projects />
                   <Services />    
+                  <Projects />
                   <Clients />
                   <Process />
                   <Chatbot />
