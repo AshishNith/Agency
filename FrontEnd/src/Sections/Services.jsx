@@ -122,7 +122,41 @@ const Services = () => {
   };
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    
     const ctx = gsap.context(() => {
+      if (isMobile) {
+        // Simplified mobile animations
+        gsap.from('.services-title h2', {
+          opacity: 0,
+          y: 30,
+          duration: 1,
+          scrollTrigger: {
+            trigger: '.services-title',
+            start: 'top 80%',
+          }
+        });
+
+        // Simple fade in for cards on mobile
+        gsap.utils.toArray('.service-card').forEach(card => {
+          gsap.from(card, {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 90%',
+              end: 'top 60%',
+              toggleActions: 'play none none reverse'
+            }
+          });
+        });
+
+        // Disable pinning on mobile
+        return;
+      }
+
+      // Desktop animations
       // Enhanced main timeline with smoother progression
       const mainTl = gsap.timeline({
         scrollTrigger: {
@@ -235,6 +269,14 @@ const Services = () => {
         }
       });
     });
+
+    // Disable hover effects on mobile
+    if (isMobile) {
+      handleMouseMove = () => {};
+      handleMouseLeave = () => {};
+      handleTouchStart = () => {};
+      handleTouchEnd = () => {};
+    }
 
     return () => ctx.revert();
   }, []);

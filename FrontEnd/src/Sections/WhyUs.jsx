@@ -98,7 +98,40 @@ const WhyUs = () => {
   const cardClassName = (index) => `reason-card-${index} flex-shrink-0 w-[280px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-[300px] sm:h-[350px] md:h-[400px] perspective-1000`;
 
   useEffect(() => {
+    const isMobile = window.innerWidth < 768;
+    
     const ctx = gsap.context(() => {
+      // Simple fade animation for mobile
+      if (isMobile) {
+        // Simple title animation
+        gsap.from('.whyus-title', {
+          opacity: 0,
+          y: 30,
+          duration: 1,
+          scrollTrigger: {
+            trigger: '.whyus-title',
+            start: 'top 80%',
+          }
+        });
+
+        // Vertical scroll for mobile with simple animations
+        gsap.utils.toArray('.reason-card').forEach((card, i) => {
+          gsap.from(card, {
+            opacity: 0,
+            y: 50,
+            duration: 0.8,
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 85%',
+              end: 'top 15%',
+              toggleActions: 'play none none reverse'
+            }
+          });
+        });
+
+        return; // Exit early for mobile
+      }
+
       // Animate title
       const titleText = new SplitType('.whyus-title', { types: 'chars' });
       gsap.from(titleText.chars, {
@@ -148,37 +181,54 @@ const WhyUs = () => {
       {/* Subtle grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
 
-      <div className="reasons-wrapper relative h-screen">
+      <div className="reasons-wrapper relative h-screen md:block">
         <h2 className="whyus-title absolute top-4 sm:top-10 left-1/2 -translate-x-1/2 text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold text-white text-center z-10 px-4">
           Why Choose Us
         </h2>
 
-        <div ref={containerRef} className="reasons-container backdrop-blur-[2px] absolute top-1/2 -translate-y-1/2 flex gap-4 sm:gap-6 md:gap-8 px-[20vw] sm:px-[30vw] md:px-[50vw]">
+        {/* Mobile layout */}
+        <div className="md:hidden flex flex-col gap-6 px-4 pt-24 pb-16">
           {reasons.map((reason, index) => (
-            <div
-              key={index}
-              className={cardClassName(index)}
-            >
-              <div className="relative h-full group transform-style-3d transition-transform duration-500 hover:rotate-y-12">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 rounded-lg sm:rounded-xl md:rounded-2xl border border-white/10 p-4 sm:p-6 md:p-8 backface-hidden overflow-hidden">
-                  {/* Overlay on Hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl z-10 pointer-events-none" />
+            <div key={index} className="reason-card bg-gradient-to-br from-white/10 to-white/5 rounded-xl border border-white/10 p-6">
+              <div className="text-3xl mb-4">{reason.icon}</div>
+              <h3 className="text-xl font-bold text-white mb-2">{reason.title}</h3>
+              <p className="text-sm text-gray-400 mb-4">{reason.description}</p>
+              <span className="text-sm font-bold text-white bg-white/10 px-3 py-1 rounded-full">
+                {reason.stat}
+              </span>
+            </div>
+          ))}
+        </div>
 
-                  {/* Shine swipe effect */}
-                  <div className="absolute top-0 left-[-75%] w-[150%] h-full bg-gradient-to-r from-transparent via-white/20 to-transparent transform rotate-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none animate-shine rounded-2xl" />
+        {/* Desktop horizontal scroll layout */}
+        <div className="hidden md:block">
+          <div ref={containerRef} className="reasons-container backdrop-blur-[2px] absolute top-1/2 -translate-y-1/2 flex gap-8 px-[50vw]">
+            {reasons.map((reason, index) => (
+              <div
+                key={index}
+                className={cardClassName(index)}
+              >
+                <div className="relative h-full group transform-style-3d transition-transform duration-500 hover:rotate-y-12">
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 rounded-lg sm:rounded-xl md:rounded-2xl border border-white/10 p-4 sm:p-6 md:p-8 backface-hidden overflow-hidden">
+                    {/* Overlay on Hover */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl z-10 pointer-events-none" />
 
-                  <div className="text-3xl sm:text-4xl md:text-6xl mb-3 sm:mb-4 md:mb-6 relative z-20">{reason.icon}</div>
-                  <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3 md:mb-4 relative z-20">{reason.title}</h3>
-                  <p className="text-sm sm:text-base md:text-lg text-gray-400 mb-4 sm:mb-5 md:mb-6 relative z-20">{reason.description}</p>
-                  <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 right-4 sm:right-6 md:right-8 z-20">
-                    <span className="text-sm sm:text-base md:text-xl font-bold text-white bg-white/10 px-2 sm:px-3 md:px-4 py-1 sm:py-2 rounded-full">
-                      {reason.stat}
-                    </span>
+                    {/* Shine swipe effect */}
+                    <div className="absolute top-0 left-[-75%] w-[150%] h-full bg-gradient-to-r from-transparent via-white/20 to-transparent transform rotate-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none animate-shine rounded-2xl" />
+
+                    <div className="text-3xl sm:text-4xl md:text-6xl mb-3 sm:mb-4 md:mb-6 relative z-20">{reason.icon}</div>
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2 sm:mb-3 md:mb-4 relative z-20">{reason.title}</h3>
+                    <p className="text-sm sm:text-base md:text-lg text-gray-400 mb-4 sm:mb-5 md:mb-6 relative z-20">{reason.description}</p>
+                    <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 right-4 sm:right-6 md:right-8 z-20">
+                      <span className="text-sm sm:text-base md:text-xl font-bold text-white bg-white/10 px-2 sm:px-3 md:px-4 py-1 sm:py-2 rounded-full">
+                        {reason.stat}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 

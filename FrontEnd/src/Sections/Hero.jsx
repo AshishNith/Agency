@@ -13,7 +13,21 @@ const Hero = () => {
   const sectionRefs = useRef([]);
 
   useEffect(() => {
+    // Check if device is mobile
+    const isMobile = window.innerWidth < 768;
+
     const ctx = gsap.context(() => {
+      // Basic fade in animation for mobile
+      if (isMobile) {
+        gsap.from('.hero-content', {
+          opacity: 0,
+          y: 50,
+          duration: 1,
+          ease: 'power2.out'
+        });
+        return; // Exit early for mobile devices
+      }
+
       // Initial animations
       gsap.from('.hero-bg-text', {
         y: 100,
