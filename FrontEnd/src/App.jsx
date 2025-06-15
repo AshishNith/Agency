@@ -70,9 +70,9 @@ const App = () => {
                   <GoranInfo />
                   <WhyUs />
                   <Services />    
-                  <AboutTheFounder />
-                  <Projects />
                   <Clients />
+                  <Projects />
+                  <AboutTheFounder />
                   <Process />
                   <Chatbot />
                 </React.Fragment>

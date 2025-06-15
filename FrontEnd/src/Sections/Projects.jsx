@@ -88,7 +88,7 @@ const ProjectStackGSAP = () => {
   return (
     <section
       ref={containerRef}
-      className="relative min-h-[100svh]  text-white flex items-center justify-center overflow-hidden"
+      className="relative min-h-[100svh] bg-black text-white flex items-center justify-center overflow-hidden"
     >
       <div className="relative w-full max-w-7xl h-full px-2 sm:px-6 py-8 sm:py-12 md:py-20 flex flex-col items-center justify-center gap-4 sm:gap-6 md:gap-8">
         <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-8xl xl:text-9xl font-bold mb-8 sm:mb-12 md:mb-20 z-10 text-center bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-400">

@@ -5,9 +5,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const Clients = () => {
-  const sectionRef = useRef(null);
   const containerRef = useRef(null);
-  const sliderRef = useRef(null);
+  const firstRowRef = useRef(null);
+  const secondRowRef = useRef(null);
 
   const clients = [
     {
@@ -60,193 +60,149 @@ const Clients = () => {
     }
   ];
 
-  const testimonials = [
-    {
-      quote: "The team delivered beyond our expectations. Their attention to detail and creative approach set them apart.",
-      author: "Sarah Johnson",
-      role: "Chief Design Officer",
-      company: "TechCorp",
-      image: "https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg"
-    },
-    {
-      quote: "Working with them transformed our digital presence. The results speak for themselves.",
-      author: "Michael Chen",
-      role: "Product Lead",
-      company: "Innovate Inc",
-      image: "https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg"
-    }
-  ];
-
-  const stats = [
-    { number: "200+", label: "Happy Clients" },
-    { number: "95%", label: "Client Retention" },
-    { number: "12+", label: "Years Experience" },
-    { number: "50+", label: "Team Members" }
-  ];
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const horizontalScroll = gsap.to(".horizontal-section", {
-        x: () => -(containerRef.current.scrollWidth - window.innerWidth),
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".horizontal-container",
-          start: "top top",
-          end: () => `+=${containerRef.current.scrollWidth - window.innerWidth + window.innerHeight * 1.5}`,
-          pin: true,
-          scrub: 2,
-          pinSpacing: true,
-          anticipatePin: 1,
-          onUpdate: (self) => {
-            // Parallax effect for client logos
-            gsap.utils.toArray('.client-logo').forEach((logo, i) => {
-              const speed = i % 2 === 0 ? 0.2 : -0.2;
-              gsap.set(logo, {
-                x: self.progress * 100 * speed
-              });
-            });
-          },
-          onEnter: () => {
-            // Fade in effect when section enters
-            gsap.to(".horizontal-section", {
-              opacity: 1,
-              duration: 1,
-              ease: "power2.out"
-            });
-          },
-          onLeave: (self) => {
-            // Enhanced transition to vertical scrolling
-            gsap.to(window, {
-              duration: 1.5,
-              scrollTo: self.end,
-              ease: "power4.inOut",
-              onComplete: () => {
-                // Bounce effect for vertical content
-                gsap.from(".vertical-content", {
-                  y: 50,
-                  opacity: 0,
-                  duration: 1,
-                  ease: "back.out(1.2)"
-                });
-              }
-            });
-          }
+      // Create main scroll trigger for the section
+      ScrollTrigger.create({
+        trigger: containerRef.current,
+        pin: true,
+        start: "top top",
+        end: "+=300%",
+        scrub: 1,
+        onEnter: () => {
+          // First row animation
+          gsap.to(firstRowRef.current, {
+            x: '-50%',
+            duration: 2,
+            ease: 'none',
+            repeat: -1,
+          });
+
+          // Second row animation (reverse direction)
+          gsap.fromTo(secondRowRef.current,
+            { x: '-50%' },
+            {
+              x: '0%',
+              duration: 2,
+              ease: 'none',
+              repeat: -1,
+            }
+          );
+        },
+        onLeave: () => {
+          gsap.killTweensOf([firstRowRef.current, secondRowRef.current]);
+        },
+        onEnterBack: () => {
+          // Restart animations when scrolling back up
+          gsap.to(firstRowRef.current, {
+            x: '-50%',
+            duration: 2,
+            ease: 'none',
+            repeat: -1,
+          });
+
+          gsap.fromTo(secondRowRef.current,
+            { x: '-50%' },
+            {
+              x: '0%',
+              duration: 2,
+              ease: 'none',
+              repeat: -1,
+            }
+          );
+        },
+        onLeaveBack: () => {
+          gsap.killTweensOf([firstRowRef.current, secondRowRef.current]);
         }
       });
-
-      // Vertical scroll animations with delayed start
-      gsap.from(".vertical-content", {
-        y: 100,
-        opacity: 0,
-        stagger: 0.3,
-        scrollTrigger: {
-          trigger: ".vertical-section",
-          start: "top 90%",
-          end: "top 40%",
-          scrub: 1.5,
-          toggleActions: "play none none reverse"
-        }
-      });
-
-      return () => horizontalScroll.kill();
     });
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+    };
   }, []);
 
   return (
-    <section className="relative">
-      <div className="horizontal-container relative min-h-screen bg-gradient-to-b from-black via-black/90 to-black overflow-hidden perspective-1000">
-        <div
-          ref={containerRef}
-          className="horizontal-section relative flex items-start gap-8 sm:gap-16 md:gap-32 p-4 sm:p-12 md:p-24"
-        >
-          {/* Hero Title Section */}
-          <div className="flex-shrink-0 w-[100vw] h-[100vh] -translate-y-10 sm:-translate-y-20 flex items-center justify-center">
-            <div className="relative z-10 text-center px-4">
-              <span className="block text-xs sm:text-sm md:text-lg text-[#EAE4D4] tracking-[0.2em] sm:tracking-[0.3em] mb-2 sm:mb-4 uppercase">
-                Trusted by Industry Leaders
-              </span>
-              <h2 className="relative clients-title inline-block">
-                <span className="block text-4xl sm:text-6xl md:text-7xl lg:text-9xl font-bold bg-gradient-to-r from-white via-white/90 to-white/50 text-transparent bg-clip-text">
-                  Our Partners
-                </span>
-                <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-radial from-purple-500/20 via-transparent to-transparent blur-3xl" />
-              </h2>
-            </div>
-          </div>
-
-          {/* Clients Grid Section */}
-          <div className="flex-shrink-0 w-screen h-screen flex items-center">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 max-w-7xl mx-auto px-4 sm:px-6">
-              {clients.map((client) => (
-                <div key={client.id} className="group relative">
-                  <div className="relative -translate-y-6 sm:-translate-y-10 h-full bg-white/[0.04] backdrop-blur-sm rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 flex flex-col items-center justify-center border border-white/10 group-hover:border-white/30 transition-all duration-500 group-hover:scale-105">
-                    <img
-                      src={client.logo}
-                      alt={client.name}
-                      className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain filter grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500"
-                    />
-                    <div className="mt-3 sm:mt-4 text-center">
-                      <h3 className="text-white font-semibold text-sm sm:text-base md:text-lg mb-1 transition duration-300 group-hover:text-[#EAE4D4]">
-                        {client.name}
-                      </h3>
-                      <span className="inline-block mt-1 px-2 sm:px-3 py-0.5 sm:py-1 text-xs rounded-full bg-white/5 text-white/60 group-hover:bg-white/10 transition-all duration-300">
-                        {client.industry}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+    <section 
+      ref={containerRef} 
+      className="relative min-h-screen py-20 overflow-hidden"
+    >
+      <div className="text-center mb-16">
+        <span className="block text-sm md:text-lg text-[#EAE4D4] tracking-[0.3em] mb-4 uppercase">
+          Trusted by Industry Leaders
+        </span>
+        <h2 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-white/90 to-white/50 text-transparent bg-clip-text">
+          Our Partners
+        </h2>
       </div>
 
-      {/* Vertical Sections */}
-      <div className="vertical-section">
-        {/* Testimonials */}
-        <div className="vertical-content py-16 sm:py-24 md:py-32">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-8 sm:mb-16 text-[#F2F2F2]">
-              What They Say
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
-              {testimonials.map((testimonial, index) => (
-                <div
-                  key={index}
-                  className="testimonial-card p-8 rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all"
-                >
-                  <div className="flex items-start mb-6">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.author}
-                      className="w-12 h-12 rounded-full object-cover mr-4 border-2 border-white/10"
-                    />
-                    <div>
-                      <h4 className="font-semibold text-lg text-[#F2F2F2]">{testimonial.author}</h4>
-                      <p className="text-[#EAE4D4] text-sm">{testimonial.role}</p>
-                      <p className="text-[#B6B19E] text-sm">{testimonial.company}</p>
-                    </div>
-                  </div>
-                  <p className="text-[#EAE4D4] leading-relaxed">"{testimonial.quote}"</p>
-                </div>
-              ))}
+      <div className="relative w-full overflow-hidden" style={{ height: '600px' }}>
+        {/* Side Blur Effects */}
+        <div className="absolute left-0 top-0 w-40 h-full bg-gradient-to-r from-black to-transparent z-10" />
+        <div className="absolute right-0 top-0 w-40 h-full bg-gradient-to-l from-black to-transparent z-10" />
+
+        {/* First Row */}
+        <div 
+          ref={firstRowRef}
+          className="first-row flex gap-8 px-20"
+          style={{ 
+            width: 'max-content',
+            position: 'absolute',
+            top: '0'
+          }}
+        >
+          {clients.concat(clients).map((client, index) => (
+            <div
+              key={`first-${index}`}
+              className="client-card flex-shrink-0 w-[280px] transform-gpu bg-white/[0.04] backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/30 transition-all duration-500 hover:scale-105"
+            >
+              <img
+                src={client.logo}
+                alt={client.name}
+                className="w-20 h-20 object-cover rounded-xl grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-500 mx-auto"
+              />
+              <div className="mt-4 text-center">
+                <h3 className="text-white font-semibold text-lg mb-1">
+                  {client.name}
+                </h3>
+                <span className="inline-block px-3 py-1 text-sm rounded-full bg-white/5 text-white/60">
+                  {client.industry}
+                </span>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
 
-        {/* Stats */}
-        <div className="vertical-content py-16 sm:py-24 md:py-32">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8">
-              {stats.map((stat, index) => (
-                <div key={index} className="group p-8 rounded-2xl bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm border border-white/10 hover:border-white/20 transition-all text-center">
-                  <div className="text-4xl font-bold mb-2 text-[#F2F2F2] group-hover:scale-110 transition-transform">{stat.number}</div>
-                  <div className="text-[#B6B19E]">{stat.label}</div>
-                </div>
-              ))}
+        {/* Second Row */}
+        <div 
+          ref={secondRowRef}
+          className="second-row flex gap-8 px-20"
+          style={{ 
+            width: 'max-content',
+            position: 'absolute',
+            top: '320px'
+          }}
+        >
+          {clients.concat(clients).reverse().map((client, index) => (
+            <div
+              key={`second-${index}`}
+              className="client-card flex-shrink-0 w-[280px] transform-gpu bg-white/[0.04] backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/30 transition-all duration-500 hover:scale-105"
+            >
+              <img
+                src={client.logo}
+                alt={client.name}
+                className="w-20 h-20 object-cover rounded-xl grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-500 mx-auto"
+              />
+              <div className="mt-4 text-center">
+                <h3 className="text-white font-semibold text-lg mb-1">
+                  {client.name}
+                </h3>
+                <span className="inline-block px-3 py-1 text-sm rounded-full bg-white/5 text-white/60">
+                  {client.industry}
+                </span>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
