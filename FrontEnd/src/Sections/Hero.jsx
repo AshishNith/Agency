@@ -150,7 +150,8 @@ const Hero = () => {
             </button> */}
 
             <PopupButton
-                url="https://calendly.com/ranjanashish9992/"
+                // url="https://calendly.com/ranjanashish9992/"
+                url="https://calendly.com/ranjanashish9992/strategy-call-build-your-brand-online"
                 rootElement={document.getElementById('root')}
                 text="Schedule A Free Meeting →"
                 className="group relative px-8 py-4 bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm text-white rounded-lg overflow-hidden border border-white/10 hover:from-white/30 hover:to-white/10 transition-all duration-300"
