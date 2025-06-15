@@ -278,7 +278,7 @@ const Services = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen bg-black py-16 md:py-32 overflow-hidden">
+    <section  ref={sectionRef} className="relative min-h-screen bg-black py-16 md:py-32 overflow-hidden">
       {/* Animated background */}
       <div className="parallax-bg absolute inset-0">
         {/* <div id="services" className="absolute inset-0 bg-gradient-to-b from-black to-[#1a1a1a] opacity-90"></div> */}
@@ -292,7 +292,7 @@ const Services = () => {
         </h2>
       </div>
 
-      <div ref={containerRef} className="relative z-20 pt-[60vh] md:pt-[100vh]">
+      <div  ref={containerRef} className="relative z-20 pt-[60vh] md:pt-[100vh]">
         <div className="max-w-7xl mx-auto px-4 relative">
           <div className="services-grid grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16 pt-10 md:pt-20">
             {services.map((service, index) => (
@@ -309,7 +309,7 @@ const Services = () => {
                 <div className="group relative p-4 md:p-8 rounded-2xl transition-all duration-500 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm border border-white/10">
                   <div className="absolute inset-0 bg-gradient-to-br from-white/[0.08] to-transparent opacity-50 rounded-2xl transform transition-transform duration-500" />
                   
-                  <div className="relative z-10">
+                  <div id='services' className="relative z-10">
                     <div className="flex justify-between items-start">
                       <div className="service-icon bg-white/10 text-[#F2F2F2] p-2 md:p-4 rounded-xl backdrop-blur-sm transform transition-transform">
                         {service.icon}

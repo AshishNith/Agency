@@ -66,8 +66,8 @@ const Navbar = () => {
   ]
 
   const handleNavigation = (item) => {
-    handleRouteChange(); // Trigger loading animation
     if (item.type === 'route') {
+      handleRouteChange('route'); // Pass the type
       navigateTo(item.path);
     } else if (item.type === 'section') {
       scrollToSection(item.id);
@@ -81,6 +81,9 @@ const Navbar = () => {
 
   // Close mobile menu on navigation
   const handleMobileNavigation = (item) => {
+    if (item.type === 'route') {
+      handleRouteChange('route');
+    }
     handleNavigation(item);
     setIsMobileMenuOpen(false);
   };

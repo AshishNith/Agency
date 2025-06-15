@@ -61,72 +61,35 @@ const Clients = () => {
   ];
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Create main scroll trigger for the section
-      ScrollTrigger.create({
-        trigger: containerRef.current,
-        pin: true,
-        start: "top top",
-        end: "+=300%",
-        scrub: 1,
-        onEnter: () => {
-          // First row animation
-          gsap.to(firstRowRef.current, {
-            x: '-50%',
-            duration: 2,
-            ease: 'none',
-            repeat: -1,
-          });
+    // First row animation
+    gsap.to(firstRowRef.current, {
+      x: '-50%',
+      duration: 40,
+      ease: 'none',
+      repeat: -1,
+    });
 
-          // Second row animation (reverse direction)
-          gsap.fromTo(secondRowRef.current,
-            { x: '-50%' },
-            {
-              x: '0%',
-              duration: 2,
-              ease: 'none',
-              repeat: -1,
-            }
-          );
-        },
-        onLeave: () => {
-          gsap.killTweensOf([firstRowRef.current, secondRowRef.current]);
-        },
-        onEnterBack: () => {
-          // Restart animations when scrolling back up
-          gsap.to(firstRowRef.current, {
-            x: '-50%',
-            duration: 2,
-            ease: 'none',
-            repeat: -1,
-          });
-
-          gsap.fromTo(secondRowRef.current,
-            { x: '-50%' },
-            {
-              x: '0%',
-              duration: 2,
-              ease: 'none',
-              repeat: -1,
-            }
-          );
-        },
-        onLeaveBack: () => {
-          gsap.killTweensOf([firstRowRef.current, secondRowRef.current]);
-        }
-      });
+    // Second row animation (reverse direction)
+    gsap.to(secondRowRef.current, {
+      x: '0%',
+      duration: 40,
+      ease: 'none',
+      repeat: -1,
+    });
+    
+    // Set initial position for second row
+    gsap.set(secondRowRef.current, {
+      x: '-50%',
     });
 
     return () => {
-      ctx.revert();
+      // Cleanup animations
+      gsap.killTweensOf([firstRowRef.current, secondRowRef.current]);
     };
   }, []);
 
   return (
-    <section 
-      ref={containerRef} 
-      className="relative min-h-screen py-20 overflow-hidden"
-    >
+    <section ref={containerRef} className="relative py-20 overflow-hidden">
       <div className="text-center mb-16">
         <span className="block text-sm md:text-lg text-[#EAE4D4] tracking-[0.3em] mb-4 uppercase">
           Trusted by Industry Leaders
@@ -210,3 +173,30 @@ const Clients = () => {
 };
 
 export default Clients;
+//               <div
+//                 key={`second-${index}`}
+//                 className="client-card flex-shrink-0 w-[280px] transform-gpu bg-white/[0.04] backdrop-blur-sm rounded-2xl p-6 border border-white/10 hover:border-white/30 transition-all duration-500 hover:scale-105"
+//               >
+//                 <img
+//                   src={client.logo}
+//                   alt={client.name}
+//                   className="w-20 h-20 object-cover rounded-xl grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-500 mx-auto"
+//                 />
+//                 <div className="mt-4 text-center">
+//                   <h3 className="text-white font-semibold text-lg mb-1">
+//                     {client.name}
+//                   </h3>
+//                   <span className="inline-block px-3 py-1 text-sm rounded-full bg-white/5 text-white/60">
+//                     {client.industry}
+//                   </span>
+//                 </div>
+//               </div>
+//             ))}
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default Clients;

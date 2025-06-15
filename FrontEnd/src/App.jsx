@@ -44,10 +44,12 @@ const App = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Handle route transitions
-  const handleRouteChange = () => {
-    setPageLoading(true);
-    setTimeout(() => setPageLoading(false), 1000);
+  // Modified route change handler
+  const handleRouteChange = (type = 'route') => {
+    if (type === 'route') {
+      setPageLoading(true);
+      setTimeout(() => setPageLoading(false), 1000);
+    }
   };
 
   if (loading) {
@@ -102,6 +104,7 @@ const App = () => {
           </Route>
 
           <Route path="/admin/*" element={<AdminDashboard />} />
+          <Route path="/about" element={<About />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/admin/login" element={<AdminLogin />} />
 
