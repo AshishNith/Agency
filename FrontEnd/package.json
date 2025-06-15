@@ -17,6 +17,7 @@
     "gsap": "^3.13.0",
     "lucide-react": "^0.513.0",
     "react": "^19.1.0",
+    "react-calendly": "^4.4.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.2",
     "recharts": "^2.15.3",

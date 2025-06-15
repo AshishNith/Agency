@@ -24,10 +24,10 @@ import Blog from './pages/Blog';
 import ParallaxScroller from './Components/ParallaxScroller';
 import Projects from './Sections/Projects';
 import AboutTheFounder from './Sections/AboutTheFounder';
-import ContactForm from './UI/ContactForm';
 import LeadMagnet from './Sections/Leadmagnet';
 import GoranInfo from './Sections/GoranInfo';
 import WhyUs from './Sections/WhyUs';
+import Contact from './pages/Contact';
 // import Work from './pages/Works';
 // import Scroller_ from './Components/Scroller_';
 
@@ -54,7 +54,6 @@ const App = () => {
     return <Preloader />;
   }
 
-  // Add sectionRefs prop to Hero and other components
   return (
     <LoadingContext.Provider value={{ pageLoading, setPageLoading, handleRouteChange }}>
       <div className="relative overflow-x-hidden">
@@ -65,13 +64,11 @@ const App = () => {
             <Route
               path="/"
               element={
-                // Wrap components in a React.Fragment or div to ensure proper mounting
                 <React.Fragment>
                   <Hero />
+                  <Contact />
                   <GoranInfo />
                   <WhyUs />
-                  {/* <ContactForm /> */}
-                  {/* <LeadMagnet /> */}
                   <Services />    
                   <AboutTheFounder />
                   <Projects />

@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { PopupButton } from 'react-calendly';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -137,7 +139,7 @@ const Hero = () => {
 
           {/* Buttons with enhanced hover effects */}
           <div className="hero-buttons flex flex-col sm:flex-row gap-6">
-            <button className="group relative px-8 py-4 bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm text-white rounded-lg overflow-hidden border border-white/10">
+            {/* <button className="group relative px-8 py-4 bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm text-white rounded-lg overflow-hidden border border-white/10">
               <span className="relative z-10 flex items-center justify-center">
                 Schedule A Free Meeting
                 <svg className="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -145,7 +147,14 @@ const Hero = () => {
                 </svg>
               </span>
               <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity transform -skew-x-12"></div>
-            </button>
+            </button> */}
+
+            <PopupButton
+                url="https://calendly.com/ranjanashish9992/"
+                rootElement={document.getElementById('root')}
+                text="Schedule A Free Meeting →"
+                className="group relative px-8 py-4 bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm text-white rounded-lg overflow-hidden border border-white/10 hover:from-white/30 hover:to-white/10 transition-all duration-300"
+            />
             
             <button className="group relative px-8 py-4 text-white rounded-lg overflow-hidden border border-white/10">
               <span className="relative z-10">Explore Our Work</span>
