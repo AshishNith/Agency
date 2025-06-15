@@ -155,7 +155,7 @@ const Servises = () => {
   return (
     <div
       ref={sectionRef}
-      className="bg-[#0B0C10] text-white py-28 space-y-32"
+      className="bg-[#0B0C10]  text-white py-28 space-y-32"
     >
       {/* Hero Section */}
       <section className="px-6 sm:px-12 md:px-20 lg:px-32">

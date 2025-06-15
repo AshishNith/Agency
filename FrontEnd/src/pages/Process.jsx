@@ -142,7 +142,7 @@ const Process = () => {
           }
         });
 
-        // Content animation with stagger
+        // Content animation with stagger 
         gsap.from(card.querySelectorAll('.animate-content'), {
           y: 50,
           opacity: 0,

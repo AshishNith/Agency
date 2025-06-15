@@ -107,6 +107,10 @@ const App = () => {
               path="/b" 
               element={<Clients onLoad={handleRouteChange} />} 
             />
+            <Route 
+              path="/contact" 
+              element={<Contact onLoad={handleRouteChange} />} 
+            />
             {/* <Route path="/work" element={<Work />} /> */}
           </Route>
 
