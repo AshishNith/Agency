@@ -66,7 +66,7 @@ const App = () => {
               element={
                 <React.Fragment>
                   <Hero />
-                  <Contact />
+                  {/* <Contact /> */}
                   <GoranInfo />
                   <WhyUs />
                   <Services />    

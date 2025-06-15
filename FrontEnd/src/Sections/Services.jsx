@@ -56,7 +56,10 @@ const Services = () => {
       )
     }
   ];
+  const isMobile = window.innerWidth < 768;
+
   const handleMouseMove = (e, card) => {
+    if (isMobile) return;
     const rect = card.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
     const mouseY = e.clientY - rect.top;
@@ -94,6 +97,7 @@ const Services = () => {
   };
 
   const handleMouseLeave = (card) => {
+    if (isMobile) return;
     gsap.to(card, {
       rotateX: 0,
       rotateY: 0,
@@ -110,6 +114,7 @@ const Services = () => {
 
   // Add touch event handlers
   const handleTouchStart = (card) => {
+    if (!isMobile) return;
     gsap.to(card, {
       scale: 1.02,
       duration: 0.3,
@@ -118,12 +123,11 @@ const Services = () => {
   };
 
   const handleTouchEnd = (card) => {
+    if (!isMobile) return;
     handleMouseLeave(card);
   };
 
   useEffect(() => {
-    const isMobile = window.innerWidth < 768;
-    
     const ctx = gsap.context(() => {
       if (isMobile) {
         // Simplified mobile animations
@@ -269,14 +273,6 @@ const Services = () => {
         }
       });
     });
-
-    // Disable hover effects on mobile
-    if (isMobile) {
-      handleMouseMove = () => {};
-      handleMouseLeave = () => {};
-      handleTouchStart = () => {};
-      handleTouchEnd = () => {};
-    }
 
     return () => ctx.revert();
   }, []);

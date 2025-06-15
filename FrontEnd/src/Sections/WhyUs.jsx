@@ -97,13 +97,64 @@ const WhyUs = () => {
   // Update card className with responsive styles
   const cardClassName = (index) => `reason-card-${index} flex-shrink-0 w-[280px] sm:w-[400px] md:w-[500px] lg:w-[600px] h-[300px] sm:h-[350px] md:h-[400px] perspective-1000`;
 
+  const isMobile = window.innerWidth < 768;
+
+  const handleMouseMove = (e, card) => {
+    if (isMobile) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const deltaX = x - centerX;
+    const deltaY = y - centerY;
+
+    gsap.to(card, {
+      rotateX: -deltaY / 10,
+      rotateY: deltaX / 10,
+      ease: 'power2.out',
+      duration: 0.3
+    });
+  };
+
+  const handleMouseLeave = (card) => {
+    if (isMobile) return;
+    gsap.to(card, {
+      rotateX: 0,
+      rotateY: 0,
+      scale: 1,
+      duration: 0.5,
+      ease: 'power2.out'
+    });
+  };
+
+  const handleTouchStart = (card) => {
+    if (!isMobile) return;
+    gsap.to(card, {
+      scale: 1.02,
+      duration: 0.3,
+      ease: 'power2.out'
+    });
+  };
+
+  const handleTouchEnd = (card) => {
+    if (!isMobile) return;
+    handleMouseLeave(card);
+  };
+
   useEffect(() => {
     const isMobile = window.innerWidth < 768;
     
     const ctx = gsap.context(() => {
-      // Simple fade animation for mobile
       if (isMobile) {
-        // Simple title animation
+        // Reset any existing animations
+        gsap.set('.reasons-wrapper', {
+          clearProps: 'all'
+        });
+
+        // Simplified mobile animations without pinning
         gsap.from('.whyus-title', {
           opacity: 0,
           y: 30,
@@ -114,22 +165,21 @@ const WhyUs = () => {
           }
         });
 
-        // Vertical scroll for mobile with simple animations
+        // Animate cards with proper mobile spacing
         gsap.utils.toArray('.reason-card').forEach((card, i) => {
           gsap.from(card, {
             opacity: 0,
-            y: 50,
+            y: 30,
             duration: 0.8,
+            delay: i * 0.1,
             scrollTrigger: {
               trigger: card,
-              start: 'top 85%',
-              end: 'top 15%',
+              start: 'top 90%',
               toggleActions: 'play none none reverse'
             }
           });
         });
-
-        return; // Exit early for mobile
+        return;
       }
 
       // Animate title
@@ -177,7 +227,7 @@ const WhyUs = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative min-h-screen overflow-hidden">
+    <section ref={sectionRef} className="relative min-h-screen overflow-hidden bg-black">
       {/* Subtle grid background */}
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
 
@@ -186,21 +236,29 @@ const WhyUs = () => {
           Why Choose Us
         </h2>
 
-        {/* Mobile layout */}
-        <div className="md:hidden flex flex-col gap-6 px-4 pt-24 pb-16">
+        {/* Mobile layout with improved spacing */}
+        <div className="md:hidden flex flex-col gap-6 px-4 pt-20 pb-16">
           {reasons.map((reason, index) => (
-            <div key={index} className="reason-card bg-gradient-to-br from-white/10 to-white/5 rounded-xl border border-white/10 p-6">
-              <div className="text-3xl mb-4">{reason.icon}</div>
-              <h3 className="text-xl font-bold text-white mb-2">{reason.title}</h3>
-              <p className="text-sm text-gray-400 mb-4">{reason.description}</p>
-              <span className="text-sm font-bold text-white bg-white/10 px-3 py-1 rounded-full">
-                {reason.stat}
-              </span>
+            <div 
+              key={index} 
+              className="reason-card bg-gradient-to-br from-white/10 to-white/5 rounded-xl border border-white/10 p-6 transform-gpu"
+            >
+              <div className="flex flex-col h-full">
+                <div className="text-3xl mb-4 text-white">{reason.icon}</div>
+                <h3 className="text-xl font-bold text-white mb-3">{reason.title}</h3>
+                <p className="text-sm text-gray-400 mb-4 flex-grow">{reason.description}</p>
+                <div className="flex justify-between items-center mt-auto">
+                  <span className="text-xs text-gray-500">{reason.industries}</span>
+                  <span className="text-sm font-bold text-white bg-white/10 px-3 py-1 rounded-full">
+                    {reason.stat}
+                  </span>
+                </div>
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Desktop horizontal scroll layout */}
+        {/* Desktop layout (unchanged) */}
         <div className="hidden md:block">
           <div ref={containerRef} className="reasons-container backdrop-blur-[2px] absolute top-1/2 -translate-y-1/2 flex gap-8 px-[50vw]">
             {reasons.map((reason, index) => (
