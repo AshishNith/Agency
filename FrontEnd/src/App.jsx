@@ -37,6 +37,7 @@ export const LoadingContext = createContext();
 const App = () => {
   const [loading, setLoading] = useState(true);
   const [pageLoading, setPageLoading] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
 
   // Initial app load
   useEffect(() => {
@@ -45,10 +46,16 @@ const App = () => {
   }, []);
 
   // Modified route change handler
-  const handleRouteChange = (type = 'route') => {
-    if (type === 'route') {
+  const handleRouteChange = (type = 'route', path = '') => {
+    if (type === 'route' && !isNavigating) {
+      setIsNavigating(true);
       setPageLoading(true);
-      setTimeout(() => setPageLoading(false), 1000);
+      
+      // Reset navigation state after animation
+      setTimeout(() => {
+        setPageLoading(false);
+        setIsNavigating(false);
+      }, 1000);
     }
   };
 

@@ -67,8 +67,11 @@ const Navbar = () => {
 
   const handleNavigation = (item) => {
     if (item.type === 'route') {
-      handleRouteChange('route'); // Pass the type
-      navigateTo(item.path);
+      handleRouteChange('route', item.path);
+      // Wait for animation to start before navigation
+      setTimeout(() => {
+        navigate(item.path);
+      }, 300);
     } else if (item.type === 'section') {
       scrollToSection(item.id);
     }
@@ -81,11 +84,17 @@ const Navbar = () => {
 
   // Close mobile menu on navigation
   const handleMobileNavigation = (item) => {
-    if (item.type === 'route') {
-      handleRouteChange('route');
-    }
-    handleNavigation(item);
     setIsMobileMenuOpen(false);
+    handleNavigation(item);
+  };
+
+  // Special handler for logo click
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    handleRouteChange('route', '/');
+    setTimeout(() => {
+      navigate('/');
+    }, 300);
   };
 
   return (
@@ -100,9 +109,9 @@ const Navbar = () => {
         scrolled ? 'bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-sm' : 'bg-transparent'
       }`}>
         <div className="flex justify-between items-center h-14 sm:h-16">
-          {/* Logo */}
+          {/* Logo with updated onClick */}
           <div className="flex-shrink-0 w-[120px] sm:w-[180px] h-auto">
-            <Link to="/" className="w-full">
+            <Link to="/" onClick={handleLogoClick} className="w-full">
               <img 
                 src={LOGo} 
                 alt="Logo" 
