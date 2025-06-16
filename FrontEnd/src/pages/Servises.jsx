@@ -115,7 +115,7 @@ const Servises = () => {
             trigger: card,
             start: 'top 90%',
             end: 'top 60%',
-            scrub: 1,
+            // scrub: 1,
             toggleActions: 'play none none reverse',
           },
         });
@@ -160,7 +160,7 @@ const Servises = () => {
       {/* Hero Section */}
       <section className="px-6 sm:px-12 md:px-20 lg:px-32">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 bg-clip-text  bg-gradient-to-r from-white via-white/90 to-white/50">
+          <h1 className="text-5xl md:text-7xl text-white font-extrabold mb-6 bg-clip-text  bg-gradient-to-r from-white via-white/90 to-white/50">
             Transform Your Business With AI
           </h1>
           <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">

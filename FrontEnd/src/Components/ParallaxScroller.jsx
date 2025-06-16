@@ -30,3 +30,4 @@ const ParallaxScroller = () => {
 };
 
 export default ParallaxScroller;
+  
