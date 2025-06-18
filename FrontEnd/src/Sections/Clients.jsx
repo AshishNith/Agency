@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import logoDEse from '../../public/Assets/DEse.png'; 
+import skipit from '../../public/Assets/skipit.png'; 
+import claimAI from '../../public/Assets/claimAI.png'; 
+import Robosoc from '../../public/Assets/roboweek.jpg'; 
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,54 +15,66 @@ const Clients = () => {
   const firstRowRef = useRef(null);
   const secondRowRef = useRef(null);
 
-  const clients = [
+const clients = [
     {
       id: 1,
-      name: "TechVision",
-      logo: "https://images.pexels.com/photos/2977547/pexels-photo-2977547.jpeg",
+      name: "Robosoc",
+      logo: {Robosoc},
       industry: "Technology"
     },
     {
       id: 2,
-      name: "EcoSmart",
-      logo: "https://images.pexels.com/photos/5473337/pexels-photo-5473337.jpeg",
-      industry: "Sustainability"
+      name: "Literacy Mission NITH",
+      logo: "https://literacymission.nith.ac.in/assets/logo.png",
+      industry: "NIT Hamirpur"
     },
     {
       id: 3,
-      name: "FinCore",
-      logo: "https://images.pexels.com/photos/7239550/pexels-photo-7239550.jpeg",
-      industry: "Finance"
+      name: "Mathed - InternationalConference ",
+      logo: "https://mathed2025.nith.ac.in/Assets/logo.ico",
+      industry: "NIT Hamirpur"
     },
     {
       id: 4,
-      name: "HealthPlus",
-      logo: "https://images.pexels.com/photos/4386466/pexels-photo-4386466.jpeg",
-      industry: "Healthcare"
+      name: "DESE - IISc Bangalore",
+      logo: {logoDEse},
+      industry: "annual event"
     },
     {
       id: 5,
-      name: "MediaPro",
-      logo: "https://images.pexels.com/photos/5054152/pexels-photo-5054152.jpeg",
-      industry: "Entertainment"
+      name: "Hotel",
+      logo: "https://saksham-chi.vercel.app/assets/Logo-DqmlKFJJ.jpg",
+      industry: "Hotel & Hospitality"
+    },
+    // {
+    //   id: 6,
+    //   name: "SportFit",
+    //   logo: "https://images.pexels.com/photos/6664255/pexels-photo-6664255.jpeg",
+    //   industry: "Sports"
+    // },
+    // {
+    //   id: 7,
+    //   name: "EduLearn",
+    //   logo: "https://images.pexels.com/photos/5428836/pexels-photo-5428836.jpeg",
+    //   industry: "Education"
+    // },
+    // {
+    //   id: 8,
+    //   name: "FoodCo",
+    //   logo: "https://images.pexels.com/photos/5876516/pexels-photo-5876516.jpeg",
+    //   industry: "Food & Beverage"
+    // },
+    {
+      id: 9,
+      name: "Skipit",
+      logo: {skipit},
+      industry: "Salon Management"
     },
     {
-      id: 6,
-      name: "SportFit",
-      logo: "https://images.pexels.com/photos/6664255/pexels-photo-6664255.jpeg",
-      industry: "Sports"
-    },
-    {
-      id: 7,
-      name: "EduLearn",
-      logo: "https://images.pexels.com/photos/5428836/pexels-photo-5428836.jpeg",
-      industry: "Education"
-    },
-    {
-      id: 8,
-      name: "FoodCo",
-      logo: "https://images.pexels.com/photos/5876516/pexels-photo-5876516.jpeg",
-      industry: "Food & Beverage"
+      id: 10,
+      name: "ClaimAI",
+      logo: {claimAI},
+      industry: "Insurance"
     }
   ];
 
@@ -85,24 +102,46 @@ const Clients = () => {
         }
       });
     } else {
-      // Desktop infinite scroll animation
-      gsap.to(firstRowRef.current, {
-        x: '-50%',
-        duration: 40,
-        ease: 'none',
-        repeat: -1,
-      });
-      gsap.to(secondRowRef.current, {
-        x: '0%',
-        duration: 40,
-        ease: 'none',
-        repeat: -1,
-      });
-    }
+      // Set initial positions
+      gsap.set(firstRowRef.current, { x: '0%' });
+      gsap.set(secondRowRef.current, { x: '-50%' });
 
-    return () => {
-      gsap.killTweensOf(['.mobile-card', firstRowRef.current, secondRowRef.current]);
-    };
+      // Create animations
+      const firstRowAnim = gsap.to(firstRowRef.current, {
+        x: '-50%',
+        duration: 30,
+        ease: 'none',
+        repeat: -1,
+      });
+
+      const secondRowAnim = gsap.to(secondRowRef.current, {
+        x: '0%',
+        duration: 30,
+        ease: 'none',
+        repeat: -1,
+      });
+
+      // Pause on hover
+      const container = containerRef.current;
+      const pauseAnimation = () => {
+        firstRowAnim.pause();
+        secondRowAnim.pause();
+      };
+      const resumeAnimation = () => {
+        firstRowAnim.resume();
+        secondRowAnim.resume();
+      };
+
+      container.addEventListener('mouseenter', pauseAnimation);
+      container.addEventListener('mouseleave', resumeAnimation);
+
+      return () => {
+        firstRowAnim.kill();
+        secondRowAnim.kill();
+        container.removeEventListener('mouseenter', pauseAnimation);
+        container.removeEventListener('mouseleave', resumeAnimation);
+      };
+    }
   }, [isMobile]);
 
   return (

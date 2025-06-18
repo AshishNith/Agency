@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
@@ -13,11 +14,16 @@ const projects = [
     link: "https://roboweek3.com/",
   },
   {
-    title: "Hotel Chi",
+    title: "DESE - IISc Bangalore",
     description:
-      "Transformed hotel booking experience with AI-powered personalization — resulting in 45% higher booking conversion rate and 60% increase in customer satisfaction scores.",
-    image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829580/hotel_klzkwb.png",
-    link: "https://saksham-chi.vercel.app/",
+      "Revolutionized insurance claims processing with AI — reduced processing time by 75% and operational costs by 50% while maintaining 99% accuracy rate.",
+    image: "https://res.cloudinary.com/dikisauij/image/upload/v1750225505/iisc_banglore_asptrp.png",
+  },
+  {
+    title: "Mathed - International Conference",
+    description:
+      "International conference on mathematics and education, connecting 1000+ researchers and educators from 30+ countries to share insights and innovations in math education.",
+    image: "https://res.cloudinary.com/dikisauij/image/upload/v1750229208/mathed_2025_kasi13.png",
   },
   {
     title: "Literacy Mission",
@@ -26,6 +32,14 @@ const projects = [
     image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829580/literacy_mission_cnii7k.png",
     link: "https://literacymission.nith.ac.in/",
   },
+  {
+    title: "Hotel Chi",
+    description:
+      "Transformed hotel booking experience with AI-powered personalization — resulting in 45% higher booking conversion rate and 60% increase in customer satisfaction scores.",
+    image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829580/hotel_klzkwb.png",
+    link: "https://saksham-chi.vercel.app/",
+  },
+  
   {
     title: "Pahadi Craft",
     description:
@@ -41,9 +55,10 @@ const projects = [
   {
     title: "Claim Ai",
     description:
-      "Revolutionized insurance claims processing with AI — reduced processing time by 75% and operational costs by 50% while maintaining 99% accuracy rate.",
+      "IISc's Open Day is an annual event when the Institute opens its doors for the public to visit, learn, and understand various technological projects and research.",
     image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829563/Claim_Ai_aic5tw.png",
   },
+  
 ];
 
 const ProjectStackGSAP = () => {

@@ -332,7 +332,10 @@ const Services = () => {
                     </p>
                     
                     <button className="group inline-flex items-center text-xs md:text-sm font-semibold text-[#F2F2F2]">
-                      <span className="relative">
+                      <span className="relative" onClick={() => {
+                        // redirect to /services route
+                        window.location.href = '/services';
+                      }}>
                         Explore
                         <span className="absolute left-0 bottom-0 w-full h-[2px] bg-[#F2F2F2] scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
                       </span>

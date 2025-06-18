@@ -104,49 +104,73 @@ const Servises = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Enhanced card animations
-      gsap.utils.toArray('.service-card').forEach((card, i) => {
-        gsap.from(card, {
-          y: 50,
-          opacity: 0,
-          duration: 0.8,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 90%',
-            end: 'top 60%',
-            // scrub: 1,
-            toggleActions: 'play none none reverse',
-          },
-        });
+      // Batch animations for better performance
+      ScrollTrigger.batch('.service-card', {
+        interval: 0.1,
+        batchMax: 3,
+        onEnter: (batch) =>
+          gsap.to(batch, {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            stagger: 0.15,
+            ease: 'power2.out',
+          }),
+        start: 'top 85%',
       });
 
-      // Pricing cards animation
-      gsap.from('.pricing-card', {
-        y: 100,
-        opacity: 0,
+      // Fixed pricing cards animation
+      gsap.set('.pricing-card', { opacity: 0, y: 50 }); // Set initial state
+      
+      gsap.to('.pricing-card', {
+        y: 0,
+        opacity: 1,
         duration: 1,
         stagger: 0.2,
-        ease: 'back.out(1.2)',
+        ease: 'power3.out',
         scrollTrigger: {
           trigger: '.pricing-section',
           start: 'top 80%',
+          once: true, // Only animate once
+          markers: false
+        }
+      });
+
+      // Optimized stats animation
+      const statsAnimation = gsap.utils
+        .toArray('.stat-number')
+        .map((stat) => {
+          const target = parseFloat(stat.getAttribute('data-target'));
+          return gsap.to(stat, {
+            duration: 2,
+            snap: { innerHTML: 1 },
+            innerHTML: target,
+            ease: 'power1.inOut',
+            scrollTrigger: {
+              trigger: stat,
+              start: 'top 85%',
+              once: true,
+            },
+          });
+        });
+
+      // Process steps animation
+      gsap.from('.process-step', {
+        y: 30,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.process-section',
+          start: 'top 75%',
         },
       });
 
-      // Stats counter animation
-      gsap.utils.toArray('.stat-number').forEach((stat) => {
-        let target = parseFloat(stat.getAttribute('data-target'));
-        gsap.to(stat, {
-          innerHTML: target,
-          duration: 2,
-          snap: { innerHTML: 1 },
-          scrollTrigger: {
-            trigger: stat,
-            start: 'top 80%',
-          },
-        });
-      });
+      return () => {
+        statsAnimation.forEach((anim) => anim.kill());
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      };
     }, sectionRef);
 
     return () => ctx.revert();
@@ -155,10 +179,10 @@ const Servises = () => {
   return (
     <div
       ref={sectionRef}
-      className="bg-[#0B0C10]  text-white py-28 space-y-32"
+      className="relative min-h-screen bg-black py-28 space-y-32"
     >
       {/* Hero Section */}
-      <section className="px-6 sm:px-12 md:px-20 lg:px-32">
+      <section className="px-6 bg-black sm:px-12 md:px-20 lg:px-32">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-5xl md:text-7xl text-white font-extrabold mb-6 bg-clip-text  bg-gradient-to-r from-white via-white/90 to-white/50">
             Transform Your Business With AI
@@ -170,11 +194,11 @@ const Servises = () => {
 
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20">
-            { [
+            {[
               { number: 45, label: 'Projects Delivered' },
               { number: 98, label: 'Satisfied Clients' },
               { number: 125000, label: 'Lines of Code' },
-              { number: 24, label: 'AI Models Integrated' }
+              { number: 24, label: 'AI Models Integrated' },
             ].map((stat, i) => (
               <div key={i} className="text-center">
                 <div className="text-4xl font-bold mb-2">
@@ -227,7 +251,7 @@ const Servises = () => {
             Our Development Process
           </h2>
           <div className="grid md:grid-cols-4 gap-8">
-            { [
+            {[
               {
                 icon: <Coffee />,
                 title: 'Discovery',
@@ -249,7 +273,7 @@ const Servises = () => {
                 desc: 'Going live with support',
               },
             ].map((step, i) => (
-              <div key={i} className="text-center relative">
+              <div key={i} className="text-center relative process-step">
                 <div className="relative z-10 bg-white/15 p-6 rounded-xl border border-white/20">
                   <div className="text-white mb-4 mx-auto w-12 h-12 flex items-center justify-center bg-white/10 rounded-lg">
                     {step.icon}
@@ -266,8 +290,8 @@ const Servises = () => {
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="pricing-section px-6 sm:px-12 md:px-20 lg:px-32">
+      {/* Pricing Section - Updated */}
+      <section className="pricing-section relative z-10 px-6 sm:px-12 md:px-20 lg:px-32">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-20">
             Transparent Pricing
@@ -278,8 +302,8 @@ const Servises = () => {
                 key={i}
                 className={`pricing-card relative p-8 rounded-2xl border ${
                   plan.highlight
-                    ? 'border-white/30 bg-white/15'
-                    : 'border-white/20 bg-white/10'
+                    ? 'border-white/30 bg-gradient-to-b from-white/15 to-white/5'
+                    : 'border-white/20 bg-gradient-to-b from-white/10 to-transparent'
                 } backdrop-blur-sm hover:scale-105 transition-all duration-300`}
               >
                 {plan.highlight && (

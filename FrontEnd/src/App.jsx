@@ -65,8 +65,7 @@ const App = () => {
 
   return (
     <LoadingContext.Provider value={{ pageLoading, setPageLoading, handleRouteChange }}>
-      <div className="relative overflow-x-hidden">
-        <NeonAnimatedBg />
+      <div className="relative overflow-x-hidden bg-black text-white">
         {pageLoading && <Preloader />}
         <Routes>
           <Route element={<Layout />}>
@@ -74,6 +73,7 @@ const App = () => {
               path="/"
               element={
                 <React.Fragment>
+        <NeonAnimatedBg />
                   <Hero />
                   {/* <Contact /> */}
                   <GoranInfo />
