@@ -132,15 +132,15 @@ const clients = [
         secondRowAnim.resume();
       };
 
-      container.addEventListener('mouseenter', pauseAnimation);
-      container.addEventListener('mouseleave', resumeAnimation);
+      // container.addEventListener('mouseenter', pauseAnimation);
+      // container.addEventListener('mouseleave', resumeAnimation);
 
-      return () => {
-        firstRowAnim.kill();
-        secondRowAnim.kill();
-        container.removeEventListener('mouseenter', pauseAnimation);
-        container.removeEventListener('mouseleave', resumeAnimation);
-      };
+      // return () => {
+      //   firstRowAnim.kill();
+      //   secondRowAnim.kill();
+      //   container.removeEventListener('mouseenter', pauseAnimation);
+      //   container.removeEventListener('mouseleave', resumeAnimation);
+      // };
     }
   }, [isMobile]);
 
@@ -148,10 +148,10 @@ const clients = [
     <section ref={containerRef} className="relative py-10 md:py-20 overflow-hidden">
       <div className="text-center mb-8 md:mb-16 px-4">
         <span className="block text-sm md:text-lg text-[#EAE4D4] tracking-[0.3em] mb-4 uppercase">
-          Trusted by Industry Leaders
+          Our Esteemed Clients
         </span>
         <h2 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-white/90 to-white/50 text-transparent bg-clip-text">
-          Our Partners
+          Worked For
         </h2>
       </div>
 

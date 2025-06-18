@@ -19,7 +19,7 @@ const founders = [
   {
     name: "Atharv Golait",
     role: "Cofounder and CFO",
-    image: "https://media.licdn.com/dms/image/v2/D4D35AQEP8_8EaQfmyA/profile-framedphoto-shrink_400_400/B4DZdBXZ5YHkAc-/0/1749148344291?e=1750608000&v=beta&t=1O2bM0JU6-hjWR8IPXGvDOVmyebg48bTiAHNJD0NHCg",
+    image: "../../public/Assets/atharv.png",
     bio: "Passionate about building scalable solutions and pushing technological boundaries. Specialized in AI integration and modern web technologies.",
     socialLinks: {
       github: "https://github.com/atharvgolaith",

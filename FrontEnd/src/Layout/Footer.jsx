@@ -30,7 +30,7 @@ const Footer = () => {
                    className="text-gray-400 hover:text-white transition-all text-lg sm:text-xl p-2">
                   <i className="ri-linkedin-fill"></i>
                 </a>
-                <a href="https://instagram.com/agency" target="_blank" rel="noopener noreferrer" 
+                <a href="https://www.instagram.com/goran.dotin/" target="_blank" rel="noopener noreferrer" 
                    className="text-gray-400 hover:text-white transition-all text-lg sm:text-xl p-2">
                   <i className="ri-instagram-fill"></i>
                 </a>
@@ -40,15 +40,15 @@ const Footer = () => {
             {/* Contact */}
             <div className="footer-section">
               <ul className="space-y-3 sm:space-y-4 text-gray-400 text-sm sm:text-base">
-                <li className="flex items-center group cursor-pointer">
+                <li className="flex items-center group cursor-pointer" onClick={() => window.location.href = "mailto:goran.dotin@gmail.com"}>
                   <i className="ri-mail-line mr-2 sm:mr-3 group-hover:text-white transition-colors"></i>
                   <span className="group-hover:text-white transition-colors">goran.dotin@gmail.com</span>
                 </li>
-                <li className="flex items-center group cursor-pointer">
+                <li className="flex items-center group cursor-pointer" onClick={() => window.location.href = "tel:+919934225353"}>
                   <i className="ri-phone-line mr-2 sm:mr-3 group-hover:text-white transition-colors"></i>
                   <span className="group-hover:text-white transition-colors">+91 9934225353</span>
                 </li>
-                <li className="flex items-center group cursor-pointer">
+                <li className="flex items-center group cursor-pointer" onClick={() => window.location.href = "tel:+918329310930"}>
                   <i className="ri-phone-line mr-2 sm:mr-3 group-hover:text-white transition-colors"></i>
                   <span className="group-hover:text-white transition-colors">+91 8329310930</span>
                 </li>
