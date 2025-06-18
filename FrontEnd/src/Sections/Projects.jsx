@@ -18,12 +18,14 @@ const projects = [
     description:
       "Revolutionized insurance claims processing with AI — reduced processing time by 75% and operational costs by 50% while maintaining 99% accuracy rate.",
     image: "https://res.cloudinary.com/dikisauij/image/upload/v1750225505/iisc_banglore_asptrp.png",
+    link: "https://dese-website.vercel.app/",
   },
   {
     title: "Mathed - International Conference",
     description:
       "International conference on mathematics and education, connecting 1000+ researchers and educators from 30+ countries to share insights and innovations in math education.",
     image: "https://res.cloudinary.com/dikisauij/image/upload/v1750229208/mathed_2025_kasi13.png",
+    link: "https://mathed2025.nith.ac.in/",
   },
   {
     title: "Literacy Mission",
@@ -45,18 +47,22 @@ const projects = [
     description:
       "Digitalized traditional Himachali handicrafts marketplace — enabled 100+ local artisans to reach global markets, increasing their average monthly income by 2.5x.",
     image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829580/pahadicraftwebsite_z3g08n.png",
+    link: "https://pahadi-craft.vercel.app/"
   },
   {
     title: "SKipIt",
     description:
       "Modernized salon management with AI scheduling — reduced wait times by 70% and increased customer retention by 85% through smart appointment optimization.",
     image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829578/SkipIt_kre9aw.png",
+    link: "https://skipit-cloud.vercel.app/",
   },
   {
     title: "Claim Ai",
     description:
       "IISc's Open Day is an annual event when the Institute opens its doors for the public to visit, learn, and understand various technological projects and research.",
     image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829563/Claim_Ai_aic5tw.png",
+    link: "https://claim-ai-navigator.vercel.app/",
+
   },
   
 ];
