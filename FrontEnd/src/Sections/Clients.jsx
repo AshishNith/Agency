@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import logoDEse from '../../public/Assets/DEse.png'; 
 import skipit from '../../public/Assets/skipit.png'; 
-import claimAI from '../../public/Assets/claimAI.png'; 
+import claimAI from '../../public/Assets/claimai.png'; 
 import Robosoc from '../../public/Assets/roboweek.jpg'; 
 
 
