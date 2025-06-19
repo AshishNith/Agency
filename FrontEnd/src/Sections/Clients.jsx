@@ -19,7 +19,7 @@ const clients = [
     {
       id: 1,
       name: "Robosoc",
-      logo: "../../public/Assets/roboweek.jpg",
+      logo: "https://res.cloudinary.com/dinhcaf2c/image/upload/v1750332379/robo_gapp3r.jpg",
       industry: "Technology"
     },
     {
@@ -37,7 +37,7 @@ const clients = [
     {
       id: 4,
       name: "DESE - IISc Bangalore",
-      logo: '../../public/Assets/DEse.png',
+      logo: 'https://res.cloudinary.com/dinhcaf2c/image/upload/v1750332367/dese_o261go.jpg',
       industry: "annual event"
     },
     {
@@ -72,13 +72,13 @@ const clients = [
     {
       id: 9,
       name: "Skipit",
-      logo: '../../public/Assets/skipit.png',
+      logo: 'https://res.cloudinary.com/dinhcaf2c/image/upload/v1750332383/skipit_bgpgbf.jpg',
       industry: "Salon Management"
     },
     {
       id: 10,
       name: "ClaimAI",
-      logo: '../../public/Assets/claimai.png',
+      logo: 'https://res.cloudinary.com/dinhcaf2c/image/upload/v1750332360/claim_ai_t2legj.jpg',
       industry: "Insurance"
     }
   ];
