@@ -91,7 +91,8 @@ const Navbar = () => {
   // Special handler for logo click
   const handleLogoClick = (e) => {
     e.preventDefault();
-    handleRouteChange('route', '/');
+    // handleRouteChange('route', '/');
+    window.location.href = '/'; // Use window.location.href for external navigation
     navigate('/');
   };
 
