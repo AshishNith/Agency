@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, MessageCircle } from 'lucide-react';
+import { X, MessageCircle, Calendar } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { PopupButton } from 'react-calendly';
 
 const TypingIndicator = () => (
   <div className="flex items-center space-x-2 p-4 rounded-2xl bg-white/10 rounded-bl-sm max-w-[80%]">
@@ -23,9 +24,9 @@ const Chatbot = () => {
 
   const handleToggle = () => setIsOpen(!isOpen);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!input.trim()) return;
+  const handleSubmit = async (e, action) => {
+    if (e) e.preventDefault();
+    if (!input.trim() && !action) return;
 
     const userMessage = { from: 'user', text: input };
     setMessages(prev => [...prev, userMessage]);
@@ -102,6 +103,88 @@ const Chatbot = () => {
     return formattedText;
   };
 
+  // Add quick replies for common actions
+  const quickReplies = [
+    { text: "Schedule a Meeting", action: "schedule" },
+    { text: "View Services", action: "services" },
+    { text: "Get Pricing", action: "pricing" },
+    { text: "Contact Team", action: "contact" }
+  ];
+
+  // Updated initial message with quick replies
+  const initialMessage = {
+    from: 'bot',
+    text: "Hello! I'm GoRan's AI assistant. How can I help you today? You can ask me about our services, or schedule a meeting directly.",
+    showQuickReplies: true
+  };
+
+  // const [messages, setMessages] = useState([initialMessage]);
+
+  // Handle quick reply clicks
+  const handleQuickReply = (action) => {
+    switch(action) {
+      case 'schedule':
+        setMessages(prev => [...prev, 
+          { from: 'user', text: "I'd like to schedule a meeting" },
+          { 
+            from: 'bot', 
+            text: "Great! You can schedule a meeting directly using the button below:",
+            showCalendly: true 
+          }
+        ]);
+        break;
+      // Add other cases for different quick replies
+      default:
+        handleSubmit({ preventDefault: () => {} }, action);
+    }
+  };
+
+  // Update message rendering to include Calendly button
+  const renderMessage = (msg, index) => {
+    return (
+      <div key={index} className={`flex ${msg.from === 'bot' ? 'justify-start' : 'justify-end'}`}>
+        {msg.isTyping ? (
+          <TypingIndicator />
+        ) : (
+          <div className={`flex flex-col gap-3 max-w-[85%] sm:max-w-[80%]`}>
+            <div className={`p-3 sm:p-4 rounded-2xl ${
+              msg.from === 'bot' 
+                ? 'bg-white/10 rounded-bl-sm' 
+                : 'bg-purple-500/30 rounded-br-sm'
+            }`}>
+              <p className="text-sm sm:text-[15px] leading-relaxed whitespace-pre-line">
+                {formatMessage(msg.text)}
+              </p>
+            </div>
+            
+            {msg.showQuickReplies && (
+              <div className="flex flex-wrap gap-2">
+                {quickReplies.map((reply, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handleQuickReply(reply.action)}
+                    className="px-3 py-1.5 text-sm bg-white/10 hover:bg-white/20 rounded-full transition-colors"
+                  >
+                    {reply.text}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {msg.showCalendly && (
+              <PopupButton
+                url="https://calendly.com/ranjanashish9992/strategy-call-build-your-brand-online"
+                rootElement={document.getElementById('root')}
+                text="Schedule Meeting →"
+                className="px-4 py-2 bg-purple-500/80 text-white text-sm rounded-xl hover:bg-purple-500/90 transition-all w-fit"
+              />
+            )}
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <>
       {/* Floating Chat Button - Adjusted for mobile */}
@@ -138,28 +221,7 @@ const Chatbot = () => {
 
             {/* Messages Container */}
             <div className="flex-1 p-4 sm:p-6 overflow-y-auto text-white space-y-3 sm:space-y-4 scrollbar-hide">
-              {messages.map((msg, index) => (
-                <div
-                  key={index}
-                  className={`flex ${msg.from === 'bot' ? 'justify-start' : 'justify-end'}`}
-                >
-                  {msg.isTyping ? (
-                    <TypingIndicator />
-                  ) : (
-                    <div
-                      className={`p-3 sm:p-4 rounded-2xl max-w-[85%] sm:max-w-[80%] ${
-                        msg.from === 'bot' 
-                          ? 'bg-white/10 rounded-bl-sm' 
-                          : 'bg-purple-500/30 rounded-br-sm'
-                      }`}
-                    >
-                      <p className="text-sm sm:text-[15px] leading-relaxed whitespace-pre-line">
-                        {formatMessage(msg.text)}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              ))}
+              {messages.map((msg, index) => renderMessage(msg, index))}
               <div ref={messagesEndRef} />
             </div>
 

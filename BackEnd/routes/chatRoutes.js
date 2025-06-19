@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
+const fs = require('fs').promises;
+const path = require('path');
 require('dotenv').config();
 
 // Context for the chatbot about the agency
@@ -48,33 +50,82 @@ Response Guidelines:
 6. Try to be short, concise, and informative
 7. Give to the point answers, avoid unnecessary details`
 
+// Chat history directory
+const HISTORY_DIR = path.join(__dirname, '..', 'data', 'chat-history');
+
+// Ensure history directory exists
+async function ensureHistoryDir() {
+  try {
+    await fs.access(HISTORY_DIR);
+  } catch {
+    await fs.mkdir(HISTORY_DIR, { recursive: true });
+  }
+}
+
+// File operations for chat history
+async function saveHistory(sessionId, messages) {
+  await ensureHistoryDir();
+  const filePath = path.join(HISTORY_DIR, `${sessionId}.json`);
+  await fs.writeFile(filePath, JSON.stringify({
+    sessionId,
+    messages,
+    lastInteraction: new Date()
+  }, null, 2));
+}
+
+async function getHistory(sessionId) {
+  try {
+    const filePath = path.join(HISTORY_DIR, `${sessionId}.json`);
+    const data = await fs.readFile(filePath, 'utf8');
+    return JSON.parse(data);
+  } catch {
+    return null;
+  }
+}
+
+// Helper function to get or create chat history
+async function getOrCreateChatHistory(sessionId) {
+  let history = await getHistory(sessionId);
+  
+  if (!history) {
+    history = {
+      sessionId,
+      messages: [{ role: 'system', content: systemPrompt }],
+      lastInteraction: new Date()
+    };
+    await saveHistory(sessionId, history.messages);
+  }
+  return history;
+}
+
 // Remove or update the test GET route
 router.get('/', (req, res) => {
     res.send('Chat API is working!');
 });
 
-// Add the chat POST route
+// Updated POST route with file-based history
 router.post('/', async (req, res) => {
-  const { message } = req.body;
+  const { message, sessionId = Date.now().toString() } = req.body;
 
   try {
+    const history = await getOrCreateChatHistory(sessionId);
+    history.messages.push({ role: 'user', content: message });
+    
+    // Prepare messages for API call (last 10 messages for context)
+    const contextMessages = history.messages.slice(-10).map(msg => ({
+      role: msg.role,
+      content: msg.content
+    }));
+
     const response = await axios.post(
       'https://openrouter.ai/api/v1/chat/completions',
       {
-        // model: 'deepseek/deepseek-r1-0528:free',
         model: 'meta-llama/llama-3.3-8b-instruct:free',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { 
-            role: 'assistant', 
-            content: 'I am ready to help. I will format responses with **bold** text for emphasis and clear paragraphs.' 
-          },
-          { role: 'user', content: message }
-        ],
+        messages: contextMessages,
         temperature: 0.7,
         max_tokens: 500,
-        frequency_penalty: 0.5, // Adds variety to responses
-        presence_penalty: 0.3   // Encourages focusing on different topics
+        frequency_penalty: 0.5,
+        presence_penalty: 0.3
       },
       {
         headers: {
@@ -85,10 +136,63 @@ router.post('/', async (req, res) => {
     );
 
     const reply = response.data.choices[0].message.content.trim();
-    res.json({ reply });
+
+    // Save assistant's reply to history
+    history.messages.push({ role: 'assistant', content: reply });
+    await saveHistory(sessionId, history.messages);
+
+    res.json({ 
+      reply,
+      sessionId,
+      historyLength: history.messages.length
+    });
   } catch (error) {
-    console.error('OpenRouter API error:', error.message);
-    res.status(500).json({ reply: 'Sorry, something went wrong while processing your message.' });
+    console.error('Chat error:', error.message);
+    res.status(500).json({ 
+      reply: 'Sorry, something went wrong.',
+      error: error.message 
+    });
+  }
+});
+
+// Updated history route
+router.get('/history/:sessionId', async (req, res) => {
+  try {
+    const history = await getHistory(req.params.sessionId);
+    if (!history) {
+      return res.status(404).json({ error: 'Chat history not found' });
+    }
+    res.json(history);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Add cleanup route for old histories
+router.delete('/cleanup', async (req, res) => {
+  try {
+    const files = await fs.readdir(HISTORY_DIR);
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+    
+    let deletedCount = 0;
+    
+    for (const file of files) {
+      const filePath = path.join(HISTORY_DIR, file);
+      const data = JSON.parse(await fs.readFile(filePath, 'utf8'));
+      
+      if (new Date(data.lastInteraction) < thirtyDaysAgo) {
+        await fs.unlink(filePath);
+        deletedCount++;
+      }
+    }
+
+    res.json({
+      message: `Deleted ${deletedCount} old chat histories`,
+      timestamp: new Date()
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 
