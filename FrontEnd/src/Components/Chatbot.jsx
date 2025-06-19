@@ -38,6 +38,8 @@ const Chatbot = () => {
       setMessages(prev => [...prev, { from: 'bot', isTyping: true }]);
 
       const reply = await fetch('https://agency-ikgd.vercel.app/api/chat', {
+      // const reply = await fetch('http://localhost:5000/api/chat', {
+
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: input })
