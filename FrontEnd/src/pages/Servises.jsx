@@ -196,10 +196,10 @@ const Servises = () => {
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20">
             {[
-              { number: 45, label: 'Projects Delivered' },
-              { number: 98, label: 'Satisfied Clients' },
-              { number: 125000, label: 'Lines of Code' },
-              { number: 24, label: 'AI Models Integrated' },
+              { number: 10, label: 'Projects Delivered' },
+              { number: 5, label: 'Satisfied Clients' },
+              { number: 25000, label: 'Lines of Code' },
+              { number: 5, label: 'AI Models Integrated' },
             ].map((stat, i) => (
               <div key={i} className="text-center">
                 <div className="text-4xl font-bold mb-2">
