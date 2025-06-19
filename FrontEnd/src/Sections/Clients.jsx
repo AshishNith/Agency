@@ -19,7 +19,7 @@ const clients = [
     {
       id: 1,
       name: "Robosoc",
-      logo: '../../public/Assets/roboweek.jpg',
+      logo: "../../public/Assets/roboweek.jpg",
       industry: "Technology"
     },
     {
@@ -46,6 +46,9 @@ const clients = [
       logo: "https://saksham-chi.vercel.app/assets/Logo-DqmlKFJJ.jpg",
       industry: "Hotel & Hospitality"
     },
+
+    // --------- these are dummy data -------
+
     // {
     //   id: 6,
     //   name: "SportFit",
@@ -64,6 +67,8 @@ const clients = [
     //   logo: "https://images.pexels.com/photos/5876516/pexels-photo-5876516.jpeg",
     //   industry: "Food & Beverage"
     // },
+
+    // -----------------------------------------
     {
       id: 9,
       name: "Skipit",
