@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-const logoDEse = '../../public/Assets/DEse.png'; 
-const skipit = '../../public/Assets/skipit.png'; 
-const claimAI = '../../public/Assets/claimai.png'; 
-const Robosoc = '../../public/Assets/roboweek.jpg'; 
+// const logoDEse = ; 
+// const skipit = ; 
+// const claimAI = ; 
+// const Robosoc = ; 
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -19,7 +19,7 @@ const clients = [
     {
       id: 1,
       name: "Robosoc",
-      logo: Robosoc,
+      logo: '../../public/Assets/roboweek.jpg',
       industry: "Technology"
     },
     {
@@ -37,7 +37,7 @@ const clients = [
     {
       id: 4,
       name: "DESE - IISc Bangalore",
-      logo: logoDEse,
+      logo: '../../public/Assets/DEse.png',
       industry: "annual event"
     },
     {
@@ -67,13 +67,13 @@ const clients = [
     {
       id: 9,
       name: "Skipit",
-      logo: skipit,
+      logo: '../../public/Assets/skipit.png',
       industry: "Salon Management"
     },
     {
       id: 10,
       name: "ClaimAI",
-      logo: claimAI,
+      logo: '../../public/Assets/claimai.png',
       industry: "Insurance"
     }
   ];
