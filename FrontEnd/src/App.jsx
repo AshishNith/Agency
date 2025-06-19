@@ -51,11 +51,11 @@ const App = () => {
       setIsNavigating(true);
       setPageLoading(true);
       
-      // Reset navigation state after animation
+      // Shorter timeout for better UX
       setTimeout(() => {
         setPageLoading(false);
         setIsNavigating(false);
-      }, 1000);
+      }, 500); // Reduced from 1000 to 500ms
     }
   };
 

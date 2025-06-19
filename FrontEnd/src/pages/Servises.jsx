@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { PopupButton } from 'react-calendly';
 import {
   Bot,
   Briefcase,
@@ -60,7 +61,7 @@ const servicesList = [
 const pricingPlans = [
   {
     name: 'Starter',
-    price: '$2,999',
+    price: '₹ 4,999',
     duration: 'per project',
     features: [
       'Custom AI Agent or Chatbot',
@@ -72,7 +73,7 @@ const pricingPlans = [
   },
   {
     name: 'Professional',
-    price: '$4,999',
+    price: '₹ 14,999',
     duration: 'per project',
     features: [
       'Advanced AI Integration',
@@ -349,9 +350,14 @@ const Servises = () => {
             Let’s bring your idea to life — whether it’s an AI tool, automated
             workflow, or a full-scale web platform.
           </p>
-          <button className="px-8 py-3 bg-white text-black font-semibold rounded-full hover:opacity-90 transition-all duration-300">
-            Let’s Talk
-          </button>
+          
+          <PopupButton
+                // url="https://calendly.com/ranjanashish9992/"
+                url="https://calendly.com/ranjanashish9992/strategy-call-build-your-brand-online"
+                rootElement={document.getElementById('root')}
+                text="Let’s Talk →"
+                className="group relative px-8 py-4 bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm text-white rounded-lg overflow-hidden border border-white/10 hover:from-white/30 hover:to-white/10 transition-all duration-300"
+            />
         </div>
       </div>
     </div>

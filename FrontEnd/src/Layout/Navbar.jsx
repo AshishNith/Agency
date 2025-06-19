@@ -67,12 +67,12 @@ const Navbar = () => {
 
   const handleNavigation = (item) => {
     if (item.type === 'route') {
-      handleRouteChange('route', item.path);
-      // Wait for animation to start before navigation
-      setTimeout(() => {
-        navigate(item.path);
-      }, 300);
+      setIsMobileMenuOpen(false); // Close mobile menu first
+      // handleRouteChange('route', item.path);
+      window.location.href = item.path; // Use window.location.href for external navigation
+      navigate(item.path);
     } else if (item.type === 'section') {
+      setIsMobileMenuOpen(false);
       scrollToSection(item.id);
     }
   };
@@ -92,9 +92,7 @@ const Navbar = () => {
   const handleLogoClick = (e) => {
     e.preventDefault();
     handleRouteChange('route', '/');
-    setTimeout(() => {
-      navigate('/');
-    }, 300);
+    navigate('/');
   };
 
   return (
