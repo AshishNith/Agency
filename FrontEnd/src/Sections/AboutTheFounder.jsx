@@ -11,8 +11,8 @@ const founders = [
     image: "https://media.licdn.com/dms/image/v2/D5603AQF-pv9gNqRAHA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1727822390724?e=1754524800&v=beta&t=7GH9gr6mDHWE5o-GkRF7okemDuBcxfM6JCGijSVEHlw",
     bio: "Creative developer focused on crafting beautiful user experiences. Expert in animation and interactive web design.",
     socialLinks: {
-      github: "https://github.com/ashishranjan",
-      linkedin: "https://linkedin.com/in/ashishranjan",
+      instagram: "https://instagram.com/ig_ashish.ranjan",
+      linkedin: "https://www.linkedin.com/in/fictech/",
       twitter: "https://twitter.com/ashishranjan"
     }
   },
@@ -22,9 +22,9 @@ const founders = [
     image: "https://res.cloudinary.com/dinhcaf2c/image/upload/v1750314113/profile_pic_ar5nim.jpg",
     bio: "Passionate about building scalable solutions and pushing technological boundaries. Specialized in AI integration and modern web technologies.",
     socialLinks: {
-      github: "https://github.com/atharvgolaith",
-      linkedin: "https://linkedin.com/in/atharvgolait",
-      twitter: "https://twitter.com/atharvgolait"
+      instagram: "https://www.instagram.com/atharv.vv_?igsh=MzZ2NDlrNXVvbmJy",
+      linkedin: "https://www.linkedin.com/in/atharv-golait-9048772ab?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      twitter: "https://x.com/Atharv_Golait?t=FKwzQ_VDSlRuUgBXkanvTw&s=09"
     }
   },
   
