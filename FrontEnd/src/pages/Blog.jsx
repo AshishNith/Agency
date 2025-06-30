@@ -31,7 +31,7 @@ const blogPosts = [
 		author: {
 			name: 'Atharv Golait',
 			avatar:
-				'https://media.licdn.com/dms/image/v2/D4D35AQEP8_8EaQfmyA/profile-framedphoto-shrink_400_400/B4DZdBXZ5YHkAc-/0/1749148344291?e=1749906000&v=beta&t=jeBL3lOQYPVoT9mpyQTyQvAMY1y52qfCnXJWOx8__2c',
+				'https://res.cloudinary.com/dinhcaf2c/image/upload/v1750314113/profile_pic_ar5nim.jpg',
 		},
 	},
 	{
@@ -63,7 +63,7 @@ const blogPosts = [
 		author: {
 			name: 'Atharv Golait',
 			avatar:
-				'https://media.licdn.com/dms/image/v2/D4D35AQEP8_8EaQfmyA/profile-framedphoto-shrink_400_400/B4DZdBXZ5YHkAc-/0/1749148344291?e=1749906000&v=beta&t=jeBL3lOQYPVoT9mpyQTyQvAMY1y52qfCnXJWOx8__2c',
+				'https://res.cloudinary.com/dinhcaf2c/image/upload/v1750314113/profile_pic_ar5nim.jpg',
 		},
 	},
 	{
