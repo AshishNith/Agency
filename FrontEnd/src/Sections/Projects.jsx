@@ -7,6 +7,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
   {
+    title: "Pahadi Craft",
+    description:
+      "Digitalized traditional Himachali handicrafts marketplace — enabled 100+ local artisans to reach global markets, increasing their average monthly income by 2.5x.",
+    image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829580/pahadicraftwebsite_z3g08n.png",
+    link: "https://thepahadicraft.com/"
+  },
+  {
     title: "Roboweek",
     description:
       "Revolutionized student engagement with an interactive robotics platform — 500+ participants across 50+ colleges engaged in virtual workshops and competitions, driving 3x increase in robotics club membership.",
@@ -42,13 +49,6 @@ const projects = [
     link: "https://saksham-chi.vercel.app/",
   },
   
-  {
-    title: "Pahadi Craft",
-    description:
-      "Digitalized traditional Himachali handicrafts marketplace — enabled 100+ local artisans to reach global markets, increasing their average monthly income by 2.5x.",
-    image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829580/pahadicraftwebsite_z3g08n.png",
-    link: "https://pahadi-craft.vercel.app/"
-  },
   {
     title: "SKipIt",
     description:
