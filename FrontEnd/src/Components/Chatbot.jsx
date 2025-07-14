@@ -37,9 +37,9 @@ const Chatbot = () => {
       // Add typing indicator immediately
       setMessages(prev => [...prev, { from: 'bot', isTyping: true }]);
 
-      // const reply = await fetch('https://agency-ikgd.vercel.app/api/chat', {
-      // const reply = await fetch('http://localhost:5000/chat', {
-      const reply = await fetch('https://goran-bot.onrender.com/chat', {
+      const reply = await fetch('https://agency-ikgd.vercel.app/api/chat', {
+      // const reply = await fetch('http://localhost:5000/api/chat', {
+      // const reply = await fetch('https://goran-bot.onrender.com/chat', {
 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
