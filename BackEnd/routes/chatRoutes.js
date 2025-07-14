@@ -43,7 +43,7 @@ Response Guidelines:
 1. Be professional but friendly
 2. Structure responses with clear paragraphs
 3. Highlight key terms in **bold**
-4. Use bullet points for listing services or features
+4. Use bullet points for listing seraices or features
 5. Keep responses concise but informative
 6. Try to be short, concise, and informative
 7. Give to the point answers, avoid unnecessary details`
@@ -62,7 +62,8 @@ router.post('/', async (req, res) => {
       'https://openrouter.ai/api/v1/chat/completions',
       {
         // model: 'deepseek/deepseek-r1-0528:free',
-        model: 'meta-llama/llama-3.3-8b-instruct:free',
+        model: 'meta-llama/llama-3-8b-instruct:free',
+        // model: 'google/gemma-3n-e2b-it:free',
         messages: [
           { role: 'system', content: systemPrompt },
           { 
@@ -73,8 +74,8 @@ router.post('/', async (req, res) => {
         ],
         temperature: 0.7,
         max_tokens: 500,
-        frequency_penalty: 0.5, // Adds variety to responses
-        presence_penalty: 0.3   // Encourages focusing on different topics
+        // frequency_penalty: 0.5, // Adds variety to responses
+        // presence_penalty: 0.3   // Encourages focusing on different topics
       },
       {
         headers: {
@@ -83,6 +84,7 @@ router.post('/', async (req, res) => {
         }
       }
     );
+    console.error('OpenRouter API error:', error.response?.data || error.message);
 
     const reply = response.data.choices[0].message.content.trim();
     res.json({ reply });
