@@ -10,7 +10,7 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 # Init Flask and Groq
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://goran.in", "https://www.goran.in", "http://localhost:5173", "http://localhost:5173/"])
 groq = Groq(api_key=GROQ_API_KEY)
 
 # Context for chatbot
