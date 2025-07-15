@@ -178,16 +178,17 @@ const Navbar = () => {
             </div>
 
             {/* Login Button */}
-            <button 
+            {/* <button 
               onClick={() => handleNavigation('auth')}
               className="text-[#EAE4D4] hover:text-[#F2F2F2] px-4 py-2 text-sm font-medium transition-colors"
             >
               Login
-            </button>
+            </button> */}
 
             {/* Let's Talk Button */}
             <button 
-              onClick={() => scrollToSection('contact')}
+              // onClick={() => scrollToSection('contact')}
+              onClick={() => window.location.href = '/contact'}
               className="bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm text-[#F2F2F2] px-6 py-2.5 rounded-lg text-sm font-medium border border-white/10 hover:bg-white/10 transition-all"
             >
               Let's Talk
@@ -231,14 +232,15 @@ const Navbar = () => {
             </div>
             {/* Mobile Action Buttons */}
             <div className="px-4 py-3 space-y-2">
-              <button 
+              {/* <button 
                 onClick={() => handleMobileNavigation({ type: 'route', path: '/auth' })}
                 className="w-full text-center text-[#EAE4D4] px-4 py-2 text-sm font-medium border border-white/10 rounded-lg hover:bg-white/5"
               >
                 Login
-              </button>
+              </button> */}
               <button 
-                onClick={() => handleMobileNavigation({ type: 'section', id: 'contact' })}
+                // onClick={() => handleMobileNavigation({ type: 'section', id: 'contact' })}
+                onClick={() => window.location.href = '/contact'}
                 className="w-full text-center bg-gradient-to-br from-white/20 to-white/5 text-[#F2F2F2] px-4 py-2 rounded-lg text-sm font-medium border border-white/10"
               >
                 Let's Talk

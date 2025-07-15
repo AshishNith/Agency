@@ -171,8 +171,10 @@ const Hero = () => {
                 className="group relative px-8 py-4 bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm text-white rounded-lg overflow-hidden border border-white/10 hover:from-white/30 hover:to-white/10 transition-all duration-300"
             />
             
-            <button className="group relative px-8 py-4 text-white rounded-lg overflow-hidden border border-white/10">
-              <span className="relative z-10">Explore Our Work</span>
+            <button 
+            onClick={() => window.location.href = '/services'}
+            className="group relative px-8 py-4 text-white rounded-lg overflow-hidden border border-white/10">
+              <span className="relative z-10">Explore Our Services</span>
               <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
             </button>
           </div>
