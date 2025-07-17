@@ -1,13 +1,7 @@
 {
     "rewrites": [
       { "source": "/(.*)", "destination": "/index.html" }
-    ],
-    "redirects": [
-    {
-      "source": "https://www.goran.in/:path*",
-      "destination": "https://goran.in/:path*",
-      "permanent": true
-    }
-  ]
+    ]
+    
 }
   
