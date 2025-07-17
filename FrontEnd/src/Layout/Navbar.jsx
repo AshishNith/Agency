@@ -178,12 +178,12 @@ const Navbar = () => {
             </div>
 
             {/* Login Button */}
-            {/* <button 
-              onClick={() => handleNavigation('auth')}
-              className="text-[#EAE4D4] hover:text-[#F2F2F2] px-4 py-2 text-sm font-medium transition-colors"
+            <button 
+              onClick={() => window.location.href = '/auth'}
+              className="bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm text-[#F2F2F2] px-6 py-2.5 rounded-lg text-sm font-medium border border-white/10 hover:bg-white/10 transition-all"
             >
               Login
-            </button> */}
+            </button>
 
             {/* Let's Talk Button */}
             <button 
