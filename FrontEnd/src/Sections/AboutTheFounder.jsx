@@ -13,14 +13,14 @@ const founders = [
     socialLinks: {
       instagram: "https://instagram.com/ig_ashish.ranjan",
       linkedin: "https://www.linkedin.com/in/fictech/",
-      twitter: "https://twitter.com/ashishranjan"
+      twitter: "https://x.com/AshishR9992"
     }
   },
   {
     name: "Atharv Golait",
     role: "Cofounder and CFO",
     image: "https://res.cloudinary.com/dinhcaf2c/image/upload/v1750314113/profile_pic_ar5nim.jpg",
-    bio: "Passionate about building scalable solutions and pushing technological boundaries. Specialized in AI integration and modern web technologies.",
+    bio: "Passionate about building scalable solutions and pushing technological boundaries. Specialized in modern web technologies, Sales & Marketing.",
     socialLinks: {
       instagram: "https://www.instagram.com/atharv.vv_?igsh=MzZ2NDlrNXVvbmJy",
       linkedin: "https://www.linkedin.com/in/atharv-golait-9048772ab?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",

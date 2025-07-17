@@ -28,6 +28,8 @@ import LeadMagnet from './Sections/Leadmagnet';
 import GoranInfo from './Sections/GoranInfo';
 import WhyUs from './Sections/WhyUs';
 import Contact from './pages/Contact';
+import ProtectedRoute from './auth/ProtectedRoute';
+import CalendlyPage from './pages/CalendlyPage';
 // import Work from './pages/Works';
 // import Scroller_ from './Components/Scroller_';
 
@@ -67,13 +69,14 @@ const App = () => {
     <LoadingContext.Provider value={{ pageLoading, setPageLoading, handleRouteChange }}>
       <div className="relative overflow-x-hidden bg-black text-white">
         {pageLoading && <Preloader />}
+
         <Routes>
           <Route element={<Layout />}>
             <Route
               path="/"
               element={
                 <React.Fragment>
-        <NeonAnimatedBg />
+                  <NeonAnimatedBg />
                   <Hero />
                   {/* <Contact /> */}
                   <GoranInfo />
@@ -86,31 +89,41 @@ const App = () => {
                   <Chatbot />
                 </React.Fragment>
               }
-            />
+              />
             <Route 
               path="/services" 
               element={<Servises onLoad={handleRouteChange} />} 
+              />
+            
+            <Route 
+              path="/calendlymeet" 
+              element={
+                <ProtectedRoute>
+                  <CalendlyPage onLoad={handleRouteChange} />
+                </ProtectedRoute>
+              } 
             />
+
             <Route 
               path="/parallax" 
               element={<ParallaxScroller />} 
-            />
+              />
             <Route 
               path="/about" 
               element={<About onLoad={handleRouteChange} />} 
-            />
+              />
             <Route 
               path="/blog" 
               element={<Blog onLoad={handleRouteChange} />} 
-            />
+              />
             <Route 
               path="/b" 
               element={<Clients onLoad={handleRouteChange} />} 
-            />
+              />
             <Route 
               path="/contact" 
               element={<Contact onLoad={handleRouteChange} />} 
-            />
+              />
             {/* <Route path="/work" element={<Work />} /> */}
           </Route>
 
