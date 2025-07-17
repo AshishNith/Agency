@@ -151,7 +151,7 @@ const Auth = () => {
 
             <button
               type="submit"
-              className="w-full bg-white text-black py-3.5 rounded-lg hover:bg-gray-200 transition-colors font-semibold"
+              className="w-full bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm text-[#F2F2F2] px-6 py-2.5 rounded-lg text-sm font-medium border border-white/10 hover:bg-white/10 transition-all"
             >
               {isLogin ? 'Sign In' : 'Create Account'}
             </button>
@@ -168,9 +168,9 @@ const Auth = () => {
             <div className="w-full">
               <button
                 onClick={handleGoogleSignIn}
-                className="w-full py-3 px-4 bg-white text-black rounded-lg font-semibold flex items-center justify-center gap-2 hover:bg-gray-100 transition-all duration-300"
+                className="w-full bg-gradient-to-br flex items-center justify-center gap-5 from-white/20 to-white/5 backdrop-blur-sm text-[#F2F2F2] px-6 py-2.5 rounded-lg text-sm font-medium border border-white/10 hover:bg-white/10 transition-all"
               >
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Logo_2013_Google.png" alt="Google" className="w-5 h-5" />
+                <i class="ri-google-fill text-lg"></i>
                 Continue with Google
               </button>
             </div>
