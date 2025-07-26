@@ -16,3 +16,47 @@
   transform-style: preserve-3d;
   backface-visibility: hidden;
 }
+
+/* Glare Effect Utilities */
+.glare-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.glare-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  transform: skewX(-25deg);
+  transition: 0.7s;
+}
+
+.glare-effect:hover::before {
+  animation: glare 0.7s forwards;
+}
+
+@keyframes glare {
+  100% {
+    left: 125%;
+  }
+}
+
+/* Improved card hover effects */
+.hover-card-animation {
+  transition: all 0.3s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.hover-card-animation:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+}
