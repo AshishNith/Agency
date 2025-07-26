@@ -20,7 +20,7 @@ import About from './pages/About';
 import Preloader from './Components/Preloader';
 import Chatbot from './Components/Chatbot';
 import Servises from './pages/Servises';
-import Blog from './pages/Blog';
+import Portfolio from './pages/Portfolio';
 import ParallaxScroller from './Components/ParallaxScroller';
 import Projects from './Sections/Projects';
 import AboutTheFounder from './Sections/AboutTheFounder';
@@ -113,8 +113,8 @@ const App = () => {
               element={<About onLoad={handleRouteChange} />} 
               />
             <Route 
-              path="/blog" 
-              element={<Blog onLoad={handleRouteChange} />} 
+              path="/portfolio" 
+              element={<Portfolio onLoad={handleRouteChange} />} 
               />
             <Route 
               path="/b" 
