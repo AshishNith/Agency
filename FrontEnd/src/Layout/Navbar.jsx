@@ -75,7 +75,7 @@ const Navbar = () => {
     { name: 'About', id: 'about', type: 'route', path: '/about' },
     { name: 'Services', type: 'route', path: "/services" },
     { name: 'Process', id: 'process', type: 'section' },
-    { name: 'Blog', id: 'blog', type: 'route', path: '/blog' },
+    { name: 'Portfolio', id: 'port', type: 'route', path: '/Portfolio' },
   ]
 
   const handleNavigation = (item) => {
