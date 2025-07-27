@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { X } from "lucide-react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { Link } from "react-router-dom";
 import SpinningEarth from "../Components/SpinningEarth";
 import ScrollRobot from "../Components/ScrollRobot";
 import FloatingParticles from "../Components/FloatingParticles";
@@ -33,6 +34,7 @@ const portfolioItems = [
     image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829563/Claim_Ai_aic5tw.png",
     category: "AI Chatbot",
     tech: ["React", "Flask", "OpenAI API"],
+    link: "https://claim-ai-navigator.vercel.app/",
   },
   {
     title: "SkipIt Automation",
@@ -41,6 +43,7 @@ const portfolioItems = [
     image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829578/SkipIt_kre9aw.png",
     category: "Automation",
     tech: ["n8n", "OpenAI", "Gmail API"],
+    link: "https://skipit-cloud.vercel.app/",
   },
   {
     title: "Luxary Hotel Website",
@@ -49,6 +52,7 @@ const portfolioItems = [
     image: "https://res.cloudinary.com/dspygzbmi/image/upload/v1749829580/hotel_klzkwb.png",
     category: "Hotels",
     tech: ["Next.js", "MongoDB", "Tailwind"],
+    link: "https://saksham-chi.vercel.app/",
   },
    {
     title: "GoRan SaaS Product",
@@ -57,6 +61,7 @@ const portfolioItems = [
     image: "https://res.cloudinary.com/dmhabztbf/image/upload/v1753518756/Screenshot_2025-07-26_134757_lbqvvn.png",
     category: "SaaS",
     tech: ["Next.js", "MongoDB", "Tailwind"],
+    link: "https://go-ran-saa-s.vercel.app/",
   },
    {
     title: "Luxe Salon",
@@ -81,6 +86,7 @@ const portfolioItems = [
     image: "https://res.cloudinary.com/dmhabztbf/image/upload/v1753518752/Screenshot_2025-07-26_135017_laivza.png",
     category: "Art Gallery",
     tech: ["Next.js", "MongoDB", "Tailwind"],
+    link: "https://chetan-art-gallery.vercel.app/",
   },
    {
     title: "Tara Ayurveda",
@@ -105,6 +111,7 @@ const portfolioItems = [
     image: "https://res.cloudinary.com/dikisauij/image/upload/v1750225505/iisc_banglore_asptrp.png",
     category: "Institutional Project",
     tech: ["Next.js", "MongoDB", "Tailwind"],
+    link : "https://dese-iisc.vercel.app/",
   },
 ];
 
@@ -192,7 +199,7 @@ const Portfolio = () => {
           >
             <AnimatedCounter end={25} label="Projects" suffix="+" />
             <AnimatedCounter end={100} label="Clients" suffix="%" />
-            <AnimatedCounter end={5} label="Years" />
+            <AnimatedCounter end={2} label="Years" />
           </motion.div>
         </div>
       </motion.div>
@@ -338,21 +345,23 @@ const Portfolio = () => {
             >
               Let's craft your next big digital product together — powered by AI, automation, and design.
             </motion.p>
-            <motion.button
-              whileHover={{
-                scale: 1.05,
-                boxShadow: '0 20px 40px rgba(255, 255, 255, 0.2)',
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="px-10 py-4 bg-gradient-to-r from-white to-gray-100 text-black font-semibold rounded-full transition-all duration-300 relative z-10 shadow-lg"
-            >
-              <motion.span
-                animate={{ opacity: [1, 0.8, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
+            <Link to="/contact">
+              <motion.button
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: '0 20px 40px rgba(255, 255, 255, 0.2)',
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="px-10 py-4 bg-gradient-to-r from-white to-gray-100 text-black font-semibold rounded-full transition-all duration-300 relative z-10 shadow-lg"
               >
-                Contact Us
-              </motion.span>
-            </motion.button>
+                <motion.span
+                  animate={{ opacity: [1, 0.8, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  Contact Us
+                </motion.span>
+              </motion.button>
+            </Link>
           </motion.div>
         </motion.div>
       </div>
