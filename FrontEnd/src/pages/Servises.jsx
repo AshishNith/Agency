@@ -104,8 +104,8 @@ const pricingPlans = [
 ];
 
 const statsData = [
-  { number: 50, label: 'Projects Delivered', suffix: '+' },
-  { number: 30, label: 'Satisfied Clients', suffix: '+' },
+  { number: 15, label: 'Projects Delivered', suffix: '+' },
+  { number: 10, label: 'Satisfied Clients', suffix: '+' },
   { number: 100000, label: 'Lines of Code', suffix: '+' },
   { number: 25, label: 'AI Models Integrated', suffix: '+' },
 ];
@@ -116,24 +116,22 @@ const Servises = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Enhanced stats animation
+      // Fix for stats animation
       statsData.forEach((stat, index) => {
         const el = document.querySelector(`.stat-number-${index}`);
         if (el) {
-          gsap.from(el, {
-            textContent: 0,
+          let value = { val: 0 };
+          gsap.to(value, {
+            val: stat.number,
             duration: 2,
-            ease: 'power1.out',
-            snap: { textContent: 1 },
-            stagger: {
-              each: 0.2,
-              onUpdate: function () {
-                this.targets()[0].innerHTML = Math.ceil(this.targets()[0].textContent);
-              },
+            ease: 'power2.out',
+            onUpdate: function () {
+              el.innerHTML = Math.round(value.val);
             },
             scrollTrigger: {
               trigger: el,
               start: 'top 85%',
+              once: true,
             },
           });
         }
@@ -194,21 +192,21 @@ const Servises = () => {
         const processSteps = gsap.utils.toArray('.process-step');
         processSteps.forEach((step, i) => {
           gsap.set(step, { opacity: 0, y: 50 });
-          
+
           ScrollTrigger.create({
             trigger: step,
-            start: "top 80%",
-            end: "bottom 20%",
+            start: 'top 80%',
+            end: 'bottom 20%',
             onEnter: () => {
               gsap.to(step, {
                 opacity: 1,
                 y: 0,
                 duration: 0.8,
                 delay: i * 0.2,
-                ease: "power3.out"
+                ease: 'power3.out',
               });
             },
-            once: true
+            once: true,
           });
         });
 
@@ -216,19 +214,19 @@ const Servises = () => {
         const processLines = gsap.utils.toArray('.process-line');
         processLines.forEach((line) => {
           gsap.set(line, { width: 0 });
-          
+
           ScrollTrigger.create({
             trigger: line,
-            start: "top 70%",
-            end: "bottom 20%",
+            start: 'top 70%',
+            end: 'bottom 20%',
             onEnter: () => {
               gsap.to(line, {
-                width: "100%",
+                width: '100%',
                 duration: 0.8,
-                ease: "power2.inOut"
+                ease: 'power2.inOut',
               });
             },
-            once: true
+            once: true,
           });
         });
 
@@ -287,7 +285,7 @@ const Servises = () => {
               digital presence.
             </p>
 
-            {/* Enhanced Stats Section */}
+            {/* Stats Section with fixed animation */}
             <motion.div
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -361,32 +359,32 @@ const Servises = () => {
                   icon: <Coffee className="text-purple-300" />,
                   title: 'Discovery',
                   desc: 'Understanding your needs',
-                  gradient: 'from-purple-500/20 to-blue-500/20'
+                  gradient: 'from-purple-500/20 to-blue-500/20',
                 },
                 {
                   icon: <Code className="text-blue-300" />,
                   title: 'Development',
                   desc: 'Building your solution',
-                  gradient: 'from-blue-500/20 to-cyan-500/20'
+                  gradient: 'from-blue-500/20 to-cyan-500/20',
                 },
                 {
                   icon: <Check className="text-green-300" />,
                   title: 'Testing',
                   desc: 'Ensuring perfection',
-                  gradient: 'from-cyan-500/20 to-emerald-500/20'
+                  gradient: 'from-cyan-500/20 to-emerald-500/20',
                 },
                 {
                   icon: <Star className="text-yellow-300" />,
                   title: 'Launch',
                   desc: 'Going live with support',
-                  gradient: 'from-emerald-500/20 to-purple-500/20'
-                }
+                  gradient: 'from-emerald-500/20 to-purple-500/20',
+                },
               ].map((step, i) => (
                 <div key={i} className="relative">
-                  <motion.div
-                    className="process-step relative z-20"
-                  >
-                    <div className={`relative glare-effect hover-card-animation bg-gradient-to-br ${step.gradient} p-8 rounded-xl border border-white/20 backdrop-blur-md group transition-all duration-300`}>
+                  <motion.div className="process-step relative z-20">
+                    <div
+                      className={`relative glare-effect hover-card-animation bg-gradient-to-br ${step.gradient} p-8 rounded-xl border border-white/20 backdrop-blur-md group transition-all duration-300`}
+                    >
                       <div className="text-white mb-6 mx-auto w-16 h-16 flex items-center justify-center bg-white/10 rounded-xl group-hover:scale-110 transition-transform">
                         {step.icon}
                       </div>

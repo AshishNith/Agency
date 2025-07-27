@@ -8,7 +8,7 @@ const founders = [
     {
     name: "Ashish Ranjan",
     role: "Founder and CEO",
-    image: "https://media.licdn.com/dms/image/v2/D5603AQF-pv9gNqRAHA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1727822390724?e=1754524800&v=beta&t=7GH9gr6mDHWE5o-GkRF7okemDuBcxfM6JCGijSVEHlw",
+    image: "https://res.cloudinary.com/dmhabztbf/image/upload/v1753597480/1727822390748_qe6sbm.jpg",
     bio: "Passionate engineer and founder of GoRan, blending AI, automation, and web tech to solve real-world problems.",
     socialLinks: {
       instagram: "https://instagram.com/ig_ashish.ranjan",

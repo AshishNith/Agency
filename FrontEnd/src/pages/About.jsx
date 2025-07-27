@@ -7,6 +7,7 @@ import { useInView } from "framer-motion";
 import FloatingParticles from "../Components/FloatingParticles";
 import SpinningEarth from "../Components/SpinningEarth";
 import ScrollRobot from "../Components/ScrollRobot";
+import { Link } from "react-router-dom";
 
 const techStack = [
   "Next.js", "React", "Tailwind CSS", "Node.js", "MongoDB", "Firebase", "GPT", "OpenAI API", "Stripe", "Flask", "n8n"
@@ -28,8 +29,8 @@ const founders = [
     bio: "Full-Stack Developer and AI Engineer specializing in building intelligent solutions and automation systems.",
     extendedBio: "Led multiple successful AI projects and developed innovative automation solutions for businesses. Expertise in AI/ML, system architecture, and scalable web applications.",
     expertise: ["AI/ML", "System Architecture", "Full-Stack Development", "Team Leadership"],
-    achievements: ["10+ Enterprise Solutions", "5+ AI Implementations", "Multiple Startup Consultations"],
-    image: "https://media.licdn.com/dms/image/v2/D5603AQF-pv9gNqRAHA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1727822390724?e=1754524800&v=beta&t=7GH9gr6mDHWE5o-GkRF7okemDuBcxfM6JCGijSVEHlw",
+    achievements: ["AI Driven Solutions", "5+ AI Implementations", "Multiple Startup Consultations"],
+    image: "https://res.cloudinary.com/dmhabztbf/image/upload/v1753597480/1727822390748_qe6sbm.jpg",
     socials: {
       linkedin: "https://www.linkedin.com/in/ashish-ranjan-225404237/",
       twitter: "https://twitter.com/ashishranjan_12",
@@ -38,16 +39,16 @@ const founders = [
   },
   {
     name: "Atharv Golait",
-    role: "Co-Founder & CFO",
-    bio: "Finance expert and marketing strategist with a passion for AI innovation and business growth.",
-    extendedBio: "Drives financial strategy and business development. Specializes in market analysis, growth strategies, and sustainable business scaling.",
-    expertise: ["Financial Strategy", "Marketing", "Business Development", "Growth Hacking"],
-    achievements: ["Strategic Partnerships", "Market Expansion", "Revenue Growth"],
-    image: "https://media.licdn.com/dms/image/v2/D4D35AQEP8_8EaQfmyA/profile-framedphoto-shrink_400_400/B4DZdBXZ5YHkAc-/0/1749148344291?e=1749906000&v=beta&t=jeBL3lOQYPVoT9mpyQTyQvAMY1y52qfCnXJWOx8__2c",
-    socials: {
-      linkedin: "https://www.linkedin.com/in/atharv-golait-121b00251/",
-      twitter: "https://twitter.com/golait_atharv",
-      github: "https://github.com/ATHARVISM2004"
+  role: "Co-Founder & CFO",
+  bio: "Full-stack developer and finance strategist driving innovation in AI agents, infrastructure, and scalable business growth.",
+  extendedBio: "Leads financial direction and full-stack development initiatives. Passionate about building AI systems, optimizing infrastructure, and creating sustainable tech-driven business models.",
+  expertise: ["Full-Stack Development", "AI Agents & Infrastructure", "Business Growth", "Financial Strategy"],
+  achievements: ["AI-Driven Solutions", "End-to-End Product Development", "Strategic Business Scaling"],
+  image: "https://res.cloudinary.com/dmhabztbf/image/upload/v1753597476/1729669240621_l64l4t.jpg",
+  socials: {
+    linkedin: "https://www.linkedin.com/in/atharv-golait-121b00251/",
+    twitter: "https://twitter.com/golait_atharv",
+    github: "https://github.com/ATHARVISM2004"
     }
   }
 ];
@@ -327,13 +328,15 @@ const About = () => {
             <motion.p className="text-gray-200 mb-8 leading-relaxed text-lg">
               From concept to creation — we're ready to help you launch powerful digital products.
             </motion.p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-10 py-4 bg-gradient-to-r from-white to-gray-100 text-black font-semibold rounded-full shadow-lg"
-            >
-              Contact Us
-            </motion.button>
+            <Link to="/contact">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-10 py-4 bg-gradient-to-r from-white to-gray-100 text-black font-semibold rounded-full shadow-lg"
+              >
+                Contact Us
+              </motion.button>
+            </Link>
           </motion.div>
         </motion.section>
       </div>
