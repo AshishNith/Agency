@@ -103,6 +103,7 @@ const portfolioItems = [
     image: "https://res.cloudinary.com/dmhabztbf/image/upload/v1753518748/Screenshot_2025-07-26_134927_ynsqlj.png",
     category: "E-commerce",
     tech: ["Next.js", "MongoDB", "Tailwind"],
+    link : "https://dese-iisc.vercel.app/",
   },
   {
     title: "DESE - IISc Bangalore",
