@@ -30,6 +30,7 @@ import WhyUs from './Sections/WhyUs';
 import Contact from './pages/Contact';
 import ProtectedRoute from './auth/ProtectedRoute';
 import CalendlyPage from './pages/CalendlyPage';
+import ClientTestimonials from './Sections/ClientTestimonials';
 // import Work from './pages/Works';
 // import Scroller_ from './Components/Scroller_';
 
@@ -93,6 +94,10 @@ const App = () => {
             <Route 
               path="/services" 
               element={<Servises onLoad={handleRouteChange} />} 
+              />
+            <Route 
+              path="/testimonials" 
+              element={<ClientTestimonials />} 
               />
             
             <Route 
