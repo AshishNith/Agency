@@ -31,8 +31,7 @@ import Contact from './pages/Contact';
 import ProtectedRoute from './auth/ProtectedRoute';
 import CalendlyPage from './pages/CalendlyPage';
 import ClientTestimonials from './Sections/ClientTestimonials';
-// import Work from './pages/Works';
-// import Scroller_ from './Components/Scroller_';
+import VoiceAgent from './Components/VoiceAgent';
 
 // Create loading context
 export const LoadingContext = createContext();
@@ -70,6 +69,7 @@ const App = () => {
     <LoadingContext.Provider value={{ pageLoading, setPageLoading, handleRouteChange }}>
       <div className="relative overflow-x-hidden bg-black text-white">
         {pageLoading && <Preloader />}
+        <VoiceAgent />
 
         <Routes>
           <Route element={<Layout />}>

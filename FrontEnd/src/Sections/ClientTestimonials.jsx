@@ -91,28 +91,28 @@ export default function ClientTestimonials() {
         </motion.h2>
 
         {!user ? (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="flex flex-col sm:flex-row justify-center gap-4 mb-12"
-          >
-            <button 
-              className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg text-white 
-                         hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg 
-                         hover:shadow-purple-500/25"
-              onClick={() => handleLogin(providerGoogle)}
+            <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex flex-col sm:flex-row justify-center gap-4 mb-12"
             >
-              Login with Google
-            </button>
-            <button 
-              className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg text-white 
-                         hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-lg 
-                         hover:shadow-blue-500/25"
-              onClick={() => handleLogin(providerTwitter)}
-            >
-              Login with Twitter
-            </button>
-          </motion.div>
+                <button 
+                className="px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg text-white 
+                            hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg 
+                            hover:shadow-purple-500/25"
+                onClick={() => handleLogin(providerGoogle)}
+                >
+                Login with Google
+                </button>
+                <button 
+                className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg text-white 
+                            hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-lg 
+                            hover:shadow-blue-500/25"
+                onClick={() => handleLogin(providerTwitter)}
+                >
+                Login with Twitter
+                </button>
+            </motion.div>
         ) : (
           <motion.div 
             initial={{ opacity: 0 }}
