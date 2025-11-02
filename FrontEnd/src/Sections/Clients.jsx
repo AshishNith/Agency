@@ -16,6 +16,31 @@ const Clients = () => {
   const secondRowRef = useRef(null);
 
 const clients = [
+  
+    {
+      id: 11,
+      name: "CodeWave",
+      logo: 'https://codewave.it.com/assets/Logo_Orginal-BDXHym7S.png',
+      industry: "IT Services"
+    },
+    {
+      id: 12,
+      name: "THE Gold Technologies",
+      logo: 'https://thegoldtechnologies.com/assets/logo.jpg',
+      industry: "IT Services"
+    },
+    {
+      id: 13,
+      name: "Vyomira",
+      logo: 'https://res.cloudinary.com/dinhcaf2c/image/upload/v1760688501/Screenshot_2025-10-17_133657_k6alu1.png',
+      industry: "DevOps services"
+    },
+    {
+      id: 14,
+      name: "GreenWrehch Solutions",
+      logo: 'https://www.greenwrenchsolutions.in/assets/GreenLogo-RH2irvlH.png',
+      industry: "Automobile Services"
+    },
     {
       id: 1,
       name: "Robosoc",
@@ -46,29 +71,6 @@ const clients = [
       logo: "https://saksham-chi.vercel.app/assets/Logo-DqmlKFJJ.jpg",
       industry: "Hotel & Hospitality"
     },
-
-    // --------- these are dummy data -------
-
-    // {
-    //   id: 6,
-    //   name: "SportFit",
-    //   logo: "https://images.pexels.com/photos/6664255/pexels-photo-6664255.jpeg",
-    //   industry: "Sports"
-    // },
-    // {
-    //   id: 7,
-    //   name: "EduLearn",
-    //   logo: "https://images.pexels.com/photos/5428836/pexels-photo-5428836.jpeg",
-    //   industry: "Education"
-    // },
-    // {
-    //   id: 8,
-    //   name: "FoodCo",
-    //   logo: "https://images.pexels.com/photos/5876516/pexels-photo-5876516.jpeg",
-    //   industry: "Food & Beverage"
-    // },
-
-    // -----------------------------------------
     {
       id: 9,
       name: "Skipit",
@@ -172,7 +174,7 @@ const clients = [
                 <img
                   src={client.logo}
                   alt={client.name}
-                  className="w-16 h-16 object-cover rounded-lg grayscale hover:grayscale-0 transition-all duration-500"
+                  className="w-16 h-16 object-contain rounded-lg grayscale hover:grayscale-0 transition-all duration-500"
                 />
                 <div>
                   <h3 className="text-white font-semibold text-lg">
@@ -203,7 +205,7 @@ const clients = [
                 <img
                   src={client.logo}
                   alt={client.name}
-                  className="w-14 h-14 md:w-20 md:h-20 object-cover rounded-xl grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-500 mx-auto"
+                  className="w-14 h-14 md:w-20 md:h-20 object-contain rounded-xl grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-500 mx-auto"
                 />
                 <div className="mt-3 md:mt-4 text-center">
                   <h3 className="text-white font-semibold text-base md:text-lg mb-1">
@@ -227,7 +229,7 @@ const clients = [
                 <img
                   src={client.logo}
                   alt={client.name}
-                  className="w-14 h-14 md:w-20 md:h-20 object-cover rounded-xl grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-500 mx-auto"
+                  className="w-14 h-14 md:w-20 md:h-20 object-contain rounded-xl grayscale opacity-70 hover:opacity-100 hover:grayscale-0 transition-all duration-500 mx-auto"
                 />
                 <div className="mt-3 md:mt-4 text-center">
                   <h3 className="text-white font-semibold text-base md:text-lg mb-1">
