@@ -128,6 +128,34 @@ const Hero = () => {
 
   return (
     <section ref={heroRef} className="relative h-screen overflow-hidden">
+      {/* <div class="bg-white fixed top-0 left-0 p-4 rounded-lg shadow md:col-span-2 mt-4">
+                <h2 class="text-xl font-semibold mb-4">Voice Assistant</h2>
+                <div class="w-full">
+                    <vapi-widget 
+                        public-key="7cf2ddd1-82f1-4182-b4fc-fd157278d5ad"
+                        assistant-id="14270cb2-8f06-4bc7-a7c5-35a56908016c"
+                        mode="voice"
+                        theme="dark"
+                        base-bg-color="#000000"
+                        accent-color="#14B8A6"
+                        cta-button-color="#000000"
+                        cta-button-text-color="#ffffff"
+                        border-radius="large"
+                        size="full"
+                        position="bottom-right"
+                        title="TALK WITH AI"
+                        start-button-text="Start"
+                        end-button-text="End Call"
+                        chat-first-message="Hey, How can I help you today?"
+                        chat-placeholder="Type your message..."
+                        voice-show-transcript="true"
+                        consent-required="true"
+                        consent-title="Terms and conditions"
+                        consent-content="By clicking 'Agree,' and each time I interact with this AI agent, I consent to the recording, storage, and sharing of my communications with third-party service providers, and as otherwise described in our Terms of Service."
+                        consent-storage-key="vapi_widget_consent">
+                    </vapi-widget>
+                </div>
+            </div> */}
       <div ref={containerRef} className="relative z-10 h-screen">
         <div className="hero-content flex flex-col items-center justify-center min-h-screen text-center max-w-7xl mx-auto px-4 py-20">
           <h2 ref={textRef} className="flex flex-wrap justify-center gap-x-4 text-6xl md:text-8xl lg:text-9xl font-bold text-white mb-8">

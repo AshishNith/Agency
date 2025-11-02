@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 const founders = [
     {
     name: "Ashish Ranjan",
-    role: "Founder and CEO",
+    role: "Founder & CEO",
     image: "https://res.cloudinary.com/dmhabztbf/image/upload/v1753597480/1727822390748_qe6sbm.jpg",
     bio: "Passionate engineer and founder of GoRan, blending AI, automation, and web tech to solve real-world problems.",
     socialLinks: {
@@ -18,7 +18,7 @@ const founders = [
   },
   {
     name: "Atharv Golait",
-    role: "Cofounder and CFO",
+    role: "Cofounder",
     image: "https://res.cloudinary.com/dinhcaf2c/image/upload/v1750314113/profile_pic_ar5nim.jpg",
     bio: "Passionate about building scalable solutions and pushing technological boundaries. Specialized in modern web technologies, Sales & Marketing.",
     socialLinks: {

@@ -250,7 +250,7 @@ const Servises = () => {
       {/* Background Animations */}
       <FloatingParticles />
       <SpinningEarth />
-      <ScrollRobot />
+      {/* <ScrollRobot /> */}
 
       {/* Hero Section - Enhanced */}
       <motion.div
@@ -356,34 +356,34 @@ const Servises = () => {
             <div className="grid md:grid-cols-4 gap-8 relative">
               {[
                 {
-                  icon: <Coffee className="text-purple-300" />,
+                  icon: <Coffee className="text-white" />,
                   title: 'Discovery',
                   desc: 'Understanding your needs',
                   gradient: 'from-purple-500/20 to-blue-500/20',
                 },
                 {
-                  icon: <Code className="text-blue-300" />,
+                  icon: <Code className="text-white" />,
                   title: 'Development',
                   desc: 'Building your solution',
                   gradient: 'from-blue-500/20 to-cyan-500/20',
                 },
                 {
-                  icon: <Check className="text-green-300" />,
+                  icon: <Check className="text-white" />,
                   title: 'Testing',
                   desc: 'Ensuring perfection',
                   gradient: 'from-cyan-500/20 to-emerald-500/20',
                 },
                 {
-                  icon: <Star className="text-yellow-300" />,
+                  icon: <Star className="text-white" />,
                   title: 'Launch',
                   desc: 'Going live with support',
                   gradient: 'from-emerald-500/20 to-purple-500/20',
                 },
               ].map((step, i) => (
-                <div key={i} className="relative">
-                  <motion.div className="process-step relative z-20">
+                <div key={i} className="relative  ">
+                  <motion.div className="process-step relative z-20 bg-gradient-to-br from-white/[0.08] to-white/[0.02] backdrop-blur-md">
                     <div
-                      className={`relative glare-effect hover-card-animation bg-gradient-to-br ${step.gradient} p-8 rounded-xl border border-white/20 backdrop-blur-md group transition-all duration-300`}
+                      className={`relative glare-effect hover-card-animation  p-8 rounded-xl border border-white/20 backdrop-blur-md group transition-all duration-300`}
                     >
                       <div className="text-white mb-6 mx-auto w-16 h-16 flex items-center justify-center bg-white/10 rounded-xl group-hover:scale-110 transition-transform">
                         {step.icon}
@@ -416,7 +416,7 @@ const Servises = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 whileHover={{ y: -10 }}
-                className={`relative glare-effect hover-card-animation p-8 rounded-2xl border ${
+                className={`relative hover-card-animation p-8 rounded-2xl border ${
                   plan.highlight
                     ? 'border-white/30 bg-gradient-to-br from-white/[0.15] to-white/[0.05]'
                     : 'border-white/20 bg-gradient-to-br from-white/[0.08] to-white/[0.02]'

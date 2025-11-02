@@ -81,6 +81,9 @@ const App = () => {
                   <Hero />
                   {/* <Contact /> */}
                   <GoranInfo />
+                  {/* <LiveKitRoom audio={true} video={true} token={token} serverUrl={wsUrl}>
+                    <div>Your components here</div>
+                </LiveKitRoom> */}
                   <WhyUs />
                   <Services />    
                   <Clients />
@@ -94,6 +97,10 @@ const App = () => {
             <Route 
               path="/services" 
               element={<Servises onLoad={handleRouteChange} />} 
+              />
+            <Route 
+              path="/agent" 
+              element={<VoiceAgent />} 
               />
             <Route 
               path="/testimonials" 

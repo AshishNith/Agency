@@ -20,9 +20,9 @@ const Footer = () => {
           <div className="flex flex-col sm:flex-row justify-around items-center gap-8 sm:gap-12">
             {/* Brand & Social */}
             <div className="footer-section flex flex-col items-center">
-              <h3 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">GoRan</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">GoRan AI</h3>
               <div className="flex space-x-4 sm:space-x-6">
-                <a href="https://twitter.com/agency" target="_blank" rel="noopener noreferrer" 
+                <a href="https://x.com/Goran_Ai_Agency" target="_blank" rel="noopener noreferrer" 
                    className="text-gray-400 hover:text-white transition-all text-lg sm:text-xl p-2">
                   <i className="ri-twitter-fill"></i>
                 </a>
@@ -58,7 +58,7 @@ const Footer = () => {
 
           <div className="mt-8 sm:mt-16 pt-4 sm:pt-8 border-t border-gray-800">
             <p className="text-gray-500 text-xs sm:text-sm text-center px-4">
-              © {new Date().getFullYear()} GoRan. All rights reserved.
+              © {new Date().getFullYear()} GoRan AI. All rights reserved.
             </p>
           </div>
         </div>

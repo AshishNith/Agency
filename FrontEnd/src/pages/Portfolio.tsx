@@ -126,7 +126,7 @@ const Portfolio = () => {
       {/* Animated Background Elements */}
       <FloatingParticles />
       <SpinningEarth />
-      <ScrollRobot />
+      {/* <ScrollRobot /> */}
       
       {/* Parallax Background */}
       <motion.div
