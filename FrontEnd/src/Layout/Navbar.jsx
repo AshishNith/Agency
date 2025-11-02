@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import gsap from 'gsap'
 import { useScrollAndNavigate } from '../hooks/useScrollAndNavigate';
 import { LoadingContext } from '../App';
-import LOGo from "../../public/Assets/LOGO.png" 
+import LOGo from "/Assets/LOGO.png" 
 import { useAuth } from '../auth/AuthContext';
 import { signOut } from 'firebase/auth';
 import { auth } from '../auth/firebase';

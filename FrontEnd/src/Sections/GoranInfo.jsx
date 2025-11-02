@@ -2,7 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SplitType from 'split-type';
+<<<<<<< HEAD
 import GoranInfoVid from "../assets/Image_Animation_Rotating_Gear_Waving_Hand.mp4"
+=======
+import GoranInfoVid from "../Assets/Image_Animation_Rotating_Gear_Waving_Hand.mp4"
+>>>>>>> 8ed2ff8d2beb3ba5246f43534a5909f55a9d6ab1
 
 gsap.registerPlugin(ScrollTrigger);
 
