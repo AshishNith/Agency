@@ -157,7 +157,7 @@ const Navbar = () => {
               <button
                 key={item.id}
                 onClick={() => handleNavigation(item)}
-                className="text-[#EAE4D4] hover:text-[#F2F2F2] px-3 py-2 text-sm font-medium transition-colors"
+                className="text-[#EAE4D4] hover:text-[#F2F2F2] px-3 py-2 text-sm font-medium transition-colors cursor-pointer"
               >
                 {item.name}
               </button>
@@ -167,7 +167,7 @@ const Navbar = () => {
           {/* Desktop Right Side Elements */}
           <div className="hidden md:flex items-center space-x-4">
             {/* Search Bar */}
-            <div className="hidden md:flex items-center">
+            <div className="hidden md:flex cussor-pointer items-center">
               <div className="relative">
                 <input
                   type="text"
@@ -193,7 +193,7 @@ const Navbar = () => {
             {/* Login Button */}
 
             {currentUser ? (
-  <div className="flex items-center gap-3 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20">
+  <div className="flex cursor-pointer items-center gap-3 bg-white/10 px-4 py-2 rounded-full backdrop-blur-sm border border-white/20">
     <div className="flex items-center gap-2">
       {currentUser.photoURL ? (
         <img
@@ -249,7 +249,7 @@ const Navbar = () => {
               <button
                 key={item.id}
                 onClick={() => handleMobileNavigation(item)}
-                className="block w-full text-left px-4 py-3 text-[#EAE4D4] hover:bg-white/5 rounded-lg text-sm font-medium transition-colors"
+                className="block w-full text-left px-4 py-3 text-[#EAE4D4] hover:bg-white/5 rounded-lg text-sm font-medium transition-colors cursor-pointer"
               >
                 {item.name}
               </button>

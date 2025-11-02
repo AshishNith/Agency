@@ -22,6 +22,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use("/api/clients", require("./routes/clientRoutes"));
 app.use("/api/projects", require("./routes/projectRoutes"));
 app.use("/api/chat", require("./routes/chatRoutes"));
+app.use("/api/codewavechat", require("./routes/CodeWaveRoute"));
 
 
 app.get('/', (req, res) => {
