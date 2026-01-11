@@ -32,6 +32,7 @@ import ProtectedRoute from './auth/ProtectedRoute';
 import CalendlyPage from './pages/CalendlyPage';
 import ClientTestimonials from './Sections/ClientTestimonials';
 import VoiceAgent from './Components/VoiceAgent';
+import NotFound from './pages/NotFound';
 
 // Create loading context
 export const LoadingContext = createContext();
@@ -123,6 +124,10 @@ const App = () => {
             <Route 
               path="/about" 
               element={<About onLoad={handleRouteChange} />} 
+              />
+            <Route 
+              path="/*" 
+              element={<NotFound onLoad={handleRouteChange} />} 
               />
             <Route 
               path="/portfolio" 
