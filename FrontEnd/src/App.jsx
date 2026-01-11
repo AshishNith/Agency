@@ -116,10 +116,10 @@ const App = () => {
               } 
             />
 
-            <Route 
+            {/* <Route 
               path="/parallax" 
               element={<ParallaxScroller />} 
-              />
+              /> */}
             <Route 
               path="/about" 
               element={<About onLoad={handleRouteChange} />} 
