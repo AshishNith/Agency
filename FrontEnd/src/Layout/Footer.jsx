@@ -1,4 +1,6 @@
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
+
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -56,10 +58,14 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="mt-8 sm:mt-16 pt-4 sm:pt-8 border-t border-gray-800">
-            <p className="text-gray-500 text-xs sm:text-sm text-center px-4">
+          <div className="mt-8 sm:mt-16 pt-4 sm:pt-8 border-t border-gray-800 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-gray-500 text-xs sm:text-sm text-center sm:text-left">
               © {new Date().getFullYear()} GoRan AI. All rights reserved.
             </p>
+            <div className="flex gap-6 text-gray-500 text-xs sm:text-sm">
+              <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
+              <Link to="/terms-conditions" className="hover:text-white transition-colors">Terms & Conditions</Link>
+            </div>
           </div>
         </div>
       </footer>

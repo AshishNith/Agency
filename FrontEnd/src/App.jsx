@@ -33,6 +33,10 @@ import CalendlyPage from './pages/CalendlyPage';
 import ClientTestimonials from './Sections/ClientTestimonials';
 import VoiceAgent from './Components/VoiceAgent';
 import NotFound from './pages/NotFound';
+import LegalPrivacy from './pages/LegalPrivacy';
+import LegalTerms from './pages/LegalTerms';
+
+
 
 // Create loading context
 export const LoadingContext = createContext();
@@ -141,6 +145,16 @@ const App = () => {
               path="/contact" 
               element={<Contact onLoad={handleRouteChange} />} 
               />
+            <Route 
+              path="/privacy-policy" 
+              element={<LegalPrivacy onLoad={handleRouteChange} />} 
+              />
+            <Route 
+              path="/terms-conditions" 
+              element={<LegalTerms onLoad={handleRouteChange} />} 
+              />
+
+
             {/* <Route path="/work" element={<Work />} /> */}
           </Route>
 
